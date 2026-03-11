@@ -13,7 +13,7 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type { HealthStatus, WritingResponse } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
 import type { ErrorType } from "../custom-fetch";
@@ -92,6 +92,82 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns recent Substack articles
+ * @summary Get recent writing
+ */
+export const getGetWritingUrl = () => {
+  return `/api/writing`;
+};
+
+export const getWriting = async (
+  options?: RequestInit,
+): Promise<WritingResponse> => {
+  return customFetch<WritingResponse>(getGetWritingUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetWritingQueryKey = () => {
+  return [`/api/writing`] as const;
+};
+
+export const getGetWritingQueryOptions = <
+  TData = Awaited<ReturnType<typeof getWriting>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getWriting>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetWritingQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getWriting>>> = ({
+    signal,
+  }) => getWriting({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getWriting>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetWritingQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getWriting>>
+>;
+export type GetWritingQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get recent writing
+ */
+
+export function useGetWriting<
+  TData = Awaited<ReturnType<typeof getWriting>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getWriting>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetWritingQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

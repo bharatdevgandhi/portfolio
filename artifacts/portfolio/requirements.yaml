@@ -1,0 +1,11 @@
+packages:
+  "framer-motion": "For high-quality scroll, SVG, and text stagger animations"
+  "clsx": "Utility for constructing className strings"
+  "tailwind-merge": "Utility to safely merge tailwind classes"
+  "lucide-react": "For UI icons"
+
+images: []
+
+notes:
+  - "The /api/writing endpoint is assumed to return { articles: { title, url, date, excerpt }[] }"
+  - "Using pure CSS/Framer Motion for animations rather than heavier WebGL/Three.js to fit the editorial minimal vibe"

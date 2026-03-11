@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: writing
+    description: Writing/blog operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /writing:
+    get:
+      operationId: getWriting
+      tags: [writing]
+      summary: Get recent writing
+      description: Returns recent Substack articles
+      responses:
+        "200":
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WritingResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +48,27 @@ components:
           type: string
       required:
         - status
-
+    WritingArticle:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        date:
+          type: string
+        excerpt:
+          type: string
+      required:
+        - title
+        - url
+        - date
+    WritingResponse:
+      type: object
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: "#/components/schemas/WritingArticle"
+      required:
+        - articles

@@ -1,0 +1,57 @@
+import { motion } from "framer-motion";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Tag } from "@/components/ui/Tag";
+
+const workItems = [
+  {
+    company: "Audible / Amazon",
+    description: "Built the backbone of Audible Originals.",
+    tags: ["0→1", "B2C", "Content"],
+  },
+  {
+    company: "RateGain",
+    description: "Built arguably the world's largest rate scraper for hotels. Invented a new TV remote in the middle of it.",
+    tags: ["0→1", "B2B", "Hardware", "Data"],
+  },
+  {
+    company: "AI Service Lab",
+    description: "Advising on product and GTM strategy.",
+    tags: ["GTM", "Strategy", "AI"],
+  }
+];
+
+export function Work() {
+  return (
+    <section id="work" className="py-24 max-w-4xl mx-auto px-6 md:px-8">
+      <SectionHeading>Selected Work</SectionHeading>
+      
+      <div className="flex flex-col gap-12">
+        {workItems.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group relative border-l border-border pl-6 md:pl-8 py-2 transition-colors hover:border-primary"
+          >
+            <h3 className="text-xl md:text-2xl font-serif font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
+              {item.company}
+            </h3>
+            <p className="text-lg md:text-xl text-muted-foreground font-serif leading-snug mb-5 max-w-2xl text-balance">
+              {item.description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {item.tags.map(tag => (
+                <Tag key={tag}>{tag}</Tag>
+              ))}
+            </div>
+            
+            {/* Subtle highlight effect */}
+            <div className="absolute top-0 bottom-0 left-0 w-[1px] bg-gradient-to-b from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}

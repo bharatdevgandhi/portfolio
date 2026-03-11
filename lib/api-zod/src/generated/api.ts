@@ -14,3 +14,18 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Returns recent Substack articles
+ * @summary Get recent writing
+ */
+export const GetWritingResponse = zod.object({
+  articles: zod.array(
+    zod.object({
+      title: zod.string(),
+      url: zod.string(),
+      date: zod.string(),
+      excerpt: zod.string().optional(),
+    }),
+  ),
+});

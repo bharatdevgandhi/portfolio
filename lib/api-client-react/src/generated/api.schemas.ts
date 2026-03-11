@@ -8,3 +8,14 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface WritingArticle {
+  title: string;
+  url: string;
+  date: string;
+  excerpt?: string;
+}
+
+export interface WritingResponse {
+  articles: WritingArticle[];
+}
