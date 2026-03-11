@@ -1,0 +1,117 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Arizona",
+      "role": "heading"
+    },
+    {
+      "family": "EB Garamond",
+      "role": "body"
+    },
+    {
+      "family": "Departure Mono",
+      "role": "monospace"
+    }
+  ],
+  "colors": {
+    "primary": "#103DFF",
+    "accent": "#103DFF",
+    "background": "#FBFBFB",
+    "textPrimary": "#000000",
+    "link": "#103DFF"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "EB Garamond",
+      "heading": "Arizona"
+    },
+    "fontStacks": {
+      "heading": [
+        "Arizona",
+        "EB Garamond",
+        "serif"
+      ],
+      "body": [
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif",
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      ],
+      "paragraph": [
+        "Arizona",
+        "EB Garamond",
+        "serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "16px",
+      "h2": "16px",
+      "body": "16px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 8,
+    "borderRadius": "0px"
+  },
+  "components": {
+    "input": {
+      "background": "transparent",
+      "textColor": "#000000",
+      "borderColor": "#7E7E7E",
+      "borderRadius": "4px",
+      "borderRadiusCorners": {
+        "topLeft": "4px",
+        "topRight": "4px",
+        "bottomRight": "4px",
+        "bottomLeft": "4px"
+      },
+      "shadow": "rgba(0, 0, 0, 0.1) 0px 0px 0px 2px inset"
+    }
+  },
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": "File saved at: attached_assets/favicon.ico",
+    "ogImage": "File saved at: attached_assets/ogImage.jpg",
+    "logoAlt": "Making Software"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is visible, located in the header, and the alt text matches the brand name 'Making Software'.",
+    "confidence": 0.95,
+    "source": "llm"
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "medium",
+    "targetAudience": "software developers and tech professionals"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0,
+    "colors": 0.9,
+    "overall": 0.45
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is visible, located in the header, and the alt text matches the brand name 'Making Software'.",
+        "confidence": 0.95
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": false,
+      "llmSucceeded": false
+    }
+  }
+}
