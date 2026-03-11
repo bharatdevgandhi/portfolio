@@ -17,9 +17,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: "About", href: "#about" },
     { name: "Work", href: "#work" },
     { name: "Writing", href: "#writing" },
     { name: "Projects", href: "#projects" },
+    { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
   ];
 
