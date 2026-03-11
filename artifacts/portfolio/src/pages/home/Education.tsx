@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ArrowUpRight } from "lucide-react";
 
 export function Education() {
   return (
@@ -19,7 +20,7 @@ export function Education() {
           </div>
           <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">Master's Degree</h4>
           <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance">
-            During COVID, I had the fortune to remain on campus and continue interacting with other grad students. I made as many friends as I could, which was the hardest thing to do during those isolated years.
+            During COVID, I had the fortune to remain on campus and continue interacting with other grad students unlike most students at the time. I failed at a startup, did my best to try to invent something new every chance I got, and made as many friends as I could — which was the hardest thing to do during those isolated years.
           </p>
         </motion.div>
 
@@ -33,9 +34,18 @@ export function Education() {
             <h3 className="text-2xl font-serif font-medium text-foreground">Manipal University</h3>
           </div>
           <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">B.S. Computer Science</h4>
-          <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance">
-            Spent most of my time understanding media, circuitry, and long running investments alongside computer science fundamentals.
+          <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance mb-4">
+            Spent most of my time understanding media, building an ecosystem of 300 students who would do weekly live events, and ultimately architected Rajasthan's biggest student-run cultural festival by footfall.
           </p>
+          <a
+            href="https://www.youtube.com/results?search_query=MUJ+Oneiros+aftermovie"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-accent hover:text-primary transition-colors group"
+          >
+            MUJ Oneiros — Watch Aftermovie
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
         </motion.div>
       </div>
     </section>

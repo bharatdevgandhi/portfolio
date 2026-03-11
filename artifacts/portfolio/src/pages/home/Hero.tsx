@@ -2,10 +2,58 @@ import { motion } from "framer-motion";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { ArrowDown } from "lucide-react";
 
+function StaggeredName({ name, delay }: { name: string; delay: number }) {
+  const letters = Array.from(name);
+
+  const container = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: delay,
+      },
+    },
+  };
+
+  const child = {
+    hidden: { opacity: 0, y: 30, rotateX: -90 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        damping: 15,
+        stiffness: 120,
+      },
+    },
+  };
+
+  return (
+    <motion.span
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="inline-flex"
+      style={{ perspective: "500px" }}
+    >
+      {letters.map((letter, i) => (
+        <motion.span
+          key={i}
+          variants={child}
+          className="inline-block"
+          style={{ transformOrigin: "bottom" }}
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
 export function Hero() {
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center pt-20 overflow-hidden">
-      {/* Background SVG Animation */}
       <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-[0.15] text-primary">
         <svg
           width="100%"
@@ -56,28 +104,25 @@ export function Hero() {
       </div>
 
       <div className="max-w-4xl mx-auto w-full px-6 md:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2.5 }}
-          className="mb-6 inline-block"
-        >
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent border border-accent/30 px-3 py-1.5 rounded-full bg-background/50 backdrop-blur-sm">
-            Bharat Gandhi
-          </span>
-        </motion.div>
+        <div className="mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-medium leading-[1.05] tracking-tight text-foreground">
+            <StaggeredName name="Bharat Gandhi" delay={2.5} />
+          </h1>
+        </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight text-foreground max-w-3xl mb-8">
-          <AnimatedText
-            text="I craft software products and do what's needed to bring them to life."
-            delay={3} // Starts after SVG trace is mostly done
-          />
-        </h1>
+        <div className="max-w-3xl">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-normal leading-[1.3] tracking-tight text-foreground/80 mb-10">
+            <AnimatedText
+              text="I craft software products and do what's needed to bring them to life."
+              delay={3.8}
+            />
+          </h2>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 4.5 }}
+          transition={{ duration: 0.8, delay: 5.5 }}
           className="flex flex-wrap gap-6 items-center"
         >
           <a
@@ -110,7 +155,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 5, duration: 1 }}
+        transition={{ delay: 6, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-muted-foreground"
       >
         <span className="font-mono text-[10px] uppercase tracking-widest">Scroll</span>

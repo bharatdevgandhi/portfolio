@@ -38,7 +38,7 @@ export function Projects() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="group"
         >
-          <a href="#" target="_blank" rel="noreferrer" className="block h-full bg-background border border-border p-8 hover:border-accent hover:shadow-[4px_4px_0px_0px_hsl(var(--accent))] transition-all duration-300">
+          <a href="https://www.youtube.com/results?search_query=MUJ+Oneiros+aftermovie" target="_blank" rel="noreferrer" className="block h-full bg-background border border-border p-8 hover:border-accent hover:shadow-[4px_4px_0px_0px_hsl(var(--accent))] transition-all duration-300">
             <div className="mb-6">
               <Tag className="mb-4">MEDIA / EVENTS</Tag>
               <h3 className="text-2xl font-serif font-medium text-foreground group-hover:text-accent transition-colors flex justify-between items-start">
