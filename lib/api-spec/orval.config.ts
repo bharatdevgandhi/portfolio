@@ -30,6 +30,10 @@ export default defineConfig({
       clean: true,
       prettier: true,
       override: {
+        // Catalog references cannot be used to auto-detect the installed major.
+        query: {
+          version: 5,
+        },
         fetch: {
           includeHttpResponseReturnType: false,
         },

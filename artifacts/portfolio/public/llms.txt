@@ -1,0 +1,54 @@
+# Bharat Gandhi
+
+> Bharat Gandhi is a Platform Product Manager at District by Zomato (Eternal Ltd.). He builds search, discovery, personalization and AI-native products.
+
+## Profile
+
+Bharat Gandhi is a product manager whose work spans consumer platforms, artificial intelligence, search, content systems and go-to-market strategy. At District by Zomato, he owns app-wide search, discovery, personalization, notifications and AI-native products, and reports directly to the CEO. He writes about technology, products and life, and teaches breathwork and meditation.
+
+## Career
+
+- **District by Zomato (Eternal Ltd.), April 2026–present** — Platform Product Manager. Launched AI-powered contextual search, reducing null-result searches from 7% to 1.8%, increasing search CTR by 5% and generating a 2% daily GMV uplift. ML-based homepage personalization increased inventory views by 30%. Also led work on voice-driven navigation, Indic-language movie translation, notifications and new discovery surfaces.
+- **CanvasX AI, January 2025–April 2026** — Head of Product & Growth (Advisory). Led product strategy, go-to-market, partnerships and forward deployment for agentic AI workflow products. Sketch was adopted by 25+ SMB teams in India. An agentic retail data-analysis product served 25,000 users and increased incentive-achievement rates by 8% within 60 days of launch.
+- **Audible / Amazon, August 2021–December 2024** — Product Manager – Tech, Audible Originals & Content Systems. Developed ML segmentation for 20M+ listeners across 11 countries; created an audiobook-to-TV rights business generating about $7M GMV; and built production systems that reduced audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets.
+- **RateGain, January 2018–June 2019** — Product Manager, after a January–June 2018 internship. Built travel-pricing products contributing to 40% revenue growth over three quarters. DataSURE raised successful scrape rates from 94% to 98% across 550+ bots and increased NPS by 25 points within two quarters.
+
+## Education
+
+- **Cornell Tech, Cornell University, 2021** — MS, Information Systems (Jacobs Technion-Cornell dual MS).
+- **Manipal University Jaipur, 2017** — BE, Computer Science.
+
+## Projects
+
+- **Plaza** — A graduate-school startup exploring universal comments across the internet. Read the first-person Cornell Tech account: https://bharatdevgandhi.com/cornell
+- **FuboTV × Cornell Tech** — A project involving UX research and product design for a multi-source live TV news experience: https://bharatdevgandhi.com/fubo
+- **MUJ Oneiros** — A student-run cultural festival described in Bharat's portfolio as Rajasthan's largest by footfall, supported by a 300-student ecosystem producing weekly live events.
+
+## Breathwork and meditation
+
+Bharat describes himself as a 1,000-hour-trained breathwork and meditation instructor with SKY Campus Happiness. He teaches SKY Campus Happiness in the US, and YES!+ and the Happiness Program of Art of Living in India. His teaching focuses on accessible guided practice for young adults ages 18–35. No upcoming workshops are listed unless confirmed on the website.
+
+- Teaching and workshop page: https://bharatdevgandhi.com/meditation
+- Instagram: https://www.instagram.com/betterbharaat
+
+## Writing
+
+- Substack: https://bharatgandhi.substack.com
+- Medium: https://bg445.medium.com/
+- Recent writing appears on the home page and links directly to the original publications.
+
+## Public pages
+
+- Home and portfolio: https://bharatdevgandhi.com/
+- Audible/Amazon case study: https://bharatdevgandhi.com/audible
+- RateGain case study: https://bharatdevgandhi.com/rategain
+- Cornell Tech story: https://bharatdevgandhi.com/cornell
+- FuboTV project case study: https://bharatdevgandhi.com/fubo
+- Breathwork and meditation: https://bharatdevgandhi.com/meditation
+
+## Profiles and contact
+
+- LinkedIn: https://linkedin.com/in/bdgandhi
+- X: https://x.com/bharaatobama
+- GitHub: https://github.com/bharatgandhi
+- Resume: Download the current PDF from the home page.

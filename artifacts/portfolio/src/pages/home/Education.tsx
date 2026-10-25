@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ArrowUpRight } from "lucide-react";
+
 
 export function Education() {
   return (
-    <section id="education" className="py-24 max-w-4xl mx-auto px-6 md:px-8">
+    <section id="education" className="py-10 md:py-12 max-w-4xl mx-auto px-6 md:px-8">
       <SectionHeading>Education</SectionHeading>
       
       <div className="flex flex-col gap-12">
@@ -15,12 +15,12 @@ export function Education() {
           className="border-t border-border pt-6"
         >
           <div className="flex flex-col sm:flex-row justify-between items-baseline mb-4">
-            <h3 className="text-2xl font-serif font-medium text-foreground">Cornell Tech</h3>
+            <h3 className="text-2xl font-serif font-medium text-foreground">Cornell University</h3>
             <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest mt-2 sm:mt-0">2019 — 2021</span>
           </div>
-          <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">Master's Degree</h4>
+          <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">MS, Information Systems — Jacobs Technion-Cornell dual MS</h4>
           <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance">
-            During COVID, I had the fortune to remain on campus and continue interacting with other grad students unlike most students at the time. I failed at a startup, did my best to try to invent something new every chance I got, and made as many friends as I could — which was the hardest thing to do during those isolated years.
+            Cornell Tech was one of the best learning experiences of my life. During COVID, I had the fortune to remain on campus and continue interacting with other grad students unlike most students at the time. Here, I failed at my first startup, built something in every class, and made as many friends as I could.
           </p>
         </motion.div>
 
@@ -31,21 +31,13 @@ export function Education() {
           className="border-t border-border pt-6"
         >
           <div className="flex flex-col sm:flex-row justify-between items-baseline mb-4">
-            <h3 className="text-2xl font-serif font-medium text-foreground">Manipal University</h3>
+            <h3 className="text-2xl font-serif font-medium text-foreground">Manipal University Jaipur</h3>
+            <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest mt-2 sm:mt-0">2013 — 2017</span>
           </div>
-          <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">B.S. Computer Science</h4>
-          <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance mb-4">
-            Spent most of my time understanding media, building an ecosystem of 300 students who would do weekly live events, and ultimately architected Rajasthan's biggest student-run cultural festival by footfall.
+          <h4 className="font-mono text-sm text-primary uppercase tracking-wider mb-4">Bachelor of Engineering, Computer Science</h4>
+          <p className="text-lg text-muted-foreground font-serif max-w-2xl text-balance">
+            Alongside learning the basics of CS Engineering, I spent most of my time understanding media, founded a filmmaking society, led and dounded multiple student bodies that ultimately allowed me to architect Rajasthan's biggest student-run cultural festival by footfall. (in a single iteration)
           </p>
-          <a
-            href="https://www.youtube.com/results?search_query=MUJ+Oneiros+aftermovie"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-accent hover:text-primary transition-colors group"
-          >
-            MUJ Oneiros — Watch Aftermovie
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
         </motion.div>
       </div>
     </section>

@@ -44,7 +44,8 @@ artifacts-monorepo/
 - Single-page scroll with sections: Hero, About, Work, Writing, Projects, Education, Contact
 - Hero with animated SVG circuit-trace and staggered text reveal
 - Scroll-triggered Framer Motion animations on all sections
-- Writing section auto-loads from `/api/writing` (Substack RSS)
+- Writing section serves a bundled snapshot of Substack and Medium articles; no browser RSS proxy is used.
+- The portfolio build refreshes both feeds directly, preserving each source's last successful articles if a refresh fails. Refresh preview data manually with `pnpm --filter @workspace/portfolio run refresh:writing`; published content updates on republish.
 - `/cornell` route — editorial long-form case study page
 - Mobile responsive, editorial typography
 - Uses wouter for routing, @tanstack/react-query for data fetching
@@ -85,7 +86,7 @@ React + Vite portfolio frontend. Key files:
 - `src/pages/cornell/` — Long-form startup story page
 - `src/components/layout/` — Navbar, Footer
 - `src/components/ui/` — AnimatedText, Tag, SectionHeading
-- `src/hooks/use-writing.ts` — React Query hook for writing API
+- `src/hooks/use-writing.ts` — exposes the local writing snapshot for pagination
 - `src/index.css` — Design tokens and Tailwind theme
 
 ### `lib/api-spec` (`@workspace/api-spec`)
@@ -99,3 +100,31 @@ Database layer (available but not currently used by portfolio).
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package.
+
+## Deployment
+
+### Server-Hosted Deployment Configuration
+
+The portfolio publishing configuration runs a **Node production server**, with current-time HTML and structured data for workshop expiry. The per-artifact configuration is authoritative; do not restore static hosting or point publishing at build snapshots.
+
+- **Build command**: `pnpm --filter @workspace/portfolio run build`
+- **Production run**: `node artifacts/portfolio/server/index.mjs`
+- **Startup probe**: `/healthz`
+
+The build creates browser assets, prerendered validation snapshots, an empty-root client template and an SSR bundle. The production server renders public routes for each request, returns uncached HTML, and serves files from `dist/public`. It binds to `0.0.0.0` on `PORT`. The development workflow still uses Vite. Writing feeds refresh only during builds, with last-successful data preserved on publisher failures.
+
+### Publishing to bharatdevgandhi.com
+
+Follow these steps to deploy and set up the custom domain:
+
+1. **Configure publishing**: Use the process-based production build/run configuration in the portfolio's artifact metadata, not a static public-directory deployment. The old live static deployment is unchanged until the user publishes.
+
+2. **Publish the site**: Click the **Publish** button in the Replit UI (top right of the editor). This will build the portfolio and make it live on a `.replit.app` domain.
+
+3. **Add custom domain**: After publishing, go to the deployment dashboard and navigate to the **Custom Domains** section. Add `bharatdevgandhi.com` as a custom domain.
+
+4. **Set DNS records at your domain registrar**: Replit will show you the exact DNS records to configure. Typically you need:
+   - **For the apex domain (`bharatdevgandhi.com`)**: Add an A record or ALIAS record pointing to the IP address or hostname Replit provides.
+   - **For `www.bharatdevgandhi.com`**: Add a CNAME record pointing to the value Replit provides (usually your `.replit.app` domain).
+
+5. **Wait for DNS propagation**: DNS changes can take up to 48 hours to propagate, though they usually complete within a few minutes to a few hours. Replit will automatically provision an SSL certificate once DNS is verified.

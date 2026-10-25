@@ -1,0 +1,39 @@
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { createServer } from "vite";
+import { renderSitemap } from "./seo-assets.mjs";
+
+const artifactDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const outputDir = path.join(artifactDir, "dist", "public");
+const vite = await createServer({
+  configFile: path.join(artifactDir, "vite.config.ts"),
+  logLevel: "error",
+  server: { middlewareMode: true, hmr: false },
+});
+try {
+  const { renderPage, getSeoPages } = await vite.ssrLoadModule("/src/entry-server.tsx");
+  const template = await readFile(path.join(outputDir, "index.html"), "utf8");
+  // The production server needs the original empty-root shell, not saved page HTML.
+  await writeFile(path.join(artifactDir, "dist", "client-template.html"), template);
+  const now = Date.now();
+  const pages = getSeoPages(now);
+  const sitemap = renderSitemap(pages);
+  await writeFile(path.join(artifactDir, "public", "sitemap.xml"), sitemap);
+  await writeFile(path.join(outputDir, "sitemap.xml"), sitemap);
+  console.log(`Generated sitemap for ${pages.length} public pages`);
+  for (const page of pages) {
+    const html = renderPage(template, page.path, now);
+    if (!html || html.includes('id="root"></div>')) {
+      throw new Error(`Could not render route ${page.path}`);
+    }
+    const destination = page.path === "/"
+      ? path.join(outputDir, "index.html")
+      : path.join(outputDir, page.path.slice(1), "index.html");
+    await mkdir(path.dirname(destination), { recursive: true });
+    await writeFile(destination, html);
+    console.log(`Prerendered ${page.path}`);
+  }
+} finally {
+  await vite.close();
+}

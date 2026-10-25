@@ -23,9 +23,9 @@ BASE_PATH = "/"
 
 [services.production]
 build = ["pnpm", "--filter", "@workspace/portfolio", "run", "build"]
-publicDir = "artifacts/portfolio/dist/public"
-serve = "static"
 
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+[services.production.run]
+args = ["node", "artifacts/portfolio/server/index.mjs"]
+
+[services.production.health.startup]
+path = "/healthz"
