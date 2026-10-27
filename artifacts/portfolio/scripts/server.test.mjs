@@ -1,6 +1,43 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFile } from "node:fs/promises";
 import { createPortfolioServer } from "../server/index.mjs";
+
+test("both resume links download the real PDF in published snapshots and server HTML", async () => {
+  const source = await readFile(new URL(
+    "../../../attached_assets/Bharat_Gandhi_Resume_sep26_1792770271972.pdf", import.meta.url,
+  ));
+  const snapshot = await readFile(new URL("../dist/public/index.html", import.meta.url), "utf8");
+  const server = await createPortfolioServer();
+  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+  const origin = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const html = await (await fetch(origin + "/")).text();
+    const urls = new Set();
+    for (const document of [snapshot, html]) {
+      const anchors = document.match(/<a\b[^>]*\bdownload="Bharat_Gandhi_Resume\.pdf"[^>]*>/g) ?? [];
+      assert.equal(anchors.length, 2, "Hero and footer must both offer a PDF download");
+      for (const anchor of anchors) {
+        const href = anchor.match(/\bhref="([^"]+)"/)?.[1];
+        assert.match(href ?? "", /^\/assets\/[^/]+\.pdf$/);
+        urls.add(href);
+        const publishedFile = await readFile(new URL(`../dist/public${href}`, import.meta.url));
+        assert.deepEqual(publishedFile, source, "Static downloads must preserve the uploaded PDF");
+      }
+    }
+    assert.equal(urls.size, 1, "Static and server HTML must use the same production asset");
+    for (const url of urls) {
+      const response = await fetch(origin + url);
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get("content-type"), "application/pdf");
+      const downloaded = Buffer.from(await response.arrayBuffer());
+      assert.equal(downloaded.subarray(0, 5).toString(), "%PDF-");
+      assert.deepEqual(downloaded, source, "Downloaded content must be the original PDF, not HTML");
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
 
 test("production HTTP server removes expired content and schema without a rebuild", async () => {
   let now = Date.parse("2026-11-09T12:59:59Z");
