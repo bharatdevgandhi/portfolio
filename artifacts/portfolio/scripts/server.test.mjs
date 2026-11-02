@@ -1,7 +1,55 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFile } from "node:fs/promises";
+import { request as httpRequest } from "node:http";
 import { createPortfolioServer } from "../server/index.mjs";
+
+test("bare-domain redirects preserve meditation paths and Instagram parameters", async () => {
+  const server = await createPortfolioServer();
+  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+  const origin = `http://127.0.0.1:${server.address().port}`;
+  const instagramAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Instagram 350.0";
+  try {
+    for (const path of ["/", "/meditation", "/meditation?fbclid=instagram-test&utm_source=instagram"]) {
+      for (const header of ["host", "x-forwarded-host"]) {
+        // Node fetch can replace a supplied Host header. Use HTTP directly to
+        // verify exactly the host that the production ingress forwards.
+        const response = await new Promise((resolve, reject) => {
+          const request = httpRequest(origin + path, {
+            headers: { [header]: "bharatdevgandhi.com", "user-agent": instagramAgent },
+          }, (incoming) => {
+            incoming.resume();
+            incoming.on("end", () => resolve({ status: incoming.statusCode, headers: incoming.headers }));
+          });
+          request.on("error", reject);
+          request.end();
+        });
+        assert.equal(response.status, 308);
+        assert.equal(response.headers.location, "https://www.bharatdevgandhi.com" + path);
+      }
+    }
+    for (const path of ["/meditation", "/meditation?fbclid=instagram-test&utm_source=instagram"]) {
+      const response = await fetch(origin + path, {
+        headers: { host: "www.bharatdevgandhi.com", "user-agent": instagramAgent },
+      });
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      assert.ok(html.includes('id="meditation-page"'));
+      assert.ok(html.includes('<link rel="canonical" href="https://www.bharatdevgandhi.com/meditation"'));
+      assert.ok(!html.includes("/@fs/"));
+    }
+    const untrusted = await fetch(origin + "/meditation", {
+      headers: { "x-forwarded-host": "attacker.example" }, redirect: "manual",
+    });
+    assert.equal(untrusted.status, 200);
+    assert.equal(untrusted.headers.get("location"), null);
+    const alias = await fetch(origin + "/meditation/?fbclid=instagram-test", { redirect: "manual" });
+    assert.equal(alias.status, 308);
+    assert.equal(alias.headers.get("location"), "/meditation?fbclid=instagram-test");
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
 
 test("both resume links download the real PDF in published snapshots and server HTML", async () => {
   const source = await readFile(new URL(

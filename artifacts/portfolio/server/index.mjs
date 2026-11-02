@@ -16,7 +16,7 @@ const mimeTypes = {
 export async function createPortfolioServer({ distDir = defaultDist, now = () => Date.now() } = {}) {
   const publicDir = path.resolve(distDir, "public");
   const template = await readFile(path.join(distDir, "client-template.html"), "utf8");
-  const { renderPage, getSeoPages } = await import(pathToFileURL(path.join(distDir, "server", "entry-server.js")).href);
+  const { renderPage, getSeoPages, siteOrigin } = await import(pathToFileURL(path.join(distDir, "server", "entry-server.js")).href);
   const routes = new Set(getSeoPages().map((page) => page.path));
 
   return createServer(async (request, response) => {
@@ -41,6 +41,19 @@ export async function createPortfolioServer({ distDir = defaultDist, now = () =>
       catch { send(400, "Invalid request path"); return; }
       if (pathname.includes("\0")) { send(400, "Invalid request path"); return; }
       if (pathname === "/healthz") { send(200, "ok"); return; }
+      const forwardedHost = request.headers["x-forwarded-host"];
+      const host = (typeof forwardedHost === "string" ? forwardedHost : request.headers.host ?? "")
+        .toLowerCase().replace(/:\d+$/, "");
+      if (host === "bharatdevgandhi.com") {
+        // DNS and TLS must reach this server first; preserve Instagram query data.
+        // A fixed origin prevents untrusted Host or request paths becoming open redirects.
+        response.writeHead(308, {
+          location: `${siteOrigin}${url.pathname}${url.search}`,
+          "cache-control": "no-store",
+        });
+        response.end();
+        return;
+      }
       const route = pathname.replace(/\/index\.html$/, "").replace(/\/+$/, "") || "/";
       if (routes.has(route)) {
         if (pathname !== route) {

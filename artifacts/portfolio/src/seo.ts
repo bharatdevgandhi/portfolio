@@ -1,7 +1,7 @@
 import writing from "@/data/writing.json";
 import { getWorkshopStatus, meditationFaqs, upcomingMeditationWorkshops } from "@/data/meditation";
 
-export const siteOrigin = "https://bharatdevgandhi.com";
+export const siteOrigin = "https://www.bharatdevgandhi.com";
 export const personId = `${siteOrigin}/#person`;
 export const siteId = `${siteOrigin}/#website`;
 export const socialImage = `${siteOrigin}/opengraph.jpg`;

@@ -36,7 +36,7 @@ try {
   const baseUrl = `http://127.0.0.1:${port}`;
   const routeDocuments = new Map();
 
-  checkRouteMetadata(seoPages);
+  checkRouteMetadata(seoPages, siteOrigin);
   checkSitemap(seoPages, sitemap);
   if (!processHosted) await checkRewriteConfiguration(seoPages, rewrites);
 
@@ -122,7 +122,7 @@ function parseRewrites(toml) {
   }).filter(Boolean);
 }
 
-function checkRouteMetadata(pages) {
+function checkRouteMetadata(pages, siteOrigin) {
   const titles = new Map();
   const canonicals = new Map();
   const paths = new Set();
@@ -146,7 +146,7 @@ function checkRouteMetadata(pages) {
     }
 
     const canonicalUrl = new URL(page.canonical);
-    if (canonicalUrl.origin !== "https://bharatdevgandhi.com" || canonicalUrl.pathname !== page.path) {
+    if (canonicalUrl.origin !== siteOrigin || canonicalUrl.pathname !== page.path) {
       errors.push(`Route ${page.path} has an unexpected canonical URL: ${page.canonical}.`);
     }
   }

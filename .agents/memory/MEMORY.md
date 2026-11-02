@@ -2,3 +2,4 @@
 - [Writing feed snapshots](static-writing-feed.md) — Keep publish-time feed refreshes even with server-hosted rendering; do not restore browser RSS proxies.
 - [Workshop hosting approval](workshop-hosting-approval.md) — Server-hosted expiry was approved so crawlers stop seeing stale events without republishing.
 - [GitHub commits](github-commits.md) — “Commit” means updating GitHub, not only saving workspace files or local history.
+- [Canonical host](canonical-host.md) — Keep verified www canonical; apex redirects must retain paths and Instagram parameters and require DNS/TLS first.

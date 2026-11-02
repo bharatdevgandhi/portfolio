@@ -2,7 +2,7 @@ import { renderToString } from "react-dom/server";
 import App from "./App";
 import { getSeoPages, socialImage } from "./seo";
 
-export { getSeoPages } from "./seo";
+export { getSeoPages, siteOrigin } from "./seo";
 
 function escapeHtml(value: string) {
   return value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
