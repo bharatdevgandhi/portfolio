@@ -111,6 +111,8 @@ The portfolio publishing configuration runs a **Node production server**, with c
 - **Production run**: `node artifacts/portfolio/server/index.mjs`
 - **Startup probe**: `/healthz`
 
+The root `.replit` retains `deployment.publicDir = "artifacts/portfolio/dist/public"` for compatibility with the existing Static publishing form. Do not remove it while that form is active: publishing rejects an empty public directory before starting a build. This field does not force Static hosting; select Autoscale in Publishing to activate the server-hosted configuration.
+
 The build creates browser assets, prerendered validation snapshots, an empty-root client template and an SSR bundle. The production server renders public routes for each request, returns uncached HTML, and serves files from `dist/public`. It binds to `0.0.0.0` on `PORT`. The development workflow still uses Vite. Writing feeds refresh only during builds, with last-successful data preserved on publisher failures.
 
 ### Publishing to bharatdevgandhi.com

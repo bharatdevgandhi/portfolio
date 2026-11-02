@@ -10,6 +10,9 @@ id = "artifacts/mockup-sandbox"
 id = "artifacts/portfolio"
 
 
+[deployment]
+publicDir = "artifacts/portfolio/dist/public"
+
 [workflows]
 runButton = "Project"
 

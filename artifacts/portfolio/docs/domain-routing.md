@@ -23,8 +23,11 @@ and have a valid TLS certificate.
 3. Preserve the existing `www` records. Wait for Replit's domain/TLS verification.
 4. Publish the server-hosted artifact configuration. The portfolio is registered
    in `.replit`; production build/run/health settings live in its `artifact.toml`.
-   Do not restore the old root-level static deployment override: it bypasses
-   the Node server's domain redirects and automatic workshop expiry.
+   Do not restore the old forced Static deployment target: it bypasses the
+   Node server's domain redirects and automatic workshop expiry. The root
+   `deployment.publicDir` value is retained for the existing Static publishing
+   form's validation; it does not select a deployment type. Choose Autoscale
+   in Publishing to activate the server configuration.
 
 At diagnosis on 2 November 2026, public DNS had no apex A/AAAA answers, while
 the `www` meditation page returned HTTP 200. The missing DNS record must be fixed
