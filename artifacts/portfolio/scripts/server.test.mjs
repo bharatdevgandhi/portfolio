@@ -88,7 +88,7 @@ test("both resume links download the real PDF in published snapshots and server 
 });
 
 test("production HTTP server removes expired content and schema without a rebuild", async () => {
-  let now = Date.parse("2026-11-09T12:59:59Z");
+  let now = Date.parse("2026-11-16T13:14:59Z");
   const server = await createPortfolioServer({ now: () => now });
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   const origin = `http://127.0.0.1:${server.address().port}`;
@@ -108,11 +108,11 @@ test("production HTTP server removes expired content and schema without a rebuil
     assert.ok(graph(result.text).some((item) => item["@type"] === "Event"));
     assert.ok(result.text.includes(`data-rendered-at="${now}"`));
 
-    now = Date.parse("2026-11-09T13:00:00Z"); // 18:30 IST, exact start.
+    now = Date.parse("2026-11-16T13:15:00Z"); // 18:45 IST, exact start.
     result = await request("/meditation");
     assert.ok(result.text.includes("In progress · check availability"));
 
-    now = Date.parse("2026-11-12T15:00:00Z"); // 20:30 IST, exact end.
+    now = Date.parse("2026-11-19T15:15:00Z"); // 20:45 IST, exact end.
     result = await request("/meditation");
     assert.ok(result.text.includes("No upcoming workshops are listed right now."));
     assert.ok(!result.text.includes('data-meditation-action="registration"'));

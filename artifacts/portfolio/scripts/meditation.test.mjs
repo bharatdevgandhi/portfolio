@@ -24,8 +24,8 @@ Date.now = realNow;
 const workshop = upcomingMeditationWorkshops[0];
 
 test("workshop uses confirmed IST dates, online format and official registration", () => {
-  assert.equal(workshop.startDate, "2026-11-09T18:30:00+05:30");
-  assert.equal(workshop.endDate, "2026-11-12T20:30:00+05:30");
+  assert.equal(workshop.startDate, "2026-11-16T18:45:00+05:30");
+  assert.equal(workshop.endDate, "2026-11-19T20:45:00+05:30");
   assert.equal(workshop.attendanceMode, "online");
   assert.equal(workshop.contribution, 3000);
   assert.deepEqual([...workshop.languages], ["English", "Hindi"]);
@@ -55,6 +55,9 @@ function renderAt(now) {
 test("initial HTML includes the real workshop, sources and all participant answers", () => {
   const html = renderAt(before);
   assert.ok(html.includes("2026"));
+  assert.ok(html.includes("16–19 November 2026"));
+  assert.ok(html.includes("6:45–8:45 PM daily"));
+  assert.ok(!html.includes("9–12 November 2026"));
   assert.ok(html.includes('data-meditation-action="registration"'));
   assert.ok(html.includes(`id="${workshop.id}"`));
   assert.ok(html.includes("www.artofliving.online/registration.php"));
@@ -80,7 +83,8 @@ test("event and FAQ structured data match visible content and virtual format", (
   assert.equal(event.location["@type"], "VirtualLocation");
   assert.equal(event.offers.url, workshop.registrationUrl);
   assert.equal(event.eventSchedule.scheduleTimezone, "Asia/Kolkata");
-  assert.equal(event.eventSchedule.startTime, "18:30:00");
+  assert.equal(event.eventSchedule.startTime, "18:45:00");
+  assert.equal(event.eventSchedule.endTime, "20:45:00");
   const faq = graph.find((item) => item["@type"] === "FAQPage");
   assert.equal(faq.mainEntity.length, meditationFaqs.length);
   meditationFaqs.forEach(({ question, answer }, i) => {

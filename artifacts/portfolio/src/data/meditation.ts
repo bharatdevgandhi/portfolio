@@ -28,12 +28,12 @@ export const workshopSourceUrl = "https://www.artofliving.org/in-en/program/1067
 export const upcomingMeditationWorkshops: MeditationWorkshop[] = [{
   id: "aol-1067943",
   title: "Online Meditation and Breath Workshop",
-  date: "9–12 November 2026",
-  time: "6:30–8:30 PM daily",
+  date: "16–19 November 2026",
+  time: "6:45–8:45 PM daily",
   timezone: "IST (UTC+05:30)",
   location: "Online · join remotely",
-  startDate: "2026-11-09T18:30:00+05:30",
-  endDate: "2026-11-12T20:30:00+05:30",
+  startDate: "2026-11-16T18:45:00+05:30",
+  endDate: "2026-11-19T20:45:00+05:30",
   languages: ["English", "Hindi"],
   contribution: 3000,
   currency: "INR",
@@ -61,7 +61,7 @@ export const meditationFaqs = [
   },
   {
     question: "What language is used, and how long are the sessions?",
-    answer: "The official November listing specifies English and Hindi. The confirmed schedule is 9–12 November 2026, 6:30–8:30 PM IST (UTC+05:30) each day: four two-hour sessions. Check the organiser’s page for any changes before registering.",
+    answer: "The official November listing specifies English and Hindi. The rescheduled workshop runs 16–19 November 2026, 6:45–8:45 PM IST (UTC+05:30) each day: four two-hour weekday sessions. Check the organiser’s page for any changes before registering.",
   },
   {
     question: "Who is Bharat’s teaching focused on?",

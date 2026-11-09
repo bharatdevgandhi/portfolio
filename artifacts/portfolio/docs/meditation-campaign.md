@@ -2,13 +2,13 @@
 
 ## Content provenance
 - Official event listing: https://www.artofliving.org/in-en/program/1067943
-- Official registration: follow the event's Register link. It identifies event 1067943, names Bharat, and displays 9–12 November 2026, weekday 6:30–8:30 PM, English/Hindi and ₹3,000.
+- Official registration: follow the event's Register link. It identifies event 1067943 and names Bharat. The refreshed official listing displays 16–19 November, weekday 6:45–8:45 PM, English/Hindi and ₹3,000; the previously confirmed year and timezone remain 2026 and IST.
 - Bharat confirmed the year as 2026 and timezone as IST (Asia/Kolkata). The workshop is online; Gurugram on the listing is not an in-person venue.
 - The registration page advertises daily-practice and weekly-session follow-up. Direct participants to the organiser for current terms; do not promise independently run support.
 - Bharat's 1,000-hour training, teaching locations and teaching focus are his supplied account, not independently certified by the programme links. No testimonial, certificate, university endorsement or photograph should be added without appropriate evidence and publishing permission.
 - Research: https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2814344 . A randomized trial of 129 practising physicians compared a SKY programme with stress management education, with ongoing practice and eight-week follow-up. Do not generalize its self-reported outcomes to all workshops or young adults, claim superiority to every alternative, or describe this as medical treatment.
 
-Sources checked during this work on 25 October 2026. Recheck price, availability and instructions before each promotion.
+Workshop dates and timings refreshed from the official listing on 9 November 2026. Other sources were checked on 25 October 2026. Recheck price, availability and instructions before each promotion.
 
 ## What analytics actually measures
 
@@ -34,7 +34,7 @@ Keep a dated, manual comparison log of a small consistent set of relevant prompt
 ## Expiry and server-hosted publishing
 After publishing the approved server-hosted configuration, every page request renders using the server's current time. At the final session's end time, the workshop card, registration button and Event structured data are omitted from `/meditation`, including for non-JavaScript crawlers. HTML is returned with `Cache-Control: no-store` to avoid serving an older event state. Direct saved-HTML aliases redirect to the current page rather than exposing stale build snapshots.
 
-The browser also refreshes workshop status on mount and every minute for an already open page. Registration click events reject ended workshops. The end boundary is 12 November 2026 at 20:30 IST (15:00 UTC).
+The browser also refreshes workshop status on mount and every minute for an already open page. Registration click events reject ended workshops. The end boundary is 19 November 2026 at 20:45 IST (15:15 UTC).
 
 No rebuild is needed for a scheduled date to pass. New dates, cancellations, changed fees and other source-data changes still require editing and publishing; this is not live organiser inventory or an availability guarantee. Writing feeds also retain their existing publish-time refresh model.
 
