@@ -56,6 +56,20 @@ artifacts-monorepo/
 - Initial fetch on server startup
 - In-memory cache (no database needed)
 
+## v2 preview (awaiting approval)
+
+A redesign lives under `/v2` and does not change the current site. All three routes are `noindex` and absent from the sitemap until approved.
+
+- `/v2` — Direction A, "Guide": white editorial page, numbered stops, swipeable rail on phones.
+- `/v2/cosmos` — Direction B, "Cosmos": dark board of filterable elements. Same content, same components.
+- `/v2/agents` — plain semantic HTML for browser agents, scrapers and screen readers.
+
+Everything is rendered from one content model, `artifacts/portfolio/src/v2/content.ts`. Edit facts there only. The same model generates the machine-readable files in `public/` (`llms.txt`, `llms-full.txt`, `resume.md`, `profile.json`, and the stable `Bharat_Gandhi_Resume.pdf` copied from `attached_assets`) via `pnpm --filter @workspace/portfolio run build:agent-assets`, which also runs during the build. Do not edit those generated files by hand.
+
+Key files: `src/v2/V2Home.tsx` (both directions), `src/v2/Agents.tsx`, `src/v2/Plate.tsx` (generated artwork), `src/v2/v2.css`, `src/v2/agent-assets.ts`, and the v2 block in `src/seo.ts`.
+
+To promote a direction: in `src/seo.ts` move the chosen v2 page definition to `/` (and `/v2/agents` to `/agents`), drop `noindex`, point the `/` route in `src/App.tsx` at `V2Home`, and remove `PreviewBar`.
+
 ## TypeScript & Composite Projects
 
 Every package extends `tsconfig.base.json` which sets `composite: true`. The root `tsconfig.json` lists all packages as project references. This means:

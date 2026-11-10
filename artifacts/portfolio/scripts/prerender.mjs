@@ -13,10 +13,10 @@ const template = await readFile(path.join(outputDir, "index.html"), "utf8");
 await writeFile(path.join(artifactDir, "dist", "client-template.html"), template);
 const now = Date.now();
 const pages = getSeoPages(now);
-const sitemap = renderSitemap(pages);
+const sitemap = renderSitemap(pages.filter((page) => !page.noindex));
 await writeFile(path.join(artifactDir, "public", "sitemap.xml"), sitemap);
 await writeFile(path.join(outputDir, "sitemap.xml"), sitemap);
-console.log(`Generated sitemap for ${pages.length} public pages`);
+console.log(`Generated sitemap for ${pages.filter((page) => !page.noindex).length} indexable pages`);
 for (const page of pages) {
   const html = renderPage(template, page.path, now);
   if (!html || html.includes('id="root"></div>')) {

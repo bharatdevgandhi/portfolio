@@ -1,0 +1,283 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Bharat Gandhi",
+    "label": "AI & Platform Product Manager",
+    "email": "bharatgandhi.sf@gmail.com",
+    "url": "https://www.bharatdevgandhi.com/",
+    "summary": "Bharat Gandhi is a product manager who builds AI products and takes them to market. He is Platform Product Manager at District by Zomato (Eternal Ltd.), where he owns app-wide search, discovery, personalization, notifications and AI-native products and reports directly to the CEO. Previously he led product and growth in an advisory role at CanvasX AI, was Product Manager – Tech for Audible Originals and Content Systems at Amazon, and was a Product Manager at RateGain. He holds an MS in Information Systems from Cornell Tech.",
+    "location": {
+      "city": "New Delhi",
+      "countryCode": "IN"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "bdgandhi",
+        "url": "https://linkedin.com/in/bdgandhi"
+      },
+      {
+        "network": "X",
+        "username": "bharaatobama",
+        "url": "https://x.com/bharaatobama"
+      },
+      {
+        "network": "GitHub",
+        "username": "bharatgandhi",
+        "url": "https://github.com/bharatgandhi"
+      },
+      {
+        "network": "Substack",
+        "username": "bharatgandhi",
+        "url": "https://bharatgandhi.substack.com"
+      },
+      {
+        "network": "Medium",
+        "username": "bg445",
+        "url": "https://bg445.medium.com/"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "District by Zomato",
+      "position": "Platform Product Manager",
+      "location": "Gurugram",
+      "description": "Zomato's going-out platform spanning dining-out, movies and live events (Eternal Ltd.).",
+      "startDate": "2026-04",
+      "summary": "Own search, discovery, personalization, notifications and AI-native products end to end. Report directly to the CEO.",
+      "highlights": [
+        "Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.",
+        "Incubated AI products from functional proof of concept through launch, including a voice-driven navigation agent using LLM tool-calling with deterministic grounding, and one-click Indic-language movie translation.",
+        "Built hands-on prototypes with AI-assisted coding to validate UX, model capability, latency and technical feasibility before engineering investment.",
+        "Increased inventory views by 30% with ML-based homepage personalization across customer cohorts.",
+        "Ran the push-notifications charter, lifting day-0 opt-ins by 8% through growth experiments, prioritized pushes and in-app reminders.",
+        "Started new discovery surfaces: in-app curations, maps and outing planning."
+      ]
+    },
+    {
+      "name": "CanvasX AI",
+      "position": "Head of Product & Growth (Advisory)",
+      "location": "Remote · India, US, Europe",
+      "description": "Applied-AI lab building agentic workflow products for SMBs.",
+      "startDate": "2025-01",
+      "endDate": "2026-04",
+      "summary": "Led product strategy, go-to-market, partnerships and forward deployment for agentic workflow products.",
+      "highlights": [
+        "Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.",
+        "Architected the product, pricing and deployment model for Sketch, a multiplayer agentic workflow harness with credit-based consumption tiers and Bring Your Own Key options that balance inference cost, latency and output quality. Adopted by 25+ SMB teams in India.",
+        "Built the sales pipeline from scratch, including the first Fortune 100 prospect and SMB opportunities across India, Dubai and the EU.",
+        "Led forward deployment of an agentic data-analysis product for an omnichannel retail client with 25,000 users, increasing incentive-achievement rates by 8% within 60 days of launch."
+      ]
+    },
+    {
+      "name": "Audible / Amazon",
+      "position": "Product Manager – Tech, Audible Originals & Content Systems",
+      "location": "New York",
+      "description": "Audible Originals and Studios, across global marketplaces.",
+      "startDate": "2021-08",
+      "endDate": "2024-12",
+      "summary": "Owned content intelligence, monetization and production platforms for Audible Originals and Studios.",
+      "highlights": [
+        "Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.",
+        "Took LLM-based text-to-speech audiobook production from research prototype to production pipeline, reducing localization timelines by 36% across 3 languages and expanding the monetizable catalog into 8+ countries.",
+        "Created a new audiobook-to-TV rights business generating ~$7M GMV: a platform for global TV producers to discover and acquire first-party content rights.",
+        "Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.",
+        "Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks."
+      ],
+      "url": "https://www.bharatdevgandhi.com/audible"
+    },
+    {
+      "name": "RateGain",
+      "position": "Product Manager",
+      "location": "Noida",
+      "description": "B2B SaaS travel-pricing intelligence platform.",
+      "startDate": "2018-01",
+      "endDate": "2019-06",
+      "summary": "Owned scraping infrastructure and travel-pricing data products. Converted from intern to PM.",
+      "highlights": [
+        "Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.",
+        "Launched geo-located scraping and won customers across the US, EMEA and APAC.",
+        "Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.",
+        "As an intern (Jan–Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer."
+      ],
+      "url": "https://www.bharatdevgandhi.com/rategain"
+    }
+  ],
+  "education": [
+    {
+      "institution": "Cornell Tech, Cornell University",
+      "area": "Information Systems",
+      "studyType": "MS (Jacobs Technion-Cornell dual MS)",
+      "endDate": "2021"
+    },
+    {
+      "institution": "Manipal University Jaipur",
+      "area": "Computer Science",
+      "studyType": "BE",
+      "endDate": "2017"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI & data",
+      "keywords": [
+        "Foundation model integration",
+        "Agentic workflows and tool-calling",
+        "LLM evaluation",
+        "Rapid functional POCs with AI-assisted coding",
+        "Cost–latency–quality trade-offs",
+        "Voice AI",
+        "Conversational AI",
+        "Neural search",
+        "Information retrieval",
+        "Knowledge graphs",
+        "SQL",
+        "Redash",
+        "Tableau"
+      ]
+    },
+    {
+      "name": "Platform & ecosystems",
+      "keywords": [
+        "Search and discovery",
+        "ML-based personalization",
+        "Consumer app surfaces",
+        "Developer and creator ecosystems",
+        "Content systems",
+        "Payments infrastructure",
+        "Marketplace platforms",
+        "Subscription and pricing models",
+        "Experimentation and A/B testing",
+        "International expansion"
+      ]
+    },
+    {
+      "name": "Product leadership",
+      "keywords": [
+        "0-to-1 incubation",
+        "Product vision and roadmaps",
+        "Research-to-product translation",
+        "Executive communication",
+        "Cross-functional alignment",
+        "User validation",
+        "UX design and wireframing",
+        "Go-to-market strategy",
+        "Forward deployment"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Plaza",
+      "description": "A grad-school startup for universal comments across the internet. It failed. What we built, and why it didn't work.",
+      "type": "Startup",
+      "url": "https://www.bharatdevgandhi.com/cornell"
+    },
+    {
+      "name": "FuboTV × Cornell Tech",
+      "description": "Ethnographic research into why cord-cutters skip live TV news, and a multi-source viewing experience built around viewer control.",
+      "type": "UX research",
+      "url": "https://www.bharatdevgandhi.com/fubo"
+    },
+    {
+      "name": "MUJ Oneiros",
+      "description": "Architected Rajasthan's biggest student-run cultural festival by footfall, on a 300-student ecosystem producing weekly live events.",
+      "type": "Live events",
+      "url": "https://www.youtube.com/results?search_query=MUJ+Oneiros+aftermovie"
+    },
+    {
+      "name": "This site",
+      "description": "Built with AI-assisted coding. One content model renders the gallery for people and llms.txt, JSON and structured data for agents and search engines.",
+      "type": "Open source",
+      "url": "https://github.com/bharatdevgandhi/portfolio"
+    }
+  ],
+  "publications": [
+    {
+      "name": "The Death of 'Take It or Leave It",
+      "publisher": "Substack",
+      "releaseDate": "2026-04-14",
+      "url": "https://bharatgandhi.substack.com/p/the-death-of-take-it-or-leave-it",
+      "summary": "How convergence contracts, AI negotiation, and three invisible forces are about to reshape every transaction you make."
+    },
+    {
+      "name": "AI has been Single-Player. That’s about to Change.",
+      "publisher": "Substack",
+      "releaseDate": "2026-03-18",
+      "url": "https://bharatgandhi.substack.com/p/ai-has-been-single-player-thats-about",
+      "summary": "There’s a pattern in how software powers collaboration, and it’s worth noticing because we’re about to watch it happen to all AI tools."
+    },
+    {
+      "name": "GPTs: Generational Poverty and Traumas",
+      "publisher": "Substack",
+      "releaseDate": "2024-01-05",
+      "url": "https://bharatgandhi.substack.com/p/gpts-generational-poverty-and-traumas",
+      "summary": "2023 was losing my grandfather, reflecting on his life and what I learnt from him."
+    },
+    {
+      "name": "The Modern Revolutionary",
+      "publisher": "Medium",
+      "releaseDate": "2021-07-09",
+      "url": "https://bg445.medium.com/the-modern-revolutionary-86f3d60c98ee"
+    },
+    {
+      "name": "Pool, MEM",
+      "publisher": "Medium",
+      "releaseDate": "2021-04-30",
+      "url": "https://bg445.medium.com/pool-mem-8ed764ae9a3c"
+    },
+    {
+      "name": "Mental Health Practices",
+      "publisher": "Substack",
+      "releaseDate": "2020-07-15",
+      "url": "https://bharatgandhi.substack.com/p/mental-health-practices",
+      "summary": "A starter kit to maintaining sanity built from my experiences during the last 9 years"
+    },
+    {
+      "name": "Social Capitalism",
+      "publisher": "Substack",
+      "releaseDate": "2020-06-02",
+      "url": "https://bharatgandhi.substack.com/p/social-capitalism",
+      "summary": "You can be rich and a good person at the same time!"
+    },
+    {
+      "name": "Bharat's Fortnightly - May 16th, 2020",
+      "publisher": "Substack",
+      "releaseDate": "2020-05-16",
+      "url": "https://bharatgandhi.substack.com/p/bharats-fortnightly-may-16th-2020",
+      "summary": "Given enough clout, anyone can report. At the same time, not everyone is a journalist"
+    },
+    {
+      "name": "Bharat's Fortnightly",
+      "publisher": "Substack",
+      "releaseDate": "2020-05-14",
+      "url": "https://bharatgandhi.substack.com/p/coming-soon",
+      "summary": "A journey from an island in Manhattan with happenings in product, tech & life."
+    },
+    {
+      "name": "What makes Cornell Tech Open Studio a landmark event",
+      "publisher": "Medium",
+      "releaseDate": "2020-05-14",
+      "url": "https://bg445.medium.com/what-makes-cornell-tech-open-studio-a-landmark-event-d63725c8a2b6"
+    }
+  ],
+  "meta": {
+    "canonical": "https://www.bharatdevgandhi.com/profile.json",
+    "resumePdf": "https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf",
+    "openTo": [
+      "Product roles in AI, search and platform",
+      "Advisory for startups on growth, go-to-market and product craft",
+      "Speaking on AI and product building"
+    ],
+    "relevantRoles": [
+      "AI Product Manager",
+      "Platform Product Manager",
+      "Search, discovery and personalization product lead",
+      "Product Manager – Technical",
+      "Head of Product or Growth at an early-stage AI company"
+    ],
+    "relocation": "Open to relocation",
+    "source": "Generated from the site's content model; figures from the September 2026 résumé."
+  }
+}

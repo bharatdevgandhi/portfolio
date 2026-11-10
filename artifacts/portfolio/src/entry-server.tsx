@@ -19,7 +19,7 @@ export function renderPage(template: string, pathname: string, now = Date.now())
   const title = escapeHtml(page.title);
   const description = escapeHtml(page.description);
   const canonical = escapeHtml(page.canonical);
-  const image = escapeHtml(socialImage);
+  const image = escapeHtml(page.image ?? socialImage);
   const graph = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": page.structuredData,
@@ -28,6 +28,9 @@ export function renderPage(template: string, pathname: string, now = Date.now())
     `<title>${title}</title>`,
     `<meta name="description" content="${description}" />`,
     `<link rel="canonical" href="${canonical}" />`,
+    ...(page.noindex ? [`<meta name="robots" content="noindex, follow" />`] : []),
+    `<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />`,
+    `<link rel="alternate" type="application/json" href="/profile.json" title="Profile (JSON Resume)" />`,
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
     `<meta property="og:type" content="${page.ogType}" />`,

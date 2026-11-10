@@ -1,0 +1,71 @@
+# Bharat Gandhi
+
+New Delhi, India · bharatgandhi.sf@gmail.com · linkedin.com/in/bdgandhi · bharatdevgandhi.com · Open to relocation
+
+I build AI products and take them to market.
+
+## Experience
+
+### Platform Product Manager, District by Zomato
+Apr 2026–Present · Gurugram
+
+Zomato's going-out platform spanning dining-out, movies and live events (Eternal Ltd.). Own search, discovery, personalization, notifications and AI-native products end to end. Report directly to the CEO.
+
+- Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.
+- Incubated AI products from functional proof of concept through launch, including a voice-driven navigation agent using LLM tool-calling with deterministic grounding, and one-click Indic-language movie translation.
+- Built hands-on prototypes with AI-assisted coding to validate UX, model capability, latency and technical feasibility before engineering investment.
+- Increased inventory views by 30% with ML-based homepage personalization across customer cohorts.
+- Ran the push-notifications charter, lifting day-0 opt-ins by 8% through growth experiments, prioritized pushes and in-app reminders.
+- Started new discovery surfaces: in-app curations, maps and outing planning.
+
+### Head of Product & Growth (Advisory), CanvasX AI
+Jan 2025–Apr 2026 · Remote · India, US, Europe
+
+Applied-AI lab building agentic workflow products for SMBs. Led product strategy, go-to-market, partnerships and forward deployment for agentic workflow products.
+
+- Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.
+- Architected the product, pricing and deployment model for Sketch, a multiplayer agentic workflow harness with credit-based consumption tiers and Bring Your Own Key options that balance inference cost, latency and output quality. Adopted by 25+ SMB teams in India.
+- Built the sales pipeline from scratch, including the first Fortune 100 prospect and SMB opportunities across India, Dubai and the EU.
+- Led forward deployment of an agentic data-analysis product for an omnichannel retail client with 25,000 users, increasing incentive-achievement rates by 8% within 60 days of launch.
+
+### Product Manager – Tech, Audible Originals & Content Systems, Audible / Amazon
+Aug 2021–Dec 2024 · New York
+
+Audible Originals and Studios, across global marketplaces. Owned content intelligence, monetization and production platforms for Audible Originals and Studios.
+
+- Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.
+- Took LLM-based text-to-speech audiobook production from research prototype to production pipeline, reducing localization timelines by 36% across 3 languages and expanding the monetizable catalog into 8+ countries.
+- Created a new audiobook-to-TV rights business generating ~$7M GMV: a platform for global TV producers to discover and acquire first-party content rights.
+- Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.
+- Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.
+
+Case study: https://www.bharatdevgandhi.com/audible
+
+### Product Manager, RateGain
+Jan 2018–Jun 2019 · Noida
+
+B2B SaaS travel-pricing intelligence platform. Owned scraping infrastructure and travel-pricing data products. Converted from intern to PM.
+
+- Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.
+- Launched geo-located scraping and won customers across the US, EMEA and APAC.
+- Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
+- As an intern (Jan–Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
+
+Case study: https://www.bharatdevgandhi.com/rategain
+
+## Education
+
+- **Cornell Tech, Cornell University** — MS, Information Systems (Jacobs Technion-Cornell dual MS). New York, NY, 2021.
+- **Manipal University Jaipur** — BE, Computer Science (Founded a filmmaking society; led multiple student bodies). Jaipur, India, 2017.
+
+## Skills
+
+**AI & data:** Foundation model integration, Agentic workflows and tool-calling, LLM evaluation, Rapid functional POCs with AI-assisted coding, Cost–latency–quality trade-offs, Voice AI, Conversational AI, Neural search, Information retrieval, Knowledge graphs, SQL, Redash, Tableau
+
+**Platform & ecosystems:** Search and discovery, ML-based personalization, Consumer app surfaces, Developer and creator ecosystems, Content systems, Payments infrastructure, Marketplace platforms, Subscription and pricing models, Experimentation and A/B testing, International expansion
+
+**Product leadership:** 0-to-1 incubation, Product vision and roadmaps, Research-to-product translation, Executive communication, Cross-functional alignment, User validation, UX design and wireframing, Go-to-market strategy, Forward deployment
+
+---
+
+PDF: https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf · JSON: https://www.bharatdevgandhi.com/profile.json

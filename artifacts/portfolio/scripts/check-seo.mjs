@@ -37,7 +37,7 @@ try {
   const routeDocuments = new Map();
 
   checkRouteMetadata(seoPages, siteOrigin);
-  checkSitemap(seoPages, sitemap);
+  checkSitemap(seoPages.filter((page) => !page.noindex), sitemap);
   if (!processHosted) await checkRewriteConfiguration(seoPages, rewrites);
 
   for (const page of seoPages) {
@@ -57,10 +57,14 @@ try {
 
     routeDocuments.set(page.path, html);
     checkPageHtml(page, html);
+    const robotsMeta = /<meta\s+name="robots"\s+content="noindex/i.test(html);
+    if (Boolean(page.noindex) !== robotsMeta) {
+      errors.push(`Route ${page.path} robots meta does not match its noindex setting.`);
+    }
     const metas = getTags(html, "meta").map(({ attributes }) =>
       Object.fromEntries(Object.entries(attributes).map(([key, value]) => [key, decodeHtml(value)])),
     );
-    errors.push(...validateSocialMetadata(metas, page, socialImage)
+    errors.push(...validateSocialMetadata(metas, page, page.image ?? socialImage)
       .map((problem) => `Route ${page.path}: ${problem}`));
     console.log(`Fetched ${page.canonical} without JavaScript`);
   }
@@ -232,7 +236,7 @@ function checkPageHtml(page, html) {
   try {
     const jsonLd = JSON.parse(schemaScripts[0].body);
     const graph = jsonLd["@graph"];
-    const pageNode = graph?.find((node) => node["@type"] === "WebPage");
+    const pageNode = graph?.find((node) => ["WebPage", "ProfilePage"].includes(node["@type"]));
     if (jsonLd["@context"] !== "https://schema.org" || !Array.isArray(graph)) {
       errors.push(`Route ${page.path} has malformed page-specific JSON-LD.`);
       return;

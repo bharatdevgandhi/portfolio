@@ -1,5 +1,6 @@
 import writing from "@/data/writing.json";
 import { getWorkshopStatus, meditationFaqs, upcomingMeditationWorkshops } from "@/data/meditation";
+import * as v2 from "@/v2/content";
 
 export const siteOrigin = "https://www.bharatdevgandhi.com";
 export const personId = `${siteOrigin}/#person`;
@@ -12,6 +13,10 @@ export type SeoPage = {
   description: string;
   canonical: string;
   ogType: "website" | "article";
+  /** Preview routes: served and crawlable, but kept out of the index and sitemap. */
+  noindex?: boolean;
+  /** Social preview image, when it differs from the site default. */
+  image?: string;
   structuredData: Record<string, unknown>[];
 };
 
@@ -193,6 +198,139 @@ const pageDefinitions: Omit<SeoPage, "structuredData">[] = [
   },
 ];
 
+// ---- v2 preview routes -------------------------------------------------
+// The redesign lives under /v2 until it is approved. These pages are noindex
+// and absent from the sitemap, so the live site's search presence does not
+// change. Promoting v2 means moving these definitions to "/" and "/agents".
+export const v2SocialImage = `${siteOrigin}/opengraph-v2.jpg`;
+
+const v2Pages: Omit<SeoPage, "structuredData">[] = [
+  {
+    path: "/v2",
+    title: "Bharat Gandhi — AI Product Manager · Search & Platform",
+    description:
+      "Bharat Gandhi is an AI and platform product manager at District by Zomato, previously Audible/Amazon. Launches in contextual search, personalization and agentic AI. Portfolio, case studies and résumé.",
+    canonical: `${siteOrigin}/v2`,
+    ogType: "website",
+    noindex: true,
+    image: v2SocialImage,
+  },
+  {
+    path: "/v2/cosmos",
+    title: "Bharat Gandhi — Product Portfolio Board",
+    description:
+      "A board of Bharat Gandhi's product work: AI search at District by Zomato, agentic workflows at CanvasX AI, content platforms at Audible/Amazon, pricing data at RateGain, projects and essays.",
+    canonical: `${siteOrigin}/v2/cosmos`,
+    ogType: "website",
+    noindex: true,
+    image: v2SocialImage,
+  },
+  {
+    path: "/v2/agents",
+    title: "Bharat Gandhi — Product Manager Profile for Agents",
+    description:
+      "Plain, complete profile of product manager Bharat Gandhi for browser agents, scrapers and search: current role, results, experience, skills, education, résumé and contact.",
+    canonical: `${siteOrigin}/v2/agents`,
+    ogType: "website",
+    noindex: true,
+    image: v2SocialImage,
+  },
+];
+
+// A fuller Person for the profile pages: what a recruiter's search or an
+// assistant answering "who is a PM with AI search experience" needs to match.
+const profilePerson = {
+  ...person,
+  givenName: v2.person.givenName,
+  familyName: v2.person.familyName,
+  description: v2.person.summary,
+  image: v2SocialImage,
+  email: `mailto:${v2.person.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" },
+  worksFor: {
+    "@type": "Organization",
+    name: "District by Zomato",
+    parentOrganization: { "@type": "Organization", name: "Eternal Ltd." },
+  },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Cornell Tech, Cornell University", sameAs: "https://tech.cornell.edu/" },
+    { "@type": "CollegeOrUniversity", name: "Manipal University Jaipur", sameAs: "https://jaipur.manipal.edu/" },
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "MS, Information Systems (Jacobs Technion-Cornell dual MS)",
+      credentialCategory: "degree",
+      educationalLevel: "Master's degree",
+      recognizedBy: { "@type": "CollegeOrUniversity", name: "Cornell University" },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "BE, Computer Science",
+      credentialCategory: "degree",
+      educationalLevel: "Bachelor's degree",
+      recognizedBy: { "@type": "CollegeOrUniversity", name: "Manipal University Jaipur" },
+    },
+  ],
+  hasOccupation: v2.stops.map((stop) => ({
+    "@type": "Occupation",
+    name: stop.role,
+    description: `${stop.company}, ${stop.dates.replace(" — ", "–")}. ${stop.summary}`,
+    occupationLocation: { "@type": "Place", name: stop.place },
+    skills: stop.tags.join(", "),
+  })),
+  knowsAbout: [
+    "Product management",
+    "AI product management",
+    ...v2.skills.flatMap((group) => group.items),
+  ],
+  subjectOf: [
+    { "@type": "DigitalDocument", name: "Résumé (PDF)", url: `${siteOrigin}${v2.links.resume}`, encodingFormat: "application/pdf" },
+    { "@type": "DigitalDocument", name: "Profile (JSON Resume)", url: `${siteOrigin}/profile.json`, encodingFormat: "application/json" },
+    { "@type": "DigitalDocument", name: "llms.txt", url: `${siteOrigin}/llms.txt`, encodingFormat: "text/plain" },
+  ],
+};
+
+const v2WorkList = {
+  "@type": "ItemList",
+  name: "Product work by Bharat Gandhi",
+  itemListElement: [
+    ...v2.stops.map((stop) => ({
+      name: `${stop.company}: ${stop.role}`,
+      description: stop.shipped[0],
+      url: stop.caseStudy ? `${siteOrigin}${stop.caseStudy.href}` : `${siteOrigin}/v2#${stop.id === "district" ? "now" : `stop-${stop.id}`}`,
+    })),
+    ...v2.projects.map((project) => ({
+      name: project.title,
+      description: project.summary,
+      url: project.href.startsWith("/") ? `${siteOrigin}${project.href}` : project.href,
+    })),
+  ].map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: { "@type": "CreativeWork", ...item, author: { "@id": personId } },
+  })),
+};
+
+function v2StructuredData(page: Omit<SeoPage, "structuredData">) {
+  return [
+    profilePerson,
+    {
+      "@type": "ProfilePage",
+      "@id": `${page.canonical}#webpage`,
+      url: page.canonical,
+      name: page.title,
+      description: page.description,
+      isPartOf: { "@id": siteId },
+      about: { "@id": personId },
+      mainEntity: { "@id": personId },
+      primaryImageOfPage: v2SocialImage,
+      inLanguage: "en",
+      ...(page.path === "/v2/agents" ? {} : { hasPart: [v2WorkList, writingList] }),
+    },
+  ];
+}
+
 const worksByPath: Record<string, Record<string, unknown>> = {
   "/cornell": creativeWork(
     "/cornell",
@@ -267,7 +405,7 @@ function getMeditationEvents(now: number) {
 
 export function getSeoPages(now = Date.now()): SeoPage[] {
   const meditationEvents = getMeditationEvents(now);
-  return pageDefinitions.map((page) => {
+  return [...pageDefinitions.map((page) => {
   const mainEntity =
     worksByPath[page.path] ??
     (page.path === "/meditation"
@@ -315,7 +453,7 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
       ] : []),
     ],
   };
-});
+}), ...v2Pages.map((page) => ({ ...page, structuredData: v2StructuredData(page) }))];
 }
 
 export const seoPages = getSeoPages();
