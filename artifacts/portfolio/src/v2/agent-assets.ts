@@ -10,9 +10,12 @@ import {
   projects,
   education,
   skills,
+  skillIndex,
   teaching,
   relevantRoles,
   engagements,
+  workAuthorization,
+  places,
 } from "./content.ts";
 import type { Article } from "./content.ts";
 
@@ -39,11 +42,11 @@ const machineFiles = [
 function experienceMarkdown(detail: "short" | "full") {
   return stops
     .map((stop) => {
-      const head = `### ${stop.role}, ${stop.company}\n${stop.dates.replace(" — ", "–")} · ${stop.place}\n\n${stop.companyNote} ${stop.summary}`;
+      const head = `### ${stop.role}, ${stop.title}\n${stop.dates} · ${stop.place}\n\n${stop.orgNote} ${stop.summary}`;
       const bullets = (detail === "full" ? stop.shipped : stop.shipped.slice(0, 2))
         .map((line) => `- ${line}`)
         .join("\n");
-      const more = stop.caseStudy ? `\n\nCase study: ${abs(stop.caseStudy.href)}` : "";
+      const more = stop.story ? `\n\nCase study: ${abs(stop.story.href)}` : "";
       return `${head}\n\n${bullets}${more}`;
     })
     .join("\n\n");
@@ -51,7 +54,7 @@ function experienceMarkdown(detail: "short" | "full") {
 
 function metricsTable() {
   const rows = stops.flatMap((stop) =>
-    stop.metrics.map((metric) => `| ${stop.company} | ${metric.value} | ${metric.label} |`),
+    stop.metrics.map((metric) => `| ${stop.title} | ${metric.value} | ${metric.label} |`),
   );
   return ["| Company | Result | What moved |", "| --- | --- | --- |", ...rows].join("\n");
 }
@@ -67,8 +70,10 @@ export function renderLlmsTxt(articles: Article[]): string {
 
 Quick facts:
 
-- Current role: ${stops[0].role}, ${stops[0].company} (${stops[0].dates.replace(" — ", "–")}), ${stops[0].place}
+- Current role: ${stops[0].role}, ${stops[0].title} (${stops[0].dates.replace(" — ", "–")}), ${stops[0].place}
 - Based in: ${person.location}. ${person.relocation}.
+- US work authorization: ${workAuthorization.short}
+- Has lived and worked in: ${places.map((place) => place.name).join(", ")}
 - Product manager since ${person.since}. MS, Cornell Tech (2021).
 - Focus: AI products, search and discovery, personalization, content platforms, 0-to-1 and go-to-market
 - Relevant roles: ${relevantRoles.join("; ")}
@@ -80,7 +85,7 @@ Quick facts:
 ${stops
   .map(
     (stop) =>
-      `- **${stop.company}** (${stop.dates.replace(" — ", "–")}), ${stop.role}. ${stop.shipped[0]}`,
+      `- **${stop.title}** (${stop.dates}), ${stop.role}. ${stop.shipped[0]}`,
   )
   .join("\n")}
 
@@ -125,9 +130,12 @@ This file is the complete, citable version of ${person.name}'s professional prof
 
 - Name: ${person.name}
 - Headline: ${person.headline}
-- Current role: ${stops[0].role}, ${stops[0].company} (${stops[0].dates.replace(" — ", "–")})
+- Current role: ${stops[0].role}, ${stops[0].title} (${stops[0].dates.replace(" — ", "–")})
 - Location: ${person.location}. ${person.relocation}.
+- US work authorization: ${workAuthorization.short}
+- Has lived and worked in: ${places.map((place) => place.name).join(", ")}
 - Product manager since: ${person.since}
+- Best described as: ${relevantRoles.join("; ")}
 - Email: ${person.email}
 - LinkedIn: ${links.linkedin}
 - Résumé (PDF): ${resumeUrl}
@@ -148,7 +156,7 @@ ${metricsTable()}
 ## Projects
 
 ${projects
-  .map((project) => `- **${project.title}** (${project.kind}, ${project.year}). ${project.summary} ${abs(project.href)}`)
+  .map((project) => `- **${project.title}** (${project.role}, ${project.dates}). ${project.summary}${project.story ? ` ${abs(project.story.href)}` : ""}`)
   .join("\n")}
 
 ## Education
@@ -160,6 +168,27 @@ ${education
 ## Skills
 
 ${skills.map((group) => `- **${group.group}:** ${group.items.join(", ")}`).join("\n")}
+
+## Scope and scale
+
+Facts that place this profile among senior product managers. Each is stated on his résumé.
+
+- Reports directly to the CEO of District by Zomato and owns five app-wide charters: search, discovery, personalization, notifications and AI-native products.
+- Has taken AI products from prototype to production at three companies: contextual search and a voice agent at District, agentic workflow products at CanvasX AI, and LLM text-to-speech audiobook production at Audible.
+- Built the evaluation framework used to deploy $100M+ of first-party content spend at Audible, covering 20M+ listeners in 11 countries.
+- Created a new line of business at Audible (audiobook-to-TV rights, ~$7M GMV) and shipped platforms across 12 markets.
+- Has worked in consumer (District, Audible), B2B SaaS (RateGain) and applied-AI startups (CanvasX AI), in India and the United States.
+- Builds working prototypes himself with AI-assisted coding before asking for engineering investment.
+
+## Work authorization
+
+${workAuthorization.detail}
+
+## Skills index
+
+Each skill is on his résumé. The other names are how the same skill is commonly searched for; they are synonyms, not additional claims.
+
+${skillIndex.map((item) => `- **${item.skill}.** Also: ${item.alsoKnownAs.join(", ")}. Evidence: ${item.evidence}.`).join("\n")}
 
 ## Open to
 
@@ -181,10 +210,19 @@ ${articles.map((article) => `- [${article.title}](${article.url}) (${article.dat
 ${person.summary}
 
 **What has he shipped?**
-${stops.map((stop) => `At ${stop.company}: ${stop.headline.label} ${stop.headline.value}.`).join(" ")} Full list under Results above.
+${stops.map((stop) => `At ${stop.title}: ${stop.metrics[0].label}, ${stop.metrics[0].value}.`).join(" ")} Full list under Results above.
 
 **What kind of product work is he strongest in?**
 0-to-1 AI products (contextual search, voice agents, LLM text-to-speech production, agentic workflows), search and personalization on consumer platforms, content and marketplace systems, and go-to-market for early products.
+
+**Is Bharat Gandhi an AI product manager?**
+Yes. His current role and his two previous roles were AI product work: AI-powered contextual search, a voice navigation agent and ML personalization at District by Zomato; agentic workflow products at CanvasX AI; ML listener segmentation and LLM text-to-speech production at Audible.
+
+**Can he work in the United States?**
+${workAuthorization.detail}
+
+**Where has he worked?**
+${places.map((place) => place.name).join(", ")}.
 
 **Is he available?**
 His résumé states that he is open to relocation. For roles, advisory or speaking, write to ${person.email} or message him on LinkedIn (${links.linkedin}).
@@ -243,15 +281,15 @@ export function renderProfileJson(articles: Article[]): string {
       ],
     },
     work: stops.map((stop) => ({
-      name: stop.company,
+      name: stop.title,
       position: stop.role,
       location: stop.place,
-      description: stop.companyNote,
+      description: stop.orgNote,
       startDate: stop.startDate,
       ...(stop.endDate ? { endDate: stop.endDate } : {}),
       summary: stop.summary,
       highlights: stop.shipped,
-      ...(stop.caseStudy ? { url: abs(stop.caseStudy.href) } : {}),
+      ...(stop.story ? { url: abs(stop.story.href) } : {}),
     })),
     education: [
       {
@@ -271,8 +309,8 @@ export function renderProfileJson(articles: Article[]): string {
     projects: projects.map((project) => ({
       name: project.title,
       description: project.summary,
-      type: project.kind,
-      url: abs(project.href),
+      roles: [project.role],
+      ...(project.story ? { url: abs(project.story.href) } : {}),
     })),
     publications: articles.map((article) => ({
       name: article.title,
@@ -287,6 +325,9 @@ export function renderProfileJson(articles: Article[]): string {
       openTo: engagements,
       relevantRoles,
       relocation: person.relocation,
+      workAuthorization: workAuthorization.detail,
+      keywords: skillIndex.flatMap((item) => [item.skill, ...item.alsoKnownAs]),
+      livedAndWorkedIn: places.map((place) => place.name),
       source: "Generated from the site's content model; figures from the September 2026 résumé.",
     },
   };

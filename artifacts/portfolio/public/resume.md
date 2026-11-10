@@ -7,9 +7,9 @@ I build AI products and take them to market.
 ## Experience
 
 ### Platform Product Manager, District by Zomato
-Apr 2026–Present · Gurugram
+Apr 2026 to present · Gurugram
 
-Zomato's going-out platform spanning dining-out, movies and live events (Eternal Ltd.). Own search, discovery, personalization, notifications and AI-native products end to end. Report directly to the CEO.
+Zomato's going-out platform spanning dining-out, movies and live events (Eternal Ltd.). I own app-wide search, discovery, personalization, notifications and AI-native products end to end, and report directly to the CEO. The work so far: a 0-to-1 contextual search launch, a voice navigation agent, one-click Indic-language movie translation and new ways to plan an outing.
 
 - Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.
 - Incubated AI products from functional proof of concept through launch, including a voice-driven navigation agent using LLM tool-calling with deterministic grounding, and one-click Indic-language movie translation.
@@ -19,19 +19,19 @@ Zomato's going-out platform spanning dining-out, movies and live events (Eternal
 - Started new discovery surfaces: in-app curations, maps and outing planning.
 
 ### Head of Product & Growth (Advisory), CanvasX AI
-Jan 2025–Apr 2026 · Remote · India, US, Europe
+Jan 2025 to Apr 2026 · Remote, across India, the US and Europe
 
-Applied-AI lab building agentic workflow products for SMBs. Led product strategy, go-to-market, partnerships and forward deployment for agentic workflow products.
+Applied-AI lab building agentic workflow products for SMBs. I led product strategy, go-to-market, partnerships and forward deployment for an applied-AI lab. That meant turning customer workflows into production agents, designing how Sketch is priced and deployed, and building the sales pipeline from nothing.
 
 - Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.
 - Architected the product, pricing and deployment model for Sketch, a multiplayer agentic workflow harness with credit-based consumption tiers and Bring Your Own Key options that balance inference cost, latency and output quality. Adopted by 25+ SMB teams in India.
 - Built the sales pipeline from scratch, including the first Fortune 100 prospect and SMB opportunities across India, Dubai and the EU.
 - Led forward deployment of an agentic data-analysis product for an omnichannel retail client with 25,000 users, increasing incentive-achievement rates by 8% within 60 days of launch.
 
-### Product Manager – Tech, Audible Originals & Content Systems, Audible / Amazon
-Aug 2021–Dec 2024 · New York
+### Product Manager – Tech, Audible Originals & Content Systems, Audible
+Aug 2021 to Dec 2024 · New York City
 
-Audible Originals and Studios, across global marketplaces. Owned content intelligence, monetization and production platforms for Audible Originals and Studios.
+Audible Originals and Studios at Amazon, across global marketplaces. I owned the platforms behind Audible's first-party content: how the business decides what to make, how it gets made and published, how creators get paid, and how the rights travel to television.
 
 - Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.
 - Took LLM-based text-to-speech audiobook production from research prototype to production pipeline, reducing localization timelines by 36% across 3 languages and expanding the monetizable catalog into 8+ countries.
@@ -42,14 +42,14 @@ Audible Originals and Studios, across global marketplaces. Owned content intelli
 Case study: https://www.bharatdevgandhi.com/audible
 
 ### Product Manager, RateGain
-Jan 2018–Jun 2019 · Noida
+Jan 2018 to Jun 2019 · Noida
 
-B2B SaaS travel-pricing intelligence platform. Owned scraping infrastructure and travel-pricing data products. Converted from intern to PM.
+B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an airline-pricing product from scratch and converted to Product Manager. I then owned the scraping infrastructure and the data products built on it.
 
 - Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.
 - Launched geo-located scraping and won customers across the US, EMEA and APAC.
 - Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
-- As an intern (Jan–Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
+- As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
 
 Case study: https://www.bharatdevgandhi.com/rategain
 

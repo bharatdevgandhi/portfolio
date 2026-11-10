@@ -58,17 +58,24 @@ artifacts-monorepo/
 
 ## v2 preview (awaiting approval)
 
-A redesign lives under `/v2` and does not change the current site. All three routes are `noindex` and absent from the sitemap until approved.
+A redesign lives under `/v2` and does not change the current site. Every `/v2` route is `noindex` and absent from the sitemap until approved.
 
-- `/v2` — Direction A, "Guide": white editorial page, numbered stops, swipeable rail on phones.
-- `/v2/cosmos` — Direction B, "Cosmos": dark board of filterable elements. Same content, same components.
-- `/v2/agents` — plain semantic HTML for browser agents, scrapers and screen readers.
+- `/v2` — home: the original introduction and rising line, a logo row, a filterable gallery, places, writing, and a Recruiters panel (native popover).
+- `/v2/work/:id` — one page per gallery entry: brief intro, results, reference images, a prominent back button.
+- `/v2/agents` — plain semantic HTML for assistants, scrapers and screen readers. Not linked from the human pages.
 
 Everything is rendered from one content model, `artifacts/portfolio/src/v2/content.ts`. Edit facts there only. The same model generates the machine-readable files in `public/` (`llms.txt`, `llms-full.txt`, `resume.md`, `profile.json`, and the stable `Bharat_Gandhi_Resume.pdf` copied from `attached_assets`) via `pnpm --filter @workspace/portfolio run build:agent-assets`, which also runs during the build. Do not edit those generated files by hand.
 
-Key files: `src/v2/V2Home.tsx` (both directions), `src/v2/Agents.tsx`, `src/v2/Plate.tsx` (generated artwork), `src/v2/v2.css`, `src/v2/agent-assets.ts`, and the v2 block in `src/seo.ts`.
+Rules that hold for v2:
 
-To promote a direction: in `src/seo.ts` move the chosen v2 page definition to `/` (and `/v2/agents` to `/agents`), drop `noindex`, point the `/` route in `src/App.tsx` at `V2Home`, and remove `PreviewBar`.
+- Work authorization (`workAuthorization` in the content model) and the skills synonym index (`skillIndex`) appear only in machine-readable surfaces: the agent view, the llms files, `profile.json` and JSON-LD. Never render them in the human UI.
+- No metrics on the home page. Numbers live on the detail pages.
+- The rising line is a background motif. Do not label it or turn it into a timeline.
+- Media in `public/media/`: logos come from each organisation's site or Wikimedia Commons; city and campus photographs are from Wikimedia Commons and must stay credited in the footer (`src/v2/photo-credits.json`); screens are captures of public sites.
+- Fonts in `src/v2/fonts/` are custom cuts of Amstelvar (SIL OFL 1.1, licence alongside), named Gandhi Text and Gandhi Display.
+- The stylesheet was audited with Hallmark (github.com/Nutlope/hallmark): every colour and font is a token, spacing sits on a 4px scale, labels are sentence case.
+
+To promote: in `src/seo.ts` move the v2 page definitions to `/`, `/work/:id` and `/agents` and drop `noindex`; point those routes in `src/App.tsx` at the v2 components.
 
 ## TypeScript & Composite Projects
 

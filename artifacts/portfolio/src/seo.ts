@@ -201,57 +201,55 @@ const pageDefinitions: Omit<SeoPage, "structuredData">[] = [
 // ---- v2 preview routes -------------------------------------------------
 // The redesign lives under /v2 until it is approved. These pages are noindex
 // and absent from the sitemap, so the live site's search presence does not
-// change. Promoting v2 means moving these definitions to "/" and "/agents".
+// change. Promoting v2 means moving these definitions to "/", "/work/:id"
+// and "/agents" and dropping `noindex`.
 export const v2SocialImage = `${siteOrigin}/opengraph-v2.jpg`;
 
-const v2Pages: Omit<SeoPage, "structuredData">[] = [
-  {
-    path: "/v2",
-    title: "Bharat Gandhi — AI Product Manager · Search & Platform",
-    description:
-      "Bharat Gandhi is an AI and platform product manager at District by Zomato, previously Audible/Amazon. Launches in contextual search, personalization and agentic AI. Portfolio, case studies and résumé.",
-    canonical: `${siteOrigin}/v2`,
-    ogType: "website",
-    noindex: true,
-    image: v2SocialImage,
-  },
-  {
-    path: "/v2/cosmos",
-    title: "Bharat Gandhi — Product Portfolio Board",
-    description:
-      "A board of Bharat Gandhi's product work: AI search at District by Zomato, agentic workflows at CanvasX AI, content platforms at Audible/Amazon, pricing data at RateGain, projects and essays.",
-    canonical: `${siteOrigin}/v2/cosmos`,
-    ogType: "website",
-    noindex: true,
-    image: v2SocialImage,
-  },
-  {
-    path: "/v2/agents",
-    title: "Bharat Gandhi — Product Manager Profile for Agents",
-    description:
-      "Plain, complete profile of product manager Bharat Gandhi for browser agents, scrapers and search: current role, results, experience, skills, education, résumé and contact.",
-    canonical: `${siteOrigin}/v2/agents`,
-    ogType: "website",
-    noindex: true,
-    image: v2SocialImage,
-  },
-];
+const v2Home: Omit<SeoPage, "structuredData"> = {
+  path: "/v2",
+  title: "Bharat Gandhi: AI Product Manager | Search, Personalization & Platform",
+  description:
+    "Bharat Gandhi is an AI product manager: Platform PM at District by Zomato, previously Audible/Amazon and CanvasX AI. Work in AI search, personalization, agentic products and content platforms.",
+  canonical: `${siteOrigin}/v2`,
+  ogType: "website",
+  noindex: true,
+  image: v2SocialImage,
+};
+
+const v2Agents: Omit<SeoPage, "structuredData"> = {
+  path: "/v2/agents",
+  title: "Bharat Gandhi, AI Product Manager: Full Profile, Skills and Results",
+  description:
+    "Complete profile of AI product manager Bharat Gandhi: current role, measured results, experience, every skill with its common names, education, work authorization, résumé and contact.",
+  canonical: `${siteOrigin}/v2/agents`,
+  ogType: "website",
+  noindex: true,
+  image: v2SocialImage,
+};
+
+const v2EntryPages: Omit<SeoPage, "structuredData">[] = v2.entries.map((entry) => ({
+  path: `/v2/work/${entry.id}`,
+  title: `${entry.title}: ${entry.role} | Bharat Gandhi`,
+  description: `${entry.intro} ${entry.summary}`.slice(0, 280),
+  canonical: `${siteOrigin}/v2/work/${entry.id}`,
+  ogType: "article" as const,
+  noindex: true,
+  image: v2SocialImage,
+}));
 
 // A fuller Person for the profile pages: what a recruiter's search or an
-// assistant answering "who is a PM with AI search experience" needs to match.
+// assistant answering "who is an AI product manager with search experience"
+// needs to match.
 const profilePerson = {
   ...person,
+  jobTitle: ["Platform Product Manager", "AI Product Manager"],
   givenName: v2.person.givenName,
   familyName: v2.person.familyName,
   description: v2.person.summary,
   image: v2SocialImage,
   email: `mailto:${v2.person.email}`,
   address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" },
-  worksFor: {
-    "@type": "Organization",
-    name: "District by Zomato",
-    parentOrganization: { "@type": "Organization", name: "Eternal Ltd." },
-  },
+  homeLocation: { "@type": "City", name: "New Delhi" },
   alumniOf: [
     { "@type": "CollegeOrUniversity", name: "Cornell Tech, Cornell University", sameAs: "https://tech.cornell.edu/" },
     { "@type": "CollegeOrUniversity", name: "Manipal University Jaipur", sameAs: "https://jaipur.manipal.edu/" },
@@ -275,46 +273,44 @@ const profilePerson = {
   hasOccupation: v2.stops.map((stop) => ({
     "@type": "Occupation",
     name: stop.role,
-    description: `${stop.company}, ${stop.dates.replace(" — ", "–")}. ${stop.summary}`,
+    description: `${stop.title}, ${stop.dates}. ${stop.intro}`,
     occupationLocation: { "@type": "Place", name: stop.place },
     skills: stop.tags.join(", "),
   })),
-  knowsAbout: [
-    "Product management",
-    "AI product management",
-    ...v2.skills.flatMap((group) => group.items),
-  ],
+  knowsAbout: v2.skillIndex.map((item) => item.skill),
   subjectOf: [
     { "@type": "DigitalDocument", name: "Résumé (PDF)", url: `${siteOrigin}${v2.links.resume}`, encodingFormat: "application/pdf" },
     { "@type": "DigitalDocument", name: "Profile (JSON Resume)", url: `${siteOrigin}/profile.json`, encodingFormat: "application/json" },
-    { "@type": "DigitalDocument", name: "llms.txt", url: `${siteOrigin}/llms.txt`, encodingFormat: "text/plain" },
+    { "@type": "DigitalDocument", name: "Full profile (Markdown)", url: `${siteOrigin}/llms-full.txt`, encodingFormat: "text/plain" },
   ],
 };
 
 const v2WorkList = {
   "@type": "ItemList",
   name: "Product work by Bharat Gandhi",
-  itemListElement: [
-    ...v2.stops.map((stop) => ({
-      name: `${stop.company}: ${stop.role}`,
-      description: stop.shipped[0],
-      url: stop.caseStudy ? `${siteOrigin}${stop.caseStudy.href}` : `${siteOrigin}/v2#${stop.id === "district" ? "now" : `stop-${stop.id}`}`,
-    })),
-    ...v2.projects.map((project) => ({
-      name: project.title,
-      description: project.summary,
-      url: project.href.startsWith("/") ? `${siteOrigin}${project.href}` : project.href,
-    })),
-  ].map((item, index) => ({
+  itemListElement: v2.entries.map((entry, index) => ({
     "@type": "ListItem",
     position: index + 1,
-    item: { "@type": "CreativeWork", ...item, author: { "@id": personId } },
+    item: {
+      "@type": "CreativeWork",
+      name: `${entry.title}: ${entry.role}`,
+      description: entry.intro,
+      url: `${siteOrigin}/v2/work/${entry.id}`,
+      author: { "@id": personId },
+    },
   })),
 };
 
-function v2StructuredData(page: Omit<SeoPage, "structuredData">) {
+function v2Profile(page: Omit<SeoPage, "structuredData">, agents: boolean) {
   return [
-    profilePerson,
+    agents
+      ? {
+          ...profilePerson,
+          // Stated for machines only; the human pages do not show it.
+          disambiguatingDescription: v2.workAuthorization.short,
+          knowsAbout: v2.skillIndex.flatMap((item) => [item.skill, ...item.alsoKnownAs]),
+        }
+      : profilePerson,
     {
       "@type": "ProfilePage",
       "@id": `${page.canonical}#webpage`,
@@ -326,10 +322,47 @@ function v2StructuredData(page: Omit<SeoPage, "structuredData">) {
       mainEntity: { "@id": personId },
       primaryImageOfPage: v2SocialImage,
       inLanguage: "en",
-      ...(page.path === "/v2/agents" ? {} : { hasPart: [v2WorkList, writingList] }),
+      ...(agents ? {} : { hasPart: [v2WorkList, writingList] }),
     },
   ];
 }
+
+function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: (typeof v2.entries)[number]) {
+  return [
+    person,
+    {
+      "@type": "WebPage",
+      "@id": `${page.canonical}#webpage`,
+      url: page.canonical,
+      name: page.title,
+      description: page.description,
+      isPartOf: { "@id": siteId },
+      about: { "@id": personId },
+      inLanguage: "en",
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/v2` },
+          { "@type": "ListItem", position: 2, name: entry.title, item: page.canonical },
+        ],
+      },
+      mainEntity: {
+        "@type": "CreativeWork",
+        name: `${entry.title}: ${entry.role}`,
+        description: entry.summary,
+        author: { "@id": personId },
+        keywords: entry.tags.join(", "),
+        about: entry.orgs.map((id) => ({ "@type": "Organization", name: v2.orgs[id].name, url: v2.orgs[id].url })),
+      },
+    },
+  ];
+}
+
+const v2SeoPages: SeoPage[] = [
+  { ...v2Home, structuredData: v2Profile(v2Home, false) },
+  ...v2EntryPages.map((page, index) => ({ ...page, structuredData: v2EntryData(page, v2.entries[index]) })),
+  { ...v2Agents, structuredData: v2Profile(v2Agents, true) },
+];
 
 const worksByPath: Record<string, Record<string, unknown>> = {
   "/cornell": creativeWork(
@@ -453,7 +486,7 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
       ] : []),
     ],
   };
-}), ...v2Pages.map((page) => ({ ...page, structuredData: v2StructuredData(page) }))];
+}), ...v2SeoPages];
 }
 
 export const seoPages = getSeoPages();

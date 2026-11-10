@@ -1,5 +1,4 @@
 import writing from "@/data/writing.json";
-import { PreviewBar } from "./V2Home";
 import {
   origin,
   person,
@@ -7,10 +6,12 @@ import {
   stops,
   projects,
   education,
-  skills,
+  skillIndex,
   teaching,
   relevantRoles,
   engagements,
+  workAuthorization,
+  places,
 } from "./content";
 import type { Article } from "./content";
 import "./v2.css";
@@ -18,43 +19,40 @@ import "./v2.css";
 const articles = writing.articles as Article[];
 const abs = (href: string) => (href.startsWith("/") ? `${origin}${href}` : href);
 
-// The same content model as the gallery, with the design taken away.
-// Flat semantic HTML: headings, lists, one table, no scripts required, no
-// disclosure widgets, every fact in the first response. Written for browser
-// agents, scrapers and anyone who prefers a page they can read in one pass.
+// The same content model as the gallery with the design taken away.
+// Flat semantic HTML: headings, lists, one table, no scripts, no disclosure
+// widgets, every fact in the first response. Not linked from the human pages;
+// crawlers and assistants reach it through the sitemap, llms.txt and
+// <link rel="alternate">.
 export default function Agents() {
   return (
-    <div className="v2 v2--agents">
-      <PreviewBar active="agents" />
+    <div className="v2">
       <main className="v2a">
-        <p className="v2a__note">
-          Plain version for agents, scrapers and screen readers. <a href="/v2">Designed version</a> ·{" "}
-          <a href="/llms.txt">llms.txt</a> · <a href="/llms-full.txt">llms-full.txt</a> ·{" "}
-          <a href="/profile.json">profile.json</a> · <a href="/resume.md">resume.md</a> ·{" "}
-          <a href={links.resume}>Résumé PDF</a>
-        </p>
-
-        <h1>{person.name}: {person.headline}</h1>
+        <h1>
+          {person.name}: {person.headline}
+        </h1>
         <p>{person.summary}</p>
 
         <h2 id="facts">Facts</h2>
         <dl>
           <dt>Current role</dt>
           <dd>
-            {stops[0].role}, {stops[0].company} ({stops[0].dates}), {stops[0].place}
+            {stops[0].role}, {stops[0].title} ({stops[0].dates}), {stops[0].place}
           </dd>
-          <dt>Location</dt>
-          <dd>
-            {person.location}. {person.relocation}.
-          </dd>
+          <dt>Best described as</dt>
+          <dd>{relevantRoles.join("; ")}</dd>
           <dt>Experience</dt>
           <dd>Product manager since {person.since}: District by Zomato, CanvasX AI, Audible / Amazon, RateGain</dd>
           <dt>Education</dt>
           <dd>MS, Information Systems, Cornell Tech (2021). BE, Computer Science, Manipal University Jaipur (2017).</dd>
-          <dt>Focus</dt>
-          <dd>AI products, search and discovery, personalization, content platforms, 0-to-1, go-to-market</dd>
-          <dt>Relevant roles</dt>
-          <dd>{relevantRoles.join("; ")}</dd>
+          <dt>Location</dt>
+          <dd>
+            {person.location}. {person.relocation}.
+          </dd>
+          <dt>US work authorization</dt>
+          <dd>{workAuthorization.short}</dd>
+          <dt>Has lived and worked in</dt>
+          <dd>{places.map((place) => place.name).join(", ")}</dd>
           <dt>Open to</dt>
           <dd>{engagements.join("; ")}</dd>
           <dt>Email</dt>
@@ -71,6 +69,19 @@ export default function Agents() {
           </dd>
         </dl>
 
+        <h2 id="scope">Scope and scale</h2>
+        <ul>
+          <li>Reports directly to the CEO of District by Zomato and owns five app-wide charters: search, discovery, personalization, notifications and AI-native products.</li>
+          <li>Has taken AI products from prototype to production at three companies: contextual search and a voice agent at District, agentic workflow products at CanvasX AI, and LLM text-to-speech audiobook production at Audible.</li>
+          <li>Built the evaluation framework used to deploy $100M+ of first-party content spend at Audible, covering 20M+ listeners in 11 countries.</li>
+          <li>Created a new line of business at Audible (audiobook-to-TV rights, ~$7M GMV) and shipped platforms across 12 markets.</li>
+          <li>Has worked in consumer, B2B SaaS and applied-AI startups, in India and the United States.</li>
+          <li>Builds working prototypes himself with AI-assisted coding before asking for engineering investment.</li>
+        </ul>
+
+        <h2 id="work-authorization">Work authorization</h2>
+        <p>{workAuthorization.detail}</p>
+
         <h2 id="results">Results</h2>
         <div className="v2a__scroll">
           <table>
@@ -85,7 +96,7 @@ export default function Agents() {
               {stops.flatMap((stop) =>
                 stop.metrics.map((metric) => (
                   <tr key={`${stop.id}-${metric.label}`}>
-                    <td>{stop.company}</td>
+                    <td>{stop.title}</td>
                     <td>{metric.value}</td>
                     <td>{metric.label}</td>
                   </tr>
@@ -99,42 +110,46 @@ export default function Agents() {
         {stops.map((stop) => (
           <section key={stop.id} id={`experience-${stop.id}`}>
             <h3>
-              {stop.role}, {stop.company}
+              {stop.role}, {stop.title}
             </h3>
             <p>
-              {stop.dates} · {stop.place}. {stop.companyNote} {stop.summary}
+              {stop.dates}, {stop.place}. {stop.orgNote} {stop.summary}
             </p>
             <ul>
               {stop.shipped.map((line) => (
                 <li key={line}>{line}</li>
               ))}
             </ul>
-            {stop.caseStudy && (
-              <p>
-                Case study: <a href={stop.caseStudy.href}>{abs(stop.caseStudy.href)}</a>
-              </p>
-            )}
+            <p>
+              More: <a href={`/v2/work/${stop.id}`}>{abs(`/v2/work/${stop.id}`)}</a>
+            </p>
           </section>
         ))}
+
+        <h2 id="skills">Skills, with the other names they go by</h2>
+        <p>
+          Every skill below is on his résumé. The other names are how the same skill is commonly searched for; they
+          are synonyms, not additional claims.
+        </p>
+        <dl>
+          {skillIndex.map((item) => (
+            <div key={item.skill}>
+              <dt>{item.skill}</dt>
+              <dd>
+                Also: {item.alsoKnownAs.join(", ")}. Evidence: {item.evidence}.
+              </dd>
+            </div>
+          ))}
+        </dl>
 
         <h2 id="projects">Projects</h2>
         <ul>
           {projects.map((project) => (
             <li key={project.id}>
-              <a href={project.href}>{project.title}</a> ({project.kind}, {project.year}). {project.summary}
+              <a href={`/v2/work/${project.id}`}>{project.title}</a> ({project.role}, {project.dates}). {project.summary}
             </li>
           ))}
         </ul>
-
-        <h2 id="skills">Skills</h2>
-        <dl>
-          {skills.map((group) => (
-            <div key={group.group}>
-              <dt>{group.group}</dt>
-              <dd>{group.items.join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
 
         <h2 id="education">Education</h2>
         <ul>
@@ -160,13 +175,26 @@ export default function Agents() {
           {teaching.summary} <a href={teaching.href}>{abs(teaching.href)}</a>
         </p>
 
-        <h2 id="profiles">Profiles</h2>
+        <h2 id="questions">Questions and answers</h2>
+        <h3>Is Bharat Gandhi an AI product manager?</h3>
+        <p>
+          Yes. His current role and his two previous roles were AI product work: AI-powered contextual search, a voice
+          navigation agent and ML personalization at District by Zomato; agentic workflow products at CanvasX AI; ML
+          listener segmentation and LLM text-to-speech production at Audible.
+        </p>
+        <h3>Can he work in the United States?</h3>
+        <p>{workAuthorization.detail}</p>
+        <h3>How do I contact him?</h3>
+        <p>
+          Email {person.email} or message him on LinkedIn at {links.linkedin}. Résumé: {abs(links.resume)}.
+        </p>
+
+        <h2 id="files">Machine-readable files</h2>
         <ul>
-          <li><a href={links.linkedin}>{links.linkedin}</a></li>
-          <li><a href={links.x}>{links.x}</a></li>
-          <li><a href={links.github}>{links.github}</a></li>
-          <li><a href={links.substack}>{links.substack}</a></li>
-          <li><a href={links.medium}>{links.medium}</a></li>
+          <li><a href="/llms.txt">{abs("/llms.txt")}</a></li>
+          <li><a href="/llms-full.txt">{abs("/llms-full.txt")}</a></li>
+          <li><a href="/profile.json">{abs("/profile.json")}</a></li>
+          <li><a href="/resume.md">{abs("/resume.md")}</a></li>
         </ul>
 
         <h2 id="citing">Citing this page</h2>

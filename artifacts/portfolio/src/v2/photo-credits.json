@@ -1,0 +1,51 @@
+{
+  "photo-delhi": {
+    "title": "India Gate on an evening.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:India_Gate_on_an_evening.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Deepak TL"
+  },
+  "photo-gurugram": {
+    "title": "Cyber City Skyline.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Cyber_City_Skyline.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Himesh23"
+  },
+  "photo-nyc": {
+    "title": "Manhattan at night north of Rockefeller Center (11226).jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Manhattan_at_night_north_of_Rockefeller_Center_(11226).jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Rhododendrites"
+  },
+  "photo-sf": {
+    "title": "San Francisco skyline - dusk.JPG",
+    "page": "https://commons.wikimedia.org/wiki/File:San_Francisco_skyline_-_dusk.JPG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Basil D Soufi"
+  },
+  "photo-bengaluru": {
+    "title": "Vidhana Soudha in night 5.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Vidhana_Soudha_in_night_5.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Sai23ganesh"
+  },
+  "photo-cornell-tech-campus": {
+    "title": "Cornell Tech Campus September 22 2017.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Cornell_Tech_Campus_September_22_2017.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "GaoKyle"
+  },
+  "photo-cornell-tech-south": {
+    "title": "Cornell Tech south view jeh.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Cornell_Tech_south_view_jeh.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Jim.henderson"
+  }
+}

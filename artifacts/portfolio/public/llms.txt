@@ -1,23 +1,25 @@
 # Bharat Gandhi
 
-> Bharat Gandhi is a product manager who builds AI products and takes them to market. He is Platform Product Manager at District by Zomato (Eternal Ltd.), where he owns app-wide search, discovery, personalization, notifications and AI-native products and reports directly to the CEO. Previously he led product and growth in an advisory role at CanvasX AI, was Product Manager – Tech for Audible Originals and Content Systems at Amazon, and was a Product Manager at RateGain. He holds an MS in Information Systems from Cornell Tech.
+> Bharat Gandhi is an AI product manager who builds AI products and takes them to market. He is Platform Product Manager at District by Zomato (Eternal Ltd.), where he owns app-wide search, discovery, personalization, notifications and AI-native products and reports directly to the CEO. Previously he led product and growth in an advisory role at CanvasX AI, was Product Manager – Tech for Audible Originals and Content Systems at Amazon in New York, and was a Product Manager at RateGain. He holds an MS in Information Systems from Cornell Tech.
 
 Quick facts:
 
-- Current role: Platform Product Manager, District by Zomato (Apr 2026–Present), Gurugram
+- Current role: Platform Product Manager, District by Zomato (Apr 2026 to present), Gurugram
 - Based in: New Delhi, India. Open to relocation.
+- US work authorization: Holds a US H-1B work visa. Open to relocation.
+- Has lived and worked in: New Delhi, Gurugram, New York City, San Francisco, Bengaluru
 - Product manager since 2018. MS, Cornell Tech (2021).
 - Focus: AI products, search and discovery, personalization, content platforms, 0-to-1 and go-to-market
-- Relevant roles: AI Product Manager; Platform Product Manager; Search, discovery and personalization product lead; Product Manager – Technical; Head of Product or Growth at an early-stage AI company
+- Relevant roles: AI Product Manager; Senior Product Manager, AI; Platform Product Manager; Search, discovery and personalization product manager; Product Manager – Technical; Head of Product or Growth at an early-stage AI company
 - Contact: bharatgandhi.sf@gmail.com · https://linkedin.com/in/bdgandhi
 - Résumé: https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf
 
 ## Experience
 
-- **District by Zomato** (Apr 2026–Present), Platform Product Manager. Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.
-- **CanvasX AI** (Jan 2025–Apr 2026), Head of Product & Growth (Advisory). Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.
-- **Audible / Amazon** (Aug 2021–Dec 2024), Product Manager – Tech, Audible Originals & Content Systems. Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.
-- **RateGain** (Jan 2018–Jun 2019), Product Manager. Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.
+- **District by Zomato** (Apr 2026 to present), Platform Product Manager. Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.
+- **CanvasX AI** (Jan 2025 to Apr 2026), Head of Product & Growth (Advisory). Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.
+- **Audible** (Aug 2021 to Dec 2024), Product Manager – Tech, Audible Originals & Content Systems. Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.
+- **RateGain** (Jan 2018 to Jun 2019), Product Manager. Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.
 
 ## Pages
 
