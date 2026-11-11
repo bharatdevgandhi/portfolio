@@ -9,6 +9,22 @@ function escapeHtml(value: string) {
     .replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
+/**
+ * The v2 pages are not hydrated. Swap the app's script, stylesheet and web
+ * fonts for the small v2 entry recorded in the template at build time.
+ */
+function v2Shell(template: string) {
+  const assets = template.match(/<!--V2_ASSETS (.*?) V2_ASSETS-->/s)?.[1];
+  if (!assets) return template;
+  // Park a marker where the v2 files go, strip the app's files, then fill it.
+  const marker = "<!--v2-entry-->";
+  return template
+    .replace(/<!--V2_ASSETS .*? V2_ASSETS-->/s, marker)
+    .replace(/<script type="module"[^>]*><\/script>\s*/g, "")
+    .replace(/<link rel="(?:stylesheet|modulepreload|preconnect)"[^>]*>\s*/g, "")
+    .replace(marker, assets);
+}
+
 export function renderPage(template: string, pathname: string, now = Date.now()): string | null {
   const page = getSeoPages(now).find((item) => item.path === pathname);
   if (!page) return null;
@@ -45,11 +61,9 @@ export function renderPage(template: string, pathname: string, now = Date.now())
     `<script id="page-structured-data" type="application/ld+json">${graph}</script>`,
   ].join("\n    ");
   const markup = renderToString(<App ssrPath={page.path} renderTime={now} />);
-  // The v2 pages are complete without script, so the bundle yields to the
-  // lead image and fonts on slow connections.
   const shell = page.path.startsWith("/v2")
-    ? template.replace('<script type="module" crossorigin', '<script type="module" fetchpriority="low" crossorigin')
-    : template;
+    ? v2Shell(template)
+    : template.replace(/<!--V2_ASSETS .*? V2_ASSETS-->\s*/s, "");
   return shell.replace(
     /<!-- ROUTE_SEO_START -->[\s\S]*?<!-- ROUTE_SEO_END -->/,
     `<!-- ROUTE_SEO_START -->\n    ${head}\n    <!-- ROUTE_SEO_END -->`,

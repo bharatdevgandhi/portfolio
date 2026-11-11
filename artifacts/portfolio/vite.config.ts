@@ -56,6 +56,19 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    // The v2 pages get their own small entry instead of the whole app. The
+    // manifest tells the page renderer which files that entry produced.
+    manifest: !process.argv.includes("--ssr"),
+    ...(process.argv.includes("--ssr")
+      ? {}
+      : {
+          rollupOptions: {
+            input: {
+              main: path.resolve(import.meta.dirname, "index.html"),
+              v2: path.resolve(import.meta.dirname, "src/v2/client.ts"),
+            },
+          },
+        }),
   },
   server: {
     port,

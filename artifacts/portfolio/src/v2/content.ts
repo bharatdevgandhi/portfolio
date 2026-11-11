@@ -8,6 +8,8 @@
 // Keep this file dependency-free and free of non-erasable TypeScript syntax:
 // Node imports it directly (type stripping) when generating agent assets.
 
+import { extraEntries } from "./cards.generated.ts";
+
 export const origin = "https://www.bharatdevgandhi.com";
 
 export type Metric = { value: string; label: string };
@@ -30,6 +32,8 @@ export type Picture = {
   caption: string;
   width: number;
   height: number;
+  /** True when there is no half-size "-sm" copy of the file. */
+  single?: boolean;
   /** A looping capture, when the picture moves. `src` is its poster. */
   video?: { mp4: string; webm: string };
 };
@@ -62,6 +66,8 @@ export type Entry = {
   /** An organisation whose logo sits on the cover, when the picture is not theirs. */
   badge?: string;
   pictures: Picture[];
+  /** A page of its own, when the card is more than a card. Defaults to /v2/work/<id>. */
+  page?: string;
   /** A longer write-up elsewhere on the site. */
   story?: { href: string; label: string };
   external?: { href: string; label: string };
@@ -139,25 +145,23 @@ export const orgRow = ["district", "sketch", "audible", "amazon", "rategain", "c
 // ---------------------------------------------------------------------------
 // Adding things
 //
-// A new gallery block is one object in `entries` below. It gets a tile on the
-// home page, its own card at /v2/work/<id>, a place in the agent files and an
-// SEO entry, with no other code to touch.
+// The quick way: run
+//   pnpm --filter @workspace/portfolio run new:card -- "Name of the thing"
+// It creates content/cards/<name>.md from a template. Fill in the header and
+// the story, put the picture in public/media, and rebuild. No code to touch.
 //
-//   1. Copy the nearest entry and change the fields. `group` decides which
-//      filter it appears under: work, education, project or teaching.
-//   2. Put its picture in public/media and point `cover` at it. A cover can
-//      also be a logo ({ kind: "logo", org }) or a word ({ kind: "type", line }).
-//      Add `badge: "<org id>"` to put an organisation's logo on a picture.
-//   3. Write its story as two to four short chapters in chapters.ts, under
-//      the same id. Keep numbers out of `intro`; put them in `metrics`.
-//   4. A new organisation is one line in `orgs`, with its logo in
-//      public/media/logos.
+// The full way, for a card with several pictures, a video or a logo cover:
+// add one object to `coreEntries` below and its chapters to chapters.ts.
 //
-// Articles appear on their own: the Writing tiles come from the Substack and
-// Medium feeds at build time. A new place is one object in `places`.
+// Either way the card gets a tile on the home page, its own page at
+// /v2/work/<id>, a place in the agent files and an SEO entry.
+//
+// A new organisation is one line in `orgs`, with its logo in
+// public/media/logos. A new place is one object in `places`. Articles appear
+// on their own: the Writing tiles come from the Substack and Medium feeds.
 // ---------------------------------------------------------------------------
 
-export const entries: Entry[] = [
+const coreEntries: Entry[] = [
   {
     id: "district",
     group: "work",
@@ -501,48 +505,46 @@ export const entries: Entry[] = [
       picture: { src: "/media/gen-meditation.jpg", alt: "A meditation cushion on a mat in an empty room at dawn", caption: "", width: 928, height: 1152 },
     },
     pictures: [],
-    story: { href: "/meditation", label: "Teaching and workshops" },
+    page: "/v2/meditation",
   },
 ];
+
+/** Every card: the ones above, then any Markdown files in content/cards. */
+export const entries: Entry[] = [...coreEntries, ...extraEntries];
 
 export const entryById = (id: string) => entries.find((entry) => entry.id === id);
 export const stops = entries.filter((entry) => entry.group === "work");
 export const projects = entries.filter((entry) => entry.group === "project");
 export const current = stops[0];
 
-export type Place = { id: string; name: string; note: string; picture: Picture };
+export type Place = { id: string; name: string; picture: Picture };
 
-/** Places Bharat has lived and worked. Notes state only what the résumé supports. */
+/** Cities, in the order Bharat lists them. Names only. */
 export const places: Place[] = [
+  {
+    id: "new-york",
+    name: "New York",
+    picture: { src: "/media/thumb-nyc.jpg", alt: "Midtown Manhattan at night under a full moon", caption: "", width: 176, height: 176, single: true },
+  },
   {
     id: "new-delhi",
     name: "New Delhi",
-    note: "Home base",
-    picture: { src: "/media/photo-delhi.jpg", alt: "India Gate at dusk under an orange sky", caption: "India Gate", width: 1400, height: 933 },
-  },
-  {
-    id: "gurugram",
-    name: "Gurugram",
-    note: "District by Zomato",
-    picture: { src: "/media/photo-gurugram.jpg", alt: "Office towers in Gurugram's Cyber City", caption: "Cyber City", width: 719, height: 1600 },
-  },
-  {
-    id: "new-york-city",
-    name: "New York City",
-    note: "Audible and Cornell Tech",
-    picture: { src: "/media/photo-nyc.jpg", alt: "Midtown Manhattan at night under a full moon", caption: "Midtown at night", width: 1400, height: 1186 },
+    picture: { src: "/media/thumb-delhi.jpg", alt: "India Gate at dusk under an orange sky", caption: "", width: 176, height: 176, single: true },
   },
   {
     id: "san-francisco",
     name: "San Francisco",
-    note: "",
-    picture: { src: "/media/photo-sf.jpg", alt: "The San Francisco skyline at dusk with the Transamerica Pyramid", caption: "The skyline at dusk", width: 1400, height: 933 },
+    picture: { src: "/media/thumb-sf.jpg", alt: "The San Francisco skyline at dusk", caption: "", width: 176, height: 176, single: true },
   },
   {
     id: "bengaluru",
     name: "Bengaluru",
-    note: "",
-    picture: { src: "/media/photo-bengaluru.jpg", alt: "Vidhana Soudha in Bengaluru lit at night with light trails", caption: "Vidhana Soudha", width: 1400, height: 933 },
+    picture: { src: "/media/thumb-bengaluru.jpg", alt: "Vidhana Soudha in Bengaluru lit at night", caption: "", width: 176, height: 176, single: true },
+  },
+  {
+    id: "gurugram",
+    name: "Gurugram",
+    picture: { src: "/media/thumb-gurugram.jpg", alt: "Office towers in Gurugram", caption: "", width: 176, height: 176, single: true },
   },
 ];
 

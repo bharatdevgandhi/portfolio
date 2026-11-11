@@ -60,16 +60,28 @@ artifacts-monorepo/
 
 A redesign lives under `/v2` and does not change the current site. Every `/v2` route is `noindex` and absent from the sitemap until approved.
 
-- `/v2` — home: the original introduction and rising line, a logo row, a gallery with filters (including "For recruiters"), places and writing.
-- `/v2/work/:id` — one card per gallery entry: pictures, a short lede, results, the story in chapters, and one back button.
+- `/v2` — home: the original introduction and rising line, a drifting line of logos, a gallery with filters (including "For recruiters"), a short places strip and writing.
+- `/v2/work/:id` — one card per gallery entry: pictures, a short lede, tags, results, the story in chapters, and one back button.
+- `/v2/meditation` — the breathwork and meditation page in the v2 design, with every part of the current `/meditation` page (workshops with expiry, background, research note, questions, gallery) and the same analytics attributes. It is the page Instagram visitors should land on once v2 is promoted.
 - `/v2/agents` — plain semantic HTML for assistants, scrapers and screen readers. Not linked from the human pages.
 
-### Adding things
+### Adding a card
 
-- **A gallery block:** add one object to `entries` in `artifacts/portfolio/src/v2/content.ts` (the comment above the array lists the steps), put its picture in `public/media/`, and write its chapters in `src/v2/chapters.ts` under the same id. The tile, the card, the agent files and the SEO entry follow from that.
-- **An organisation:** one line in `orgs`, with the logo in `public/media/logos/`.
-- **A place:** one object in `places`.
-- **Articles:** nothing to do. Writing tiles come from the Substack and Medium feeds at build time.
+Run:
+
+```bash
+pnpm --filter @workspace/portfolio run new:card -- "Name of the thing"
+```
+
+This creates `artifacts/portfolio/content/cards/<name>.md` from `_template.md`. Fill in the header (title, group, role, dates, place, intro, tags, picture, results, link) and write the story under `##` headings. Put the picture in `artifacts/portfolio/public/media/` and rebuild. The tile, the card at `/v2/work/<name>`, the agent files and the SEO entry are generated. Delete the file to remove the card.
+
+For a card with several pictures, a video or a logo cover, add an object to `coreEntries` in `src/v2/content.ts` and its chapters to `src/v2/chapters.ts`.
+
+Other additions: an organisation is one line in `orgs` (logo in `public/media/logos/`); a place is one object in `places`; articles appear on their own from the Substack and Medium feeds at build time.
+
+### How the v2 pages load
+
+The v2 pages are server-rendered and not hydrated. They load one small entry (`src/v2/client.ts`, about 6 KB with its shared chunk, plus `v2.css`) instead of the app bundle. `scripts/prerender.mjs` reads the build manifest and records that entry in the page template; `src/entry-server.tsx` swaps it in for any path under `/v2`. Because of this, v2 components must not rely on React state, effects or event handlers: use plain HTML and CSS, and put anything that needs script in `client.ts`, found through a `data-` attribute.
 
 The same model generates the machine-readable files in `public/` (`llms.txt`, `llms-full.txt`, `resume.md`, `profile.json`, `credits.txt`, and the stable `Bharat_Gandhi_Resume.pdf`) via `pnpm --filter @workspace/portfolio run build:agent-assets`, which also runs during the build. Do not edit those generated files by hand.
 
@@ -80,8 +92,10 @@ Rules that hold for v2:
 - The rising line is a background motif. Do not label it or turn it into a timeline.
 - Do not show image sourcing on the pages. The Creative Commons photographs still need attribution, so it lives in `/credits.txt`, linked once from the footer and generated from `src/v2/photo-credits.json`.
 - Card copy in `chapters.ts` is first person and follows the humanizer checklist (github.com/blader/humanizer): no dashes, no staged contrasts. Résumé wording stays in `shipped`, which only the agent files use.
-- Media in `public/media/`: `shot-*` are captures of public sites, `photo-*` are Wikimedia Commons, `gen-*` were generated with Gemini, logos come from each organisation.
-- Fonts in `src/v2/fonts/` are custom cuts of Amstelvar (SIL OFL 1.1), named Gandhi Text and Gandhi Display.
+- Media in `public/media/`: `shot-*` are captures of public sites, `photo-*` and `thumb-*` are Wikimedia Commons, `gen-*` were generated with Gemini, logos come from each organisation.
+- Places show a name and a thumbnail only, in the order New York, New Delhi, San Francisco, Bengaluru, Gurugram.
+- Every tile and card carries tags: its kind first (Work, Project, Education, Teaching), then the entry's own.
+- One typeface, Gandhi Serif, in `src/v2/fonts/`: a custom cut of Amstelvar (SIL OFL 1.1) with weight and optical-size axes, so text and headings are the same letterforms.
 - The stylesheet was audited with Hallmark (github.com/Nutlope/hallmark): tokens only, 4px spacing scale, sentence-case labels.
 
 To promote: in `src/seo.ts` move the v2 page definitions to `/`, `/work/:id` and `/agents` and drop `noindex`; point those routes in `src/App.tsx` at the v2 components.

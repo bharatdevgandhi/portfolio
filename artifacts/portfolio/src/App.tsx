@@ -17,6 +17,7 @@ import V2Home from "./v2/V2Home";
 import Agents from "./v2/Agents";
 import Detail from "./v2/Detail";
 import { entryById } from "./v2/content";
+import V2Meditation from "./v2/Meditation";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,9 +41,10 @@ function Router({ renderTime }: { renderTime?: number }) {
       <Route path="/v2/work/:id">
         {(params) => {
           const entry = entryById(params.id);
-          return entry ? <Detail entry={entry} /> : <NotFound />;
+          return entry && !entry.page ? <Detail entry={entry} /> : <NotFound />;
         }}
       </Route>
+      <Route path="/v2/meditation"><V2Meditation initialTime={renderTime} /></Route>
       <Route path="/v2/agents" component={Agents} />
       <Route component={NotFound} />
     </Switch>

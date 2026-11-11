@@ -1,16 +1,26 @@
 import type React from "react";
-import { useEffect } from "react";
 import writing from "@/data/writing.json";
-import { trackEvent } from "@/lib/analytics";
 import { person, links, socials, orgs, orgRow, entries, places, education } from "./content";
 import type { Entry, Picture, Article, Cover } from "./content";
 import "./v2.css";
+
+// The v2 pages are server-rendered and are not hydrated: everything works
+// from the HTML and CSS alone. The few things that need script (analytics,
+// selecting "For recruiters" from a link) live in client.ts and find their
+// targets through data attributes, so nothing here uses hooks or handlers.
 
 const articles = (writing.articles as Article[]).slice(0, 5);
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const monthYear = (iso: string) => `${months[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
 export const external = { target: "_blank", rel: "noreferrer" } as const;
-export const entryHref = (id: string) => `/v2/work/${id}`;
+export const entryHref = (entry: Entry) => entry.page ?? `/v2/work/${entry.id}`;
+
+export const kindLabel: Record<Entry["group"], string> = {
+  work: "Work",
+  project: "Project",
+  education: "Education",
+  teaching: "Teaching",
+};
 
 /** Which gallery entry an organisation's logo leads to. */
 const orgEntry: Record<string, string> = {
@@ -26,12 +36,7 @@ const orgEntry: Record<string, string> = {
 
 export function ResumeLink({ location, className }: { location: string; className?: string }) {
   return (
-    <a
-      className={className}
-      href={links.resume}
-      download="Bharat_Gandhi_Resume.pdf"
-      onClick={() => trackEvent("resume_download_clicked", { location })}
-    >
+    <a className={className} href={links.resume} download="Bharat_Gandhi_Resume.pdf" data-resume={location}>
       Download résumé
     </a>
   );
@@ -52,14 +57,6 @@ export function Undercurrent() {
   );
 }
 
-/** Selects the "For recruiters" option in the gallery and brings it into view. */
-function showRecruiters() {
-  const option = document.getElementById("group-recruiters") as HTMLInputElement | null;
-  if (!option) return;
-  option.checked = true;
-  document.getElementById("work")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 export function Header() {
   return (
     <header className="v2-head">
@@ -72,14 +69,7 @@ export function Header() {
           <a href="#places">Places</a>
           <a href="#writing">Writing</a>
         </nav>
-        <a
-          className="v2-btn"
-          href="#recruiters"
-          onClick={(event) => {
-            event.preventDefault();
-            showRecruiters();
-          }}
-        >
+        <a className="v2-btn" href="#recruiters" data-show-recruiters>
           Recruiters
         </a>
       </div>
@@ -104,13 +94,13 @@ export function Frame({
     <span className="v2-frame">
       <img
         src={picture.src}
-        srcSet={`${small} ${Math.round(picture.width / 2)}w, ${picture.src} ${picture.width}w`}
-        sizes={sizes}
+        srcSet={picture.single ? undefined : `${small} ${Math.round(picture.width / 2)}w, ${picture.src} ${picture.width}w`}
+        sizes={picture.single ? undefined : sizes}
         alt={picture.alt}
         width={picture.width}
         height={picture.height}
         loading={eager ? "eager" : "lazy"}
-        fetchPriority={eager ? "high" : "auto"}
+        fetchPriority={eager && !picture.single ? "high" : "auto"}
         decoding="async"
       />
       {picture.video && (
@@ -123,7 +113,17 @@ export function Frame({
   );
 }
 
-export function CoverArt({ cover, sizes, eager, motionFrom }: { cover: Cover; sizes: string; eager?: boolean; motionFrom?: string }) {
+export function CoverArt({
+  cover,
+  sizes,
+  eager,
+  motionFrom,
+}: {
+  cover: Cover;
+  sizes: string;
+  eager?: boolean;
+  motionFrom?: string;
+}) {
   if (cover.kind === "picture") {
     return (
       <span className="v2-cover" style={{ aspectRatio: cover.ratio }}>
@@ -146,6 +146,19 @@ export function CoverArt({ cover, sizes, eager, motionFrom }: { cover: Cover; si
   );
 }
 
+export function Tags({ entry, limit }: { entry: Entry; limit?: number }) {
+  const tags = [kindLabel[entry.group], ...entry.tags.filter((tag) => tag !== kindLabel[entry.group])];
+  return (
+    <ul className="v2-tags" aria-label="Tags">
+      {(limit ? tags.slice(0, limit) : tags).map((tag, index) => (
+        <li key={tag} className={index === 0 ? "v2-tags__kind" : undefined}>
+          {tag}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Badge({ org }: { org: string }) {
   return (
     <span className="v2-badge">
@@ -156,7 +169,7 @@ function Badge({ org }: { org: string }) {
 
 function Tile({ entry, eager }: { entry: Entry; eager?: boolean }) {
   return (
-    <a className="v2-tile" data-group={entry.group} href={entryHref(entry.id)}>
+    <a className="v2-tile" data-group={entry.group} href={entryHref(entry)}>
       <span className="v2-tile__art">
         <CoverArt cover={entry.cover} sizes="(min-width: 900px) 380px, 50vw" eager={eager} />
         {entry.badge && <Badge org={entry.badge} />}
@@ -164,6 +177,7 @@ function Tile({ entry, eager }: { entry: Entry; eager?: boolean }) {
       <span className="v2-tile__text">
         <strong>{entry.title}</strong>
         <span>{entry.intro}</span>
+        <Tags entry={entry} limit={3} />
       </span>
     </a>
   );
@@ -182,6 +196,14 @@ const filters = [
 /** Shown only when "For recruiters" is selected. */
 function RecruiterCards() {
   const workOrgs = ["district", "sketch", "audible", "amazon", "rategain"];
+  const logo = (id: string, width: number) => (
+    <img
+      src={`/media/logos/${orgs[id].logo}`}
+      alt={`${orgs[id].name} logo`}
+      style={{ "--w": `${width}px` } as React.CSSProperties}
+      loading="lazy"
+    />
+  );
   return (
     <>
       <div className="v2-tile v2-note v2-note--lead" data-group="recruiters">
@@ -208,7 +230,7 @@ function RecruiterCards() {
         <ul className="v2-note__logos">
           {workOrgs.map((id) => (
             <li key={id}>
-              <img src={`/media/logos/${orgs[id].logo}`} alt={`${orgs[id].name} logo`} style={{ "--w": `${orgs[id].width}px` } as React.CSSProperties} loading="lazy" />
+              {logo(id, orgs[id].width)}
               {orgs[id].label && <span>{orgs[id].label}</span>}
             </li>
           ))}
@@ -219,13 +241,13 @@ function RecruiterCards() {
         <h3>Where I studied</h3>
         <ul className="v2-note__schools">
           <li>
-            <img src={`/media/logos/${orgs.cornelltech.logo}`} alt="Cornell Tech logo" style={{ "--w": "150px" } as React.CSSProperties} loading="lazy" />
+            {logo("cornelltech", 150)}
             <span>
               {education[0].degree}, {education[0].year}
             </span>
           </li>
           <li>
-            <img src={`/media/logos/${orgs.manipal.logo}`} alt="Manipal University Jaipur logo" style={{ "--w": "180px" } as React.CSSProperties} loading="lazy" />
+            {logo("manipal", 180)}
             <span>
               {education[1].degree}, {education[1].year}
             </span>
@@ -275,7 +297,10 @@ function Gallery() {
               <span className="v2-essay__date">{monthYear(article.date)}</span>
               <strong>{article.title}</strong>
               {article.excerpt && <span className="v2-essay__excerpt">{article.excerpt}</span>}
-              <span className="v2-essay__source">{article.source === "medium" ? "Medium" : "Substack"}</span>
+              <ul className="v2-tags" aria-label="Tags">
+                <li className="v2-tags__kind">Essay</li>
+                <li>{article.source === "medium" ? "Medium" : "Substack"}</li>
+              </ul>
             </a>
           ))}
           <figure className="v2-tile v2-tile--still" data-group="me">
@@ -295,22 +320,47 @@ function Gallery() {
   );
 }
 
+/** One line of logos that drifts sideways. The list is repeated so it loops. */
+function Marquee() {
+  const row = (hidden: boolean) => (
+    <ul aria-hidden={hidden || undefined}>
+      {orgRow.map((id) => (
+        <li key={id}>
+          <a href={`/v2/work/${orgEntry[id]}`} aria-label={orgs[id].name} tabIndex={hidden ? -1 : undefined}>
+            <img
+              src={`/media/logos/${orgs[id].logo}`}
+              alt={hidden ? "" : `${orgs[id].name} logo`}
+              style={{ "--w": `${orgs[id].width}px` } as React.CSSProperties}
+              decoding="async"
+            />
+            {orgs[id].label && <span>{orgs[id].label}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+  return (
+    <section className="v2-orgs" aria-label="Organisations">
+      <div className="v2-orgs__track">
+        {row(false)}
+        {row(true)}
+      </div>
+    </section>
+  );
+}
+
 function Places() {
   return (
-    <section className="v2-section" id="places" aria-labelledby="places-title">
-      <div className="v2-wrap">
-        <div className="v2-section__head">
-          <h2 id="places-title">Places</h2>
-          <p>Where I have lived and worked.</p>
-        </div>
-        <ul className="v2-places">
+    <section className="v2-section v2-section--slim" id="places" aria-labelledby="places-title">
+      <div className="v2-wrap v2-places">
+        <h2 id="places-title">Places</h2>
+        <ul>
           {places.map((place) => (
             <li key={place.id}>
-              <span className="v2-cover" style={{ aspectRatio: "3 / 4" }}>
-                <Frame picture={place.picture} sizes="(min-width: 900px) 230px, 60vw" />
+              <span className="v2-cover">
+                <Frame picture={place.picture} sizes="96px" eager />
               </span>
-              <strong>{place.name}</strong>
-              {place.note && <span>{place.note}</span>}
+              <span>{place.name}</span>
             </li>
           ))}
         </ul>
@@ -368,14 +418,6 @@ export function Footer() {
 }
 
 export default function V2Home() {
-  useEffect(() => {
-    const sync = () => {
-      if (window.location.hash === "#recruiters") showRecruiters();
-    };
-    sync();
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
-  }, []);
   return (
     <div className="v2">
       <Header />
@@ -398,24 +440,7 @@ export default function V2Home() {
             </ul>
           </div>
         </section>
-        <section className="v2-orgs" aria-label="Organisations">
-          <ul className="v2-wrap">
-            {orgRow.map((id) => (
-              <li key={id}>
-                <a href={entryHref(orgEntry[id])} aria-label={orgs[id].name}>
-                  <img
-                    src={`/media/logos/${orgs[id].logo}`}
-                    alt={`${orgs[id].name} logo`}
-                    style={{ "--w": `${orgs[id].width}px` } as React.CSSProperties}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  {orgs[id].label && <span>{orgs[id].label}</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <Marquee />
         <Gallery />
         <Places />
         <Writing />

@@ -9,9 +9,12 @@
 // To add a chapter, add an object. To add an entry, see "Adding things" in
 // content.ts.
 
+import { extraChapters } from "./cards.generated.ts";
+
 export type Chapter = { heading: string; body: string };
 
 export const chapters: Record<string, Chapter[]> = {
+  ...extraChapters,
   district: [
     {
       heading: "What I own",

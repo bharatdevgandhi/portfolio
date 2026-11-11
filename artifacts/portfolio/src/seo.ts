@@ -233,7 +233,9 @@ function clip(text: string, max: number) {
   return text.slice(0, text.lastIndexOf(" ", max)).replace(/[,.;:]$/, "");
 }
 
-const v2EntryPages: Omit<SeoPage, "structuredData">[] = v2.entries.map((entry) => ({
+const v2CardEntries = v2.entries.filter((entry) => !entry.page);
+
+const v2EntryPages: Omit<SeoPage, "structuredData">[] = v2CardEntries.map((entry) => ({
   path: `/v2/work/${entry.id}`,
   title: clip(`${entry.title}: ${entry.role}`, 44) + " | Bharat Gandhi",
   description: clip(`${entry.intro} ${entry.summary}`, 158),
@@ -301,7 +303,7 @@ const v2WorkList = {
       "@type": "CreativeWork",
       name: `${entry.title}: ${entry.role}`,
       description: entry.intro,
-      url: `${siteOrigin}/v2/work/${entry.id}`,
+      url: `${siteOrigin}${entry.page ?? `/v2/work/${entry.id}`}`,
       author: { "@id": personId },
     },
   })),
@@ -366,9 +368,59 @@ function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: (typeof v2.en
 
 const v2SeoPages: SeoPage[] = [
   { ...v2Home, structuredData: v2Profile(v2Home, false) },
-  ...v2EntryPages.map((page, index) => ({ ...page, structuredData: v2EntryData(page, v2.entries[index]) })),
+  ...v2EntryPages.map((page, index) => ({ ...page, structuredData: v2EntryData(page, v2CardEntries[index]) })),
   { ...v2Agents, structuredData: v2Profile(v2Agents, true) },
 ];
+
+const v2Meditation: Omit<SeoPage, "structuredData"> = {
+  path: "/v2/meditation",
+  title: "Breathwork & Meditation Workshops with Bharat Gandhi",
+  description:
+    "Breathwork and meditation for young adults with Bharat Gandhi: upcoming workshops, teaching background, programme links and participant questions.",
+  canonical: `${siteOrigin}/v2/meditation`,
+  ogType: "website",
+  noindex: true,
+  image: v2SocialImage,
+};
+
+function v2MeditationPage(events: Record<string, unknown>[]): SeoPage {
+  const service = {
+    "@type": "Service",
+    name: "Breathwork and meditation teaching",
+    serviceType: "Breathwork and meditation instruction",
+    description:
+      "Bharat Gandhi teaches SKY Campus Happiness in the US, and YES!+ and the Happiness Program of Art of Living in India.",
+    provider: { "@id": personId },
+    areaServed: ["United States", "India"],
+  };
+  return {
+    ...v2Meditation,
+    structuredData: [
+      person,
+      {
+        "@type": "WebPage",
+        "@id": `${v2Meditation.canonical}#webpage`,
+        url: v2Meditation.canonical,
+        name: v2Meditation.title,
+        description: v2Meditation.description,
+        isPartOf: { "@id": siteId },
+        about: { "@id": personId },
+        mainEntity: service,
+        inLanguage: "en",
+      },
+      ...events,
+      {
+        "@type": "FAQPage",
+        "@id": `${v2Meditation.canonical}#participant-questions`,
+        mainEntity: meditationFaqs.map(({ question, answer }) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: { "@type": "Answer", text: answer },
+        })),
+      },
+    ],
+  };
+}
 
 const worksByPath: Record<string, Record<string, unknown>> = {
   "/cornell": creativeWork(
@@ -492,7 +544,7 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
       ] : []),
     ],
   };
-}), ...v2SeoPages];
+}), ...v2SeoPages, v2MeditationPage(meditationEvents)];
 }
 
 export const seoPages = getSeoPages();
