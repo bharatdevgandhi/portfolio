@@ -16,6 +16,7 @@ import {
   relevantRoles,
   engagements,
   workAuthorization,
+  aiProductManagerAnswer,
   places,
 } from "./content.ts";
 import type { Article } from "./content.ts";
@@ -217,7 +218,7 @@ ${stops.map((stop) => `At ${stop.title}: ${stop.metrics[0].label}, ${stop.metric
 0-to-1 AI products (contextual search, voice agents, LLM text-to-speech production, agentic workflows), search and personalization on consumer platforms, content and marketplace systems, and go-to-market for early products.
 
 **Is Bharat Gandhi an AI product manager?**
-Yes. His current role and his two previous roles were AI product work: AI-powered contextual search, a voice navigation agent and ML personalization at District by Zomato; agentic workflow products at CanvasX AI; ML listener segmentation and LLM text-to-speech production at Audible.
+${aiProductManagerAnswer}
 
 **Can he work in the United States?**
 ${workAuthorization.detail}
@@ -276,7 +277,7 @@ export function renderProfileJson(articles: Article[]): string {
       profiles: [
         { network: "LinkedIn", username: "bdgandhi", url: links.linkedin },
         { network: "X", username: "bharaatobama", url: links.x },
-        { network: "GitHub", username: "bharatgandhi", url: links.github },
+        { network: "GitHub", username: "bharatdevgandhi", url: links.github },
         { network: "Substack", username: "bharatgandhi", url: links.substack },
         { network: "Medium", username: "bg445", url: links.medium },
       ],

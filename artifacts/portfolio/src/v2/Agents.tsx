@@ -11,6 +11,7 @@ import {
   relevantRoles,
   engagements,
   workAuthorization,
+  aiProductManagerAnswer,
   places,
 } from "./content";
 import type { Article } from "./content";
@@ -177,11 +178,7 @@ export default function Agents() {
 
         <h2 id="questions">Questions and answers</h2>
         <h3>Is Bharat Gandhi an AI product manager?</h3>
-        <p>
-          Yes. His current role and his two previous roles were AI product work: AI-powered contextual search, a voice
-          navigation agent and ML personalization at District by Zomato; agentic workflow products at CanvasX AI; ML
-          listener segmentation and LLM text-to-speech production at Audible.
-        </p>
+        <p>{aiProductManagerAnswer}</p>
         <h3>Can he work in the United States?</h3>
         <p>{workAuthorization.detail}</p>
         <h3>How do I contact him?</h3>

@@ -33,7 +33,7 @@ const person = {
     "https://x.com/bharaatobama",
     "https://bharatgandhi.substack.com",
     "https://bg445.medium.com/",
-    "https://github.com/bharatgandhi",
+    "https://github.com/bharatdevgandhi",
     "https://www.instagram.com/betterbharaat",
   ],
   worksFor: {
@@ -255,6 +255,28 @@ const v2WorkList = {
   })),
 };
 
+/**
+ * The "Questions and answers" section of /agents (src/v2/Agents.tsx), as data.
+ * The last two answers are built from the same content values the page
+ * renders. The first is prose written in the component itself, so it is
+ * repeated here; scripts/structured-data.test.mjs renders the page and fails
+ * if any answer below is not in its visible text.
+ */
+const agentsQuestions = [
+  {
+    question: "Is Bharat Gandhi an AI product manager?",
+    answer: v2.aiProductManagerAnswer,
+  },
+  {
+    question: "Can he work in the United States?",
+    answer: v2.workAuthorization.detail,
+  },
+  {
+    question: "How do I contact him?",
+    answer: `Email ${v2.person.email} or message him on LinkedIn at ${v2.links.linkedin}. Résumé: ${v2.origin}${v2.links.resume}.`,
+  },
+];
+
 function v2Profile(page: Omit<SeoPage, "structuredData">, agents: boolean) {
   return [
     ...(agents ? [] : [website]),
@@ -277,12 +299,62 @@ function v2Profile(page: Omit<SeoPage, "structuredData">, agents: boolean) {
       mainEntity: { "@id": personId },
       primaryImageOfPage: socialImage,
       inLanguage: "en",
-      ...(agents ? {} : { hasPart: [v2WorkList, writingList] }),
+      ...(agents ? { hasPart: { "@id": `${page.canonical}#questions` } } : { hasPart: [v2WorkList, writingList] }),
     },
+    ...(agents
+      ? [
+          {
+            "@type": "FAQPage",
+            "@id": `${page.canonical}#questions`,
+            url: `${page.canonical}#questions`,
+            isPartOf: { "@id": `${page.canonical}#webpage` },
+            mainEntity: agentsQuestions.map(({ question, answer }) => ({
+              "@type": "Question",
+              name: question,
+              acceptedAnswer: { "@type": "Answer", text: answer },
+            })),
+          },
+        ]
+      : []),
   ];
 }
 
-function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: (typeof v2.entries)[number]) {
+type V2Entry = (typeof v2.entries)[number];
+
+/**
+ * The period of an entry as an ISO 8601 interval, from its real "YYYY-MM"
+ * dates. A current role (endDate null) is open-ended: "2026-04/..".
+ */
+function entryPeriod(entry: V2Entry) {
+  if (!entry.startDate) return undefined;
+  return `${entry.startDate}/${entry.endDate ?? ".."}`;
+}
+
+/**
+ * For a job: the organisation, with the role he held there as an
+ * OrganizationRole (schema.org's Role pattern: Organization → member →
+ * OrganizationRole → member → Person). The first org on the entry is the one
+ * he worked for; any others stay in `about` as they were.
+ */
+function entryOrganizations(entry: V2Entry) {
+  return entry.orgs.map((id, index) => {
+    const org = { "@type": "Organization", name: v2.orgs[id].name, url: v2.orgs[id].url };
+    if (entry.group !== "work" || index !== 0 || !entry.startDate) return org;
+    return {
+      ...org,
+      member: {
+        "@type": "OrganizationRole",
+        roleName: entry.role,
+        startDate: entry.startDate,
+        ...(entry.endDate ? { endDate: entry.endDate } : {}),
+        member: { "@id": personId },
+      },
+    };
+  });
+}
+
+function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: V2Entry) {
+  const period = entryPeriod(entry);
   return [
     person,
     {
@@ -307,7 +379,8 @@ function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: (typeof v2.en
         description: entry.summary,
         author: { "@id": personId },
         keywords: entry.tags.join(", "),
-        about: entry.orgs.map((id) => ({ "@type": "Organization", name: v2.orgs[id].name, url: v2.orgs[id].url })),
+        ...(period ? { temporalCoverage: period } : {}),
+        about: entryOrganizations(entry),
       },
     },
   ];

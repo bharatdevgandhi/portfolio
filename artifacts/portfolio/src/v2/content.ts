@@ -107,12 +107,16 @@ export const workAuthorization = {
     "Bharat Gandhi holds a US H-1B work visa and has worked in the United States (Amazon/Audible, New York, 2021–2024). He is open to relocation, including to the US. For a US employer this is a simpler path than hiring a candidate with no US work visa; he can confirm the specifics of transfer and timing directly.",
 };
 
+/** The answer to "Is he an AI product manager?", shared by the agent page, its markup and the llms files. */
+export const aiProductManagerAnswer =
+  "Yes. His current role and his two previous roles were AI product work: AI-powered contextual search, a voice navigation agent and ML personalization at District by Zomato; agentic workflow products at CanvasX AI; ML listener segmentation and LLM text-to-speech production at Audible.";
+
 export const links = {
   linkedin: "https://linkedin.com/in/bdgandhi",
   x: "https://x.com/bharaatobama",
   substack: "https://bharatgandhi.substack.com",
   medium: "https://bg445.medium.com/",
-  github: "https://github.com/bharatgandhi",
+  github: "https://github.com/bharatdevgandhi",
   instagram: "https://www.instagram.com/betterbharaat",
   repo: "https://github.com/bharatdevgandhi/portfolio",
   /** Stable, human-readable URL. Copied from attached_assets at build time. */
