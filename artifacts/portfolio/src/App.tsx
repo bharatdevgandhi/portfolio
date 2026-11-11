@@ -7,12 +7,14 @@ import { getSeoPages, socialImage } from "./seo";
 import { useEffect, useState } from "react";
 
 import Home from "./pages/home";
-import CornellStory from "./pages/cornell";
-import AudibleStory from "./pages/audible";
-import RateGainStory from "./pages/rategain";
-import FuboStory from "./pages/fubo";
-import Meditation from "./pages/meditation";
 import NotFound from "./pages/not-found";
+import V2Home from "./v2/V2Home";
+import Agents from "./v2/Agents";
+import Detail from "./v2/Detail";
+import Meditation from "./v2/Meditation";
+import { entryById } from "./v2/content";
+
+export type Variant = "v1" | "v2";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,18 +25,30 @@ const queryClient = new QueryClient({
   },
 });
 
-function Router({ renderTime }: { renderTime?: number }) {
+function Router({ renderTime, variant }: { renderTime?: number; variant: Variant }) {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/cornell" component={CornellStory} />
-      <Route path="/audible" component={AudibleStory} />
-      <Route path="/rategain" component={RateGainStory} />
-      <Route path="/fubo" component={FuboStory} />
+      {/* The home is the gallery. The earlier home is served here only to
+          visitors the server has placed in the comparison group. */}
+      <Route path="/">{variant === "v1" ? <Home /> : <V2Home />}</Route>
+      <Route path="/v1" component={Home} />
+      <Route path="/work/:id">
+        {(params) => {
+          const entry = entryById(params.id);
+          return entry && !entry.page ? <Detail entry={entry} /> : <NotFound />;
+        }}
+      </Route>
       <Route path="/meditation"><Meditation initialTime={renderTime} /></Route>
+      <Route path="/agents" component={Agents} />
       <Route component={NotFound} />
     </Switch>
   );
+}
+
+/** Which home this visitor was given. The server writes it on <html>. */
+function currentVariant(): Variant {
+  if (typeof document === "undefined") return "v2";
+  return document.documentElement.dataset.variant === "v1" ? "v1" : "v2";
 }
 
 function SeoManager() {
@@ -70,10 +84,14 @@ function SeoManager() {
     setMeta('meta[property="og:description"]', "property", "og:description", page.description);
     setMeta('meta[property="og:type"]', "property", "og:type", page.ogType);
     setMeta('meta[property="og:url"]', "property", "og:url", page.canonical);
-    setMeta('meta[property="og:image"]', "property", "og:image", socialImage);
+    const image = page.image ?? socialImage;
+    setMeta('meta[property="og:image"]', "property", "og:image", image);
     setMeta('meta[name="twitter:title"]', "name", "twitter:title", page.title);
     setMeta('meta[name="twitter:description"]', "name", "twitter:description", page.description);
-    setMeta('meta[name="twitter:image"]', "name", "twitter:image", socialImage);
+    setMeta('meta[name="twitter:image"]', "name", "twitter:image", image);
+    const robots = document.head.querySelector('meta[name="robots"]');
+    if (page.noindex) setMeta('meta[name="robots"]', "name", "robots", "noindex, follow");
+    else robots?.remove();
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
@@ -99,7 +117,7 @@ function SeoManager() {
   return null;
 }
 
-function App({ ssrPath, renderTime }: { ssrPath?: string; renderTime?: number } = {}) {
+function App({ ssrPath, renderTime, variant }: { ssrPath?: string; renderTime?: number; variant?: Variant } = {}) {
   useAnalytics();
   return (
     <QueryClientProvider client={queryClient}>
@@ -108,7 +126,7 @@ function App({ ssrPath, renderTime }: { ssrPath?: string; renderTime?: number } 
           base={import.meta.env.BASE_URL.replace(/\/$/, "")}
           ssrPath={ssrPath}
         >
-          <Router renderTime={renderTime} />
+          <Router renderTime={renderTime} variant={variant ?? currentVariant()} />
           <SeoManager />
         </WouterRouter>
         <Toaster />

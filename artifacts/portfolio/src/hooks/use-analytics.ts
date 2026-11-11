@@ -1,7 +1,11 @@
 import { useEffect } from "react";
-import { trackLinkClick } from "@/lib/analytics";
+import { trackHomeView, trackLinkClick } from "@/lib/analytics";
 
 export function useAnalytics(): void {
+  useEffect(() => {
+    trackHomeView();
+  }, []);
+
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (event.type === "auxclick" && event.button !== 1) return;

@@ -11,7 +11,7 @@ const projects = [
     title: "Plaza — Startup during grad school",
     description:
       "Built Plaza during grad school — a consumer app for universal comments across the internet. Tried to invent something new every chance I got. Read the story of what we built and why it didn't work.",
-    href: "/cornell",
+    href: "/work/plaza",
     internal: true,
     accent: "primary" as const,
   },
@@ -30,7 +30,7 @@ const projects = [
     title: "Reinventing Live TV News — FuboTV × Cornell Tech",
     description:
       "Led UX research and product design to reimagine live TV news for cord-cutters. Ran ethnographic studies, identified the \"agency gap,\" and designed a multi-source viewing experience.",
-    href: "/fubo",
+    href: "/work/fubo",
     internal: true,
     accent: "primary" as const,
   },

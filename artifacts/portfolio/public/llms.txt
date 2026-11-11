@@ -1,54 +1,64 @@
 # Bharat Gandhi
 
-> Bharat Gandhi is a Platform Product Manager at District by Zomato (Eternal Ltd.). He builds search, discovery, personalization and AI-native products.
+> Bharat Gandhi is an AI product manager who builds AI products and takes them to market. He is Platform Product Manager at District by Zomato (Eternal Ltd.), where he owns app-wide search, discovery, personalization, notifications and AI-native products and reports directly to the CEO. Previously he led product and growth in an advisory role at CanvasX AI, was Product Manager – Tech for Audible Originals and Content Systems at Amazon in New York, and was a Product Manager at RateGain. He holds an MS in Information Systems from Cornell Tech.
 
-## Profile
+Quick facts:
 
-Bharat Gandhi is a product manager whose work spans consumer platforms, artificial intelligence, search, content systems and go-to-market strategy. At District by Zomato, he owns app-wide search, discovery, personalization, notifications and AI-native products, and reports directly to the CEO. He writes about technology, products and life, and teaches breathwork and meditation.
+- Current role: Platform Product Manager, District by Zomato (Apr 2026 to present), Gurugram
+- Based in: New Delhi, India. Open to relocation.
+- US work authorization: Holds a US H-1B work visa. Open to relocation.
+- Has lived and worked in: New York, New Delhi, San Francisco, Bengaluru, Gurugram
+- Product manager since 2018. MS, Cornell Tech (2021).
+- Focus: AI products, search and discovery, personalization, content platforms, 0-to-1 and go-to-market
+- Relevant roles: AI Product Manager; Senior Product Manager, AI; Platform Product Manager; Search, discovery and personalization product manager; Product Manager – Technical; Head of Product or Growth at an early-stage AI company
+- Contact: bharatgandhi.sf@gmail.com · https://linkedin.com/in/bdgandhi
+- Résumé: https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf
 
-## Career
+## Experience
 
-- **District by Zomato (Eternal Ltd.), April 2026–present** — Platform Product Manager. Launched AI-powered contextual search, reducing null-result searches from 7% to 1.8%, increasing search CTR by 5% and generating a 2% daily GMV uplift. ML-based homepage personalization increased inventory views by 30%. Also led work on voice-driven navigation, Indic-language movie translation, notifications and new discovery surfaces.
-- **CanvasX AI, January 2025–April 2026** — Head of Product & Growth (Advisory). Led product strategy, go-to-market, partnerships and forward deployment for agentic AI workflow products. Sketch was adopted by 25+ SMB teams in India. An agentic retail data-analysis product served 25,000 users and increased incentive-achievement rates by 8% within 60 days of launch.
-- **Audible / Amazon, August 2021–December 2024** — Product Manager – Tech, Audible Originals & Content Systems. Developed ML segmentation for 20M+ listeners across 11 countries; created an audiobook-to-TV rights business generating about $7M GMV; and built production systems that reduced audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets.
-- **RateGain, January 2018–June 2019** — Product Manager, after a January–June 2018 internship. Built travel-pricing products contributing to 40% revenue growth over three quarters. DataSURE raised successful scrape rates from 94% to 98% across 550+ bots and increased NPS by 25 points within two quarters.
+- **District by Zomato** (Apr 2026 to present), Platform Product Manager. Led the 0-to-1 launch of AI-powered contextual search, combining upgraded keyword retrieval with model-based intent understanding. Null-result searches fell from 7% to 1.8%, search CTR rose 5%, and daily GMV rose 2%.
+- **CanvasX AI** (Jan 2025 to Apr 2026), Head of Product & Growth (Advisory). Drove 0-to-1 product strategy and deployment for agentic AI products, translating customer workflows into production implementations across multiple markets.
+- **Audible** (Aug 2021 to Dec 2024), Product Manager – Tech, Audible Originals & Content Systems. Developed and operationalized ML segmentation of 20M+ listeners into 36 taste categories across Audible and Amazon in 11 countries. It became the standard evaluation framework for deploying $100M+ in first-party content production over 2 years.
+- **RateGain** (Jan 2018 to Jun 2019), Product Manager. Translated customer feedback into new data products, including one-click on-demand scraping, Airbnb pricing intelligence and pricing-difference previews, contributing to a 40% revenue increase over 3 quarters.
 
-## Education
+## Pages
 
-- **Cornell Tech, Cornell University, 2021** — MS, Information Systems (Jacobs Technion-Cornell dual MS).
-- **Manipal University Jaipur, 2017** — BE, Computer Science.
+- [Portfolio](https://www.bharatdevgandhi.com/): Work, projects, writing and contact.
+- [District by Zomato: Platform Product Manager](https://www.bharatdevgandhi.com/work/district): Search, discovery, personalization and AI-native products for Zomato's going-out app.
+- [CanvasX AI: Head of Product & Growth (Advisory)](https://www.bharatdevgandhi.com/work/canvasx): Product, pricing and go-to-market for agentic workflow products, including Sketch.
+- [Audible: Product Manager – Tech, Audible Originals & Content Systems](https://www.bharatdevgandhi.com/work/audible): Content intelligence, monetization and production platforms for Audible Originals.
+- [RateGain: Product Manager](https://www.bharatdevgandhi.com/work/rategain): Travel-pricing data products and the scraping infrastructure behind them.
+- [Cornell Tech: MS, Information Systems (Jacobs Technion-Cornell dual MS)](https://www.bharatdevgandhi.com/work/cornell-tech): A master's in Information Systems on Roosevelt Island, and a first startup.
+- [FuboTV × Cornell Tech: Product and UX research](https://www.bharatdevgandhi.com/work/fubo): Research into why cord-cutters skip live TV news, and a product built around viewer control.
+- [Plaza: Product and go-to-market](https://www.bharatdevgandhi.com/work/plaza): A Chrome extension that put a comment section on every page of the internet. It failed.
+- [Manipal University Jaipur: BE, Computer Science](https://www.bharatdevgandhi.com/work/manipal): Computer science, a filmmaking society, and the state's biggest student festival.
+- [MUJ Oneiros: Architect and organiser](https://www.bharatdevgandhi.com/work/oneiros): Rajasthan's biggest student-run cultural festival by footfall.
+- [Breathwork and meditation](https://www.bharatdevgandhi.com/meditation): Teaching and workshop updates.
+- [Full profile for assistants](https://www.bharatdevgandhi.com/agents): Every fact on one plain page.
 
-## Projects
+## Machine-readable
 
-- **Plaza** — A graduate-school startup exploring universal comments across the internet. Read the first-person Cornell Tech account: https://www.bharatdevgandhi.com/cornell
-- **FuboTV × Cornell Tech** — A project involving UX research and product design for a multi-source live TV news experience: https://www.bharatdevgandhi.com/fubo
-- **MUJ Oneiros** — A student-run cultural festival described in Bharat's portfolio as Rajasthan's largest by footfall, supported by a 300-student ecosystem producing weekly live events.
-
-## Breathwork and meditation
-
-Bharat describes himself as a 1,000-hour-trained breathwork and meditation instructor with SKY Campus Happiness. He teaches SKY Campus Happiness in the US, and YES!+ and the Happiness Program of Art of Living in India. His teaching focuses on accessible guided practice for young adults ages 18–35. No upcoming workshops are listed unless confirmed on the website.
-
-- Teaching and workshop page: https://www.bharatdevgandhi.com/meditation
-- Instagram: https://www.instagram.com/betterbharaat
+- [llms.txt](https://www.bharatdevgandhi.com/llms.txt): This index.
+- [llms-full.txt](https://www.bharatdevgandhi.com/llms-full.txt): Complete profile in one Markdown file.
+- [resume.md](https://www.bharatdevgandhi.com/resume.md): Résumé as Markdown.
+- [profile.json](https://www.bharatdevgandhi.com/profile.json): Résumé as JSON (JSON Resume schema).
+- [Résumé PDF](https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf): One page, for people.
 
 ## Writing
 
-- Substack: https://bharatgandhi.substack.com
-- Medium: https://bg445.medium.com/
-- Recent writing appears on the home page and links directly to the original publications.
+- [Substack](https://bharatgandhi.substack.com): essays on AI, products and life
+- [Medium](https://bg445.medium.com/): earlier essays
+- [The Death of 'Take It or Leave It](https://bharatgandhi.substack.com/p/the-death-of-take-it-or-leave-it) (2026-04-14)
+- [AI has been Single-Player. That’s about to Change.](https://bharatgandhi.substack.com/p/ai-has-been-single-player-thats-about) (2026-03-18)
+- [GPTs: Generational Poverty and Traumas](https://bharatgandhi.substack.com/p/gpts-generational-poverty-and-traumas) (2024-01-05)
 
-## Public pages
+## Profiles
 
-- Home and portfolio: https://www.bharatdevgandhi.com/
-- Audible/Amazon case study: https://www.bharatdevgandhi.com/audible
-- RateGain case study: https://www.bharatdevgandhi.com/rategain
-- Cornell Tech story: https://www.bharatdevgandhi.com/cornell
-- FuboTV project case study: https://www.bharatdevgandhi.com/fubo
-- Breathwork and meditation: https://www.bharatdevgandhi.com/meditation
+- [LinkedIn](https://linkedin.com/in/bdgandhi)
+- [X](https://x.com/bharaatobama)
+- [GitHub](https://github.com/bharatdevgandhi)
+- [Instagram](https://www.instagram.com/betterbharaat): breathwork and meditation
 
-## Profiles and contact
+## Optional
 
-- LinkedIn: https://linkedin.com/in/bdgandhi
-- X: https://x.com/bharaatobama
-- GitHub: https://github.com/bharatgandhi
-- Resume: Download the current PDF from the home page.
+- [Site source](https://github.com/bharatdevgandhi/portfolio): this site is open source
