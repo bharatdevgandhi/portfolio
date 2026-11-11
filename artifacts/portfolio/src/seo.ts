@@ -5,7 +5,7 @@ import * as v2 from "@/v2/content";
 export const siteOrigin = "https://www.bharatdevgandhi.com";
 export const personId = `${siteOrigin}/#person`;
 export const siteId = `${siteOrigin}/#website`;
-export const socialImage = `${siteOrigin}/opengraph.jpg`;
+export const socialImage = `${siteOrigin}/opengraph-v2.jpg`;
 
 export type SeoPage = {
   path: string;
@@ -110,23 +110,6 @@ function pageSchema(page: Omit<SeoPage, "structuredData">, mainEntity?: Record<s
   };
 }
 
-function creativeWork(
-  id: string,
-  name: string,
-  description: string,
-  about?: Record<string, unknown>[],
-) {
-  return {
-    "@type": "CreativeWork",
-    "@id": `${siteOrigin}${id}#work`,
-    name,
-    description,
-    url: `${siteOrigin}${id}`,
-    author: { "@id": personId },
-    ...(about ? { about } : {}),
-  };
-}
-
 const writingList = {
   "@type": "ItemList",
   name: "Selected writing by Bharat Gandhi",
@@ -149,44 +132,15 @@ const writingList = {
 
 const pageDefinitions: Omit<SeoPage, "structuredData">[] = [
   {
-    path: "/",
-    title: "Bharat Gandhi — Product Manager, AI & Platform",
+    // The earlier home page, kept so the two versions can be compared.
+    // It is never indexed; "/" is the address search engines see.
+    path: "/v1",
+    title: "Bharat Gandhi — Product Manager, AI & Platform (earlier version)",
     description:
-      "Bharat Gandhi is a Platform Product Manager at District by Zomato, building search, discovery, personalization and AI products. Explore his work, writing and meditation teaching.",
-    canonical: `${siteOrigin}/`,
+      "The earlier version of Bharat Gandhi's portfolio home page, kept for comparison with the current one.",
+    canonical: `${siteOrigin}/v1`,
     ogType: "website",
-  },
-  {
-    path: "/cornell",
-    title: "Cornell Tech Startup — What We Built and Why It Failed",
-    description:
-      "Bharat Gandhi reflects on a startup built during Cornell Tech graduate school, why the business did not work, and lessons on distribution and validation.",
-    canonical: `${siteOrigin}/cornell`,
-    ogType: "article",
-  },
-  {
-    path: "/audible",
-    title: "Audible Originals — Product Case Study by Bharat Gandhi",
-    description:
-      "Bharat Gandhi's Audible/Amazon case study covers listener segmentation, content operations, creator payments, audiobook localization and TV rights.",
-    canonical: `${siteOrigin}/audible`,
-    ogType: "article",
-  },
-  {
-    path: "/rategain",
-    title: "RateGain Travel Pricing — Product Case Study",
-    description:
-      "Bharat Gandhi's RateGain case study covers travel-pricing products, the DataSURE scraping framework and product work from 2018 to 2019.",
-    canonical: `${siteOrigin}/rategain`,
-    ogType: "article",
-  },
-  {
-    path: "/fubo",
-    title: "FuboTV × Cornell Tech — Live TV News Project",
-    description:
-      "A Cornell Tech project by Bharat Gandhi on UX research and product design for a multi-source live TV news experience with FuboTV.",
-    canonical: `${siteOrigin}/fubo`,
-    ogType: "article",
+    noindex: true,
   },
   {
     path: "/meditation",
@@ -198,33 +152,27 @@ const pageDefinitions: Omit<SeoPage, "structuredData">[] = [
   },
 ];
 
-// ---- v2 preview routes -------------------------------------------------
-// The redesign lives under /v2 until it is approved. These pages are noindex
-// and absent from the sitemap, so the live site's search presence does not
-// change. Promoting v2 means moving these definitions to "/", "/work/:id"
-// and "/agents" and dropping `noindex`.
-export const v2SocialImage = `${siteOrigin}/opengraph-v2.jpg`;
+// ---- the portfolio (v2) -------------------------------------------------
+// "/" is the gallery home, "/work/<id>" its cards and "/agents" the plain
+// profile for assistants. The home may also be served as the earlier version
+// to a share of visitors while the two are compared; see server/index.mjs.
 
 const v2Home: Omit<SeoPage, "structuredData"> = {
-  path: "/v2",
+  path: "/",
   title: "Bharat Gandhi: AI Product Manager, Search & Personalization",
   description:
     "AI product manager Bharat Gandhi: Platform PM at District by Zomato, previously Audible/Amazon and CanvasX AI. AI search, personalization and agentic products.",
-  canonical: `${siteOrigin}/v2`,
+  canonical: `${siteOrigin}/`,
   ogType: "website",
-  noindex: true,
-  image: v2SocialImage,
 };
 
 const v2Agents: Omit<SeoPage, "structuredData"> = {
-  path: "/v2/agents",
+  path: "/agents",
   title: "Bharat Gandhi, AI Product Manager: Profile, Skills, Results",
   description:
     "Full profile of AI product manager Bharat Gandhi: current role, measured results, experience, skills, education, work authorization, résumé and contact.",
-  canonical: `${siteOrigin}/v2/agents`,
+  canonical: `${siteOrigin}/agents`,
   ogType: "website",
-  noindex: true,
-  image: v2SocialImage,
 };
 
 /** Cuts at a word boundary so titles and descriptions fit a search result. */
@@ -236,13 +184,11 @@ function clip(text: string, max: number) {
 const v2CardEntries = v2.entries.filter((entry) => !entry.page);
 
 const v2EntryPages: Omit<SeoPage, "structuredData">[] = v2CardEntries.map((entry) => ({
-  path: `/v2/work/${entry.id}`,
+  path: `/work/${entry.id}`,
   title: clip(`${entry.title}: ${entry.role}`, 44) + " | Bharat Gandhi",
   description: clip(`${entry.intro} ${entry.summary}`, 158),
-  canonical: `${siteOrigin}/v2/work/${entry.id}`,
+  canonical: `${siteOrigin}/work/${entry.id}`,
   ogType: "article" as const,
-  noindex: true,
-  image: v2SocialImage,
 }));
 
 // A fuller Person for the profile pages: what a recruiter's search or an
@@ -254,7 +200,7 @@ const profilePerson = {
   givenName: v2.person.givenName,
   familyName: v2.person.familyName,
   description: v2.person.summary,
-  image: v2SocialImage,
+  image: socialImage,
   email: `mailto:${v2.person.email}`,
   address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" },
   homeLocation: { "@type": "City", name: "New Delhi" },
@@ -303,7 +249,7 @@ const v2WorkList = {
       "@type": "CreativeWork",
       name: `${entry.title}: ${entry.role}`,
       description: entry.intro,
-      url: `${siteOrigin}${entry.page ?? `/v2/work/${entry.id}`}`,
+      url: `${siteOrigin}${entry.page ?? `/work/${entry.id}`}`,
       author: { "@id": personId },
     },
   })),
@@ -311,6 +257,7 @@ const v2WorkList = {
 
 function v2Profile(page: Omit<SeoPage, "structuredData">, agents: boolean) {
   return [
+    ...(agents ? [] : [website]),
     agents
       ? {
           ...profilePerson,
@@ -328,7 +275,7 @@ function v2Profile(page: Omit<SeoPage, "structuredData">, agents: boolean) {
       isPartOf: { "@id": siteId },
       about: { "@id": personId },
       mainEntity: { "@id": personId },
-      primaryImageOfPage: v2SocialImage,
+      primaryImageOfPage: socialImage,
       inLanguage: "en",
       ...(agents ? {} : { hasPart: [v2WorkList, writingList] }),
     },
@@ -350,7 +297,7 @@ function v2EntryData(page: Omit<SeoPage, "structuredData">, entry: (typeof v2.en
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/v2` },
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
           { "@type": "ListItem", position: 2, name: entry.title, item: page.canonical },
         ],
       },
@@ -371,89 +318,6 @@ const v2SeoPages: SeoPage[] = [
   ...v2EntryPages.map((page, index) => ({ ...page, structuredData: v2EntryData(page, v2CardEntries[index]) })),
   { ...v2Agents, structuredData: v2Profile(v2Agents, true) },
 ];
-
-const v2Meditation: Omit<SeoPage, "structuredData"> = {
-  path: "/v2/meditation",
-  title: "Breathwork & Meditation Workshops with Bharat Gandhi",
-  description:
-    "Breathwork and meditation for young adults with Bharat Gandhi: upcoming workshops, teaching background, programme links and participant questions.",
-  canonical: `${siteOrigin}/v2/meditation`,
-  ogType: "website",
-  noindex: true,
-  image: v2SocialImage,
-};
-
-function v2MeditationPage(events: Record<string, unknown>[]): SeoPage {
-  const service = {
-    "@type": "Service",
-    name: "Breathwork and meditation teaching",
-    serviceType: "Breathwork and meditation instruction",
-    description:
-      "Bharat Gandhi teaches SKY Campus Happiness in the US, and YES!+ and the Happiness Program of Art of Living in India.",
-    provider: { "@id": personId },
-    areaServed: ["United States", "India"],
-  };
-  return {
-    ...v2Meditation,
-    structuredData: [
-      person,
-      {
-        "@type": "WebPage",
-        "@id": `${v2Meditation.canonical}#webpage`,
-        url: v2Meditation.canonical,
-        name: v2Meditation.title,
-        description: v2Meditation.description,
-        isPartOf: { "@id": siteId },
-        about: { "@id": personId },
-        mainEntity: service,
-        inLanguage: "en",
-      },
-      ...events,
-      {
-        "@type": "FAQPage",
-        "@id": `${v2Meditation.canonical}#participant-questions`,
-        mainEntity: meditationFaqs.map(({ question, answer }) => ({
-          "@type": "Question",
-          name: question,
-          acceptedAnswer: { "@type": "Answer", text: answer },
-        })),
-      },
-    ],
-  };
-}
-
-const worksByPath: Record<string, Record<string, unknown>> = {
-  "/cornell": creativeWork(
-    "/cornell",
-    "The Cornell Tech Attempt: What We Built and Why It Failed",
-    "A first-person account of building a startup during Cornell Tech graduate school and learning about distribution, commercial validation and product-market fit.",
-    [{ "@type": "Organization", name: "Cornell Tech, Cornell University" }],
-  ),
-  "/audible": creativeWork(
-    "/audible",
-    "Building the Backbone of Audible Originals",
-    "A case study of Bharat Gandhi's product work across Audible Originals content intelligence, monetization and production platforms.",
-    [
-      { "@type": "Organization", name: "Audible" },
-      { "@type": "Organization", name: "Amazon" },
-    ],
-  ),
-  "/rategain": creativeWork(
-    "/rategain",
-    "RateGain Travel Pricing Products and Scraping Infrastructure",
-    "A case study of Bharat Gandhi's travel-pricing product and scraping-infrastructure work at RateGain.",
-    [{ "@type": "Organization", name: "RateGain" }],
-  ),
-  "/fubo": creativeWork(
-    "/fubo",
-    "Reinventing Live TV News — FuboTV × Cornell Tech",
-    "A Cornell Tech project describing UX research and product design for a multi-source live news viewing experience.",
-    [
-      { "@type": "Organization", name: "FuboTV" },
-      { "@type": "Organization", name: "Cornell Tech, Cornell University" },
-    ],
-  ),
-};
 
 function getMeditationEvents(now: number) {
   return upcomingMeditationWorkshops.filter(
@@ -498,7 +362,6 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
   const meditationEvents = getMeditationEvents(now);
   return [...pageDefinitions.map((page) => {
   const mainEntity =
-    worksByPath[page.path] ??
     (page.path === "/meditation"
       ? {
           "@type": "Service",
@@ -513,7 +376,6 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
 
   const pageData = {
     ...pageSchema(page, mainEntity),
-    ...(page.path === "/" ? { hasPart: writingList } : {}),
     ...(page.path === "/meditation" ? {
       hasPart: [
         ...meditationEvents.map((event) => ({ "@id": event["@id"] })),
@@ -526,9 +388,7 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
     ...page,
     structuredData: [
       person,
-      ...(page.path === "/" ? [website] : []),
       pageData,
-      ...(worksByPath[page.path] ? [worksByPath[page.path]] : []),
       ...(page.path === "/meditation" ? [mainEntity] : []),
       ...(page.path === "/meditation" ? [
         ...meditationEvents,
@@ -544,7 +404,7 @@ export function getSeoPages(now = Date.now()): SeoPage[] {
       ] : []),
     ],
   };
-}), ...v2SeoPages, v2MeditationPage(meditationEvents)];
+}), ...v2SeoPages];
 }
 
 export const seoPages = getSeoPages();

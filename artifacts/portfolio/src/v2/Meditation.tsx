@@ -52,7 +52,7 @@ export default function Meditation({ initialTime }: { initialTime?: number } = {
           workshops.map(({ workshop, status }) => (
             <article className="v2-workshop" id={workshop.id} key={workshop.id} data-testid={`card-workshop-${workshop.id}`}>
               <p className="v2-workshop__status" data-testid={`status-workshop-${workshop.id}`}>
-                {status === "in-progress" ? "In progress. Check availability with the organiser." : "Upcoming, online"}
+                {status === "in-progress" ? "In progress · check availability with the organiser" : "Upcoming · online"}
               </p>
               <h3>{workshop.title}</h3>
               <dl className="v2-card__facts v2-card__facts--pairs">

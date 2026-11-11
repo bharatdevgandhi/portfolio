@@ -18,6 +18,8 @@ Zomato's going-out platform spanning dining-out, movies and live events (Eternal
 - Ran the push-notifications charter, lifting day-0 opt-ins by 8% through growth experiments, prioritized pushes and in-app reminders.
 - Started new discovery surfaces: in-app curations, maps and outing planning.
 
+More: https://www.bharatdevgandhi.com/work/district
+
 ### Head of Product & Growth (Advisory), CanvasX AI
 Jan 2025 to Apr 2026 · Remote, across India, the US and Europe
 
@@ -27,6 +29,8 @@ Applied-AI lab building agentic workflow products for SMBs. I led product strate
 - Architected the product, pricing and deployment model for Sketch, a multiplayer agentic workflow harness with credit-based consumption tiers and Bring Your Own Key options that balance inference cost, latency and output quality. Adopted by 25+ SMB teams in India.
 - Built the sales pipeline from scratch, including the first Fortune 100 prospect and SMB opportunities across India, Dubai and the EU.
 - Led forward deployment of an agentic data-analysis product for an omnichannel retail client with 25,000 users, increasing incentive-achievement rates by 8% within 60 days of launch.
+
+More: https://www.bharatdevgandhi.com/work/canvasx
 
 ### Product Manager – Tech, Audible Originals & Content Systems, Audible
 Aug 2021 to Dec 2024 · New York City
@@ -39,6 +43,8 @@ Audible Originals and Studios at Amazon, across global marketplaces. I owned the
 - Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.
 - Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.
 
+More: https://www.bharatdevgandhi.com/work/audible
+
 ### Product Manager, RateGain
 Jan 2018 to Jun 2019 · Noida
 
@@ -48,6 +54,8 @@ B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an
 - Launched geo-located scraping and won customers across the US, EMEA and APAC.
 - Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
 - As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
+
+More: https://www.bharatdevgandhi.com/work/rategain
 
 ## Education
 

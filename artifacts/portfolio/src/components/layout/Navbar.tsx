@@ -8,7 +8,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location] = useLocation();
-  const isHome = location === "/";
+  const isHome = location === "/" || location === "/v1";
 
   useEffect(() => {
     const handleScroll = () => {

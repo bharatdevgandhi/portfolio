@@ -1,7 +1,7 @@
 // The only script the v2 pages load. They are complete without it; this adds
 // analytics and one convenience, in a few hundred bytes instead of the app.
 import "./v2.css";
-import { trackEvent, trackLinkClick } from "@/lib/analytics";
+import { trackEvent, trackHomeView, trackLinkClick } from "@/lib/analytics";
 
 function showRecruiters() {
   const option = document.getElementById("group-recruiters") as HTMLInputElement | null;
@@ -32,6 +32,7 @@ function onClick(event: MouseEvent) {
 
 document.addEventListener("click", onClick, true);
 document.addEventListener("auxclick", onClick, true);
+trackHomeView();
 if (window.location.hash === "#recruiters") showRecruiters();
 window.addEventListener("hashchange", () => {
   if (window.location.hash === "#recruiters") showRecruiters();

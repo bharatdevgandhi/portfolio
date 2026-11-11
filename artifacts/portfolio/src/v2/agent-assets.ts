@@ -6,6 +6,7 @@ import {
   origin,
   person,
   links,
+  entries,
   stops,
   projects,
   education,
@@ -24,11 +25,11 @@ const resumeUrl = abs(links.resume);
 
 const publicPages = [
   { title: "Portfolio", href: "/", note: "Work, projects, writing and contact." },
-  { title: "Audible / Amazon case study", href: "/audible", note: "Listener segmentation, content operations, creator payments, TV rights, TTS localization." },
-  { title: "RateGain case study", href: "/rategain", note: "Travel-pricing products and the DataSURE scraping framework." },
-  { title: "Plaza: the Cornell Tech startup", href: "/cornell", note: "First-person account of a failed grad-school startup." },
-  { title: "FuboTV × Cornell Tech", href: "/fubo", note: "UX research and product design for live TV news." },
+  ...entries
+    .filter((entry) => !entry.page)
+    .map((entry) => ({ title: `${entry.title}: ${entry.role}`, href: `/work/${entry.id}`, note: entry.intro })),
   { title: "Breathwork and meditation", href: "/meditation", note: "Teaching and workshop updates." },
+  { title: "Full profile for assistants", href: "/agents", note: "Every fact on one plain page." },
 ];
 
 const machineFiles = [
@@ -46,7 +47,7 @@ function experienceMarkdown(detail: "short" | "full") {
       const bullets = (detail === "full" ? stop.shipped : stop.shipped.slice(0, 2))
         .map((line) => `- ${line}`)
         .join("\n");
-      const more = stop.story ? `\n\nCase study: ${abs(stop.story.href)}` : "";
+      const more = `\n\nMore: ${abs(`/work/${stop.id}`)}`;
       return `${head}\n\n${bullets}${more}`;
     })
     .join("\n\n");
@@ -156,7 +157,7 @@ ${metricsTable()}
 ## Projects
 
 ${projects
-  .map((project) => `- **${project.title}** (${project.role}, ${project.dates}). ${project.summary}${project.story ? ` ${abs(project.story.href)}` : ""}`)
+  .map((project) => `- **${project.title}** (${project.role}, ${project.dates}). ${project.summary} ${abs(`/work/${project.id}`)}`)
   .join("\n")}
 
 ## Education
@@ -289,7 +290,7 @@ export function renderProfileJson(articles: Article[]): string {
       ...(stop.endDate ? { endDate: stop.endDate } : {}),
       summary: stop.summary,
       highlights: stop.shipped,
-      ...(stop.story ? { url: abs(stop.story.href) } : {}),
+      url: abs(`/work/${stop.id}`),
     })),
     education: [
       {
@@ -310,7 +311,7 @@ export function renderProfileJson(articles: Article[]): string {
       name: project.title,
       description: project.summary,
       roles: [project.role],
-      ...(project.story ? { url: abs(project.story.href) } : {}),
+      url: abs(`/work/${project.id}`),
     })),
     publications: articles.map((article) => ({
       name: article.title,

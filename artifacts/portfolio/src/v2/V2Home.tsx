@@ -1,5 +1,6 @@
 import type React from "react";
 import writing from "@/data/writing.json";
+import resumeUrl from "@assets/Bharat_Gandhi_Resume_sep26_1792770271972.pdf?url";
 import { person, links, socials, orgs, orgRow, entries, places, education } from "./content";
 import type { Entry, Picture, Article, Cover } from "./content";
 import "./v2.css";
@@ -13,7 +14,7 @@ const articles = (writing.articles as Article[]).slice(0, 5);
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const monthYear = (iso: string) => `${months[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
 export const external = { target: "_blank", rel: "noreferrer" } as const;
-export const entryHref = (entry: Entry) => entry.page ?? `/v2/work/${entry.id}`;
+export const entryHref = (entry: Entry) => entry.page ?? `/work/${entry.id}`;
 
 export const kindLabel: Record<Entry["group"], string> = {
   work: "Work",
@@ -36,7 +37,7 @@ const orgEntry: Record<string, string> = {
 
 export function ResumeLink({ location, className }: { location: string; className?: string }) {
   return (
-    <a className={className} href={links.resume} download="Bharat_Gandhi_Resume.pdf" data-resume={location}>
+    <a className={className} href={resumeUrl} download="Bharat_Gandhi_Resume.pdf" data-resume={location}>
       Download résumé
     </a>
   );
@@ -61,7 +62,7 @@ export function Header() {
   return (
     <header className="v2-head">
       <div className="v2-wrap v2-head__row">
-        <a className="v2-head__home" href="/v2">
+        <a className="v2-head__home" href="/">
           Home
         </a>
         <nav className="v2-head__nav" aria-label="Sections">
@@ -326,7 +327,7 @@ function Marquee() {
     <ul aria-hidden={hidden || undefined}>
       {orgRow.map((id) => (
         <li key={id}>
-          <a href={`/v2/work/${orgEntry[id]}`} aria-label={orgs[id].name} tabIndex={hidden ? -1 : undefined}>
+          <a href={`/work/${orgEntry[id]}`} aria-label={orgs[id].name} tabIndex={hidden ? -1 : undefined}>
             <img
               src={`/media/logos/${orgs[id].logo}`}
               alt={hidden ? "" : `${orgs[id].name} logo`}

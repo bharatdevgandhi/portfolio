@@ -121,7 +121,7 @@ export default function Agents() {
               ))}
             </ul>
             <p>
-              More: <a href={`/v2/work/${stop.id}`}>{abs(`/v2/work/${stop.id}`)}</a>
+              More: <a href={`/work/${stop.id}`}>{abs(`/work/${stop.id}`)}</a>
             </p>
           </section>
         ))}
@@ -146,7 +146,7 @@ export default function Agents() {
         <ul>
           {projects.map((project) => (
             <li key={project.id}>
-              <a href={`/v2/work/${project.id}`}>{project.title}</a> ({project.role}, {project.dates}). {project.summary}
+              <a href={`/work/${project.id}`}>{project.title}</a> ({project.role}, {project.dates}). {project.summary}
             </li>
           ))}
         </ul>

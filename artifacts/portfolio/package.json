@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "export PORT=\"${PORT:-4173}\" BASE_PATH=\"${BASE_PATH:-/}\" && node scripts/sync-writing.mjs && node scripts/build-cards.mjs && node --test scripts/agent-assets.test.mjs scripts/build-cards.test.mjs && node scripts/build-agent-assets.mjs && vite build --config vite.config.ts && vite build --config vite.config.ts --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/check-seo.mjs && node --test scripts/server.test.mjs",
+    "build": "export PORT=\"${PORT:-4173}\" BASE_PATH=\"${BASE_PATH:-/}\" && node scripts/sync-writing.mjs && node scripts/build-cards.mjs && node --test scripts/agent-assets.test.mjs scripts/build-cards.test.mjs && node scripts/build-agent-assets.mjs && vite build --config vite.config.ts && vite build --config vite.config.ts --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/check-seo.mjs && node --test scripts/server.test.mjs scripts/home-split.test.mjs",
     "refresh:writing": "node scripts/sync-writing.mjs",
     "build:agent-assets": "node scripts/build-agent-assets.mjs",
     "build:cards": "node scripts/build-cards.mjs",

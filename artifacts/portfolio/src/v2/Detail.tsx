@@ -26,7 +26,7 @@ export function CardShell({
       <main className="v2-stage">
         <article className="v2-card">
           <div className="v2-card__bar">
-            <a className="v2-back" href="/v2#work">
+            <a className="v2-back" href="/#work">
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                 <path d="M15 5l-7 7 7 7" />
               </svg>

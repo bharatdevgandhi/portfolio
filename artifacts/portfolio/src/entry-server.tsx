@@ -25,7 +25,18 @@ function v2Shell(template: string) {
     .replace(marker, assets);
 }
 
-export function renderPage(template: string, pathname: string, now = Date.now()): string | null {
+export type HomeVariant = "v1" | "v2";
+
+/**
+ * Renders one page. `variant` only matters for "/": "v1" serves the earlier
+ * home there, for the share of visitors the server put in the comparison.
+ */
+export function renderPage(
+  template: string,
+  pathname: string,
+  now = Date.now(),
+  variant: HomeVariant = "v2",
+): string | null {
   const page = getSeoPages(now).find((item) => item.path === pathname);
   if (!page) return null;
   if (!template.includes("ROUTE_SEO_START") || !template.includes("ROUTE_SEO_END")
@@ -60,10 +71,11 @@ export function renderPage(template: string, pathname: string, now = Date.now())
     `<meta name="twitter:image" content="${image}" />`,
     `<script id="page-structured-data" type="application/ld+json">${graph}</script>`,
   ].join("\n    ");
-  const markup = renderToString(<App ssrPath={page.path} renderTime={now} />);
-  const shell = page.path.startsWith("/v2")
-    ? v2Shell(template)
-    : template.replace(/<!--V2_ASSETS .*? V2_ASSETS-->\s*/s, "");
+  // The earlier home needs the app bundle; every other page is the portfolio.
+  const earlier = page.path === "/v1" || (page.path === "/" && variant === "v1");
+  const markup = renderToString(<App ssrPath={page.path} renderTime={now} variant={earlier ? "v1" : "v2"} />);
+  const shell = (earlier ? template.replace(/<!--V2_ASSETS .*? V2_ASSETS-->\s*/s, "") : v2Shell(template))
+    .replace("<html lang=\"en\">", `<html lang="en" data-variant="${earlier ? "v1" : "v2"}">`);
   return shell.replace(
     /<!-- ROUTE_SEO_START -->[\s\S]*?<!-- ROUTE_SEO_END -->/,
     `<!-- ROUTE_SEO_START -->\n    ${head}\n    <!-- ROUTE_SEO_END -->`,

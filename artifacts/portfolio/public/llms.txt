@@ -24,11 +24,17 @@ Quick facts:
 ## Pages
 
 - [Portfolio](https://www.bharatdevgandhi.com/): Work, projects, writing and contact.
-- [Audible / Amazon case study](https://www.bharatdevgandhi.com/audible): Listener segmentation, content operations, creator payments, TV rights, TTS localization.
-- [RateGain case study](https://www.bharatdevgandhi.com/rategain): Travel-pricing products and the DataSURE scraping framework.
-- [Plaza: the Cornell Tech startup](https://www.bharatdevgandhi.com/cornell): First-person account of a failed grad-school startup.
-- [FuboTV × Cornell Tech](https://www.bharatdevgandhi.com/fubo): UX research and product design for live TV news.
+- [District by Zomato: Platform Product Manager](https://www.bharatdevgandhi.com/work/district): Search, discovery, personalization and AI-native products for Zomato's going-out app.
+- [CanvasX AI: Head of Product & Growth (Advisory)](https://www.bharatdevgandhi.com/work/canvasx): Product, pricing and go-to-market for agentic workflow products, including Sketch.
+- [Audible: Product Manager – Tech, Audible Originals & Content Systems](https://www.bharatdevgandhi.com/work/audible): Content intelligence, monetization and production platforms for Audible Originals.
+- [RateGain: Product Manager](https://www.bharatdevgandhi.com/work/rategain): Travel-pricing data products and the scraping infrastructure behind them.
+- [Cornell Tech: MS, Information Systems (Jacobs Technion-Cornell dual MS)](https://www.bharatdevgandhi.com/work/cornell-tech): A master's in Information Systems on Roosevelt Island, and a first startup.
+- [FuboTV × Cornell Tech: Product and UX research](https://www.bharatdevgandhi.com/work/fubo): Research into why cord-cutters skip live TV news, and a product built around viewer control.
+- [Plaza: Product and go-to-market](https://www.bharatdevgandhi.com/work/plaza): A Chrome extension that put a comment section on every page of the internet. It failed.
+- [Manipal University Jaipur: BE, Computer Science](https://www.bharatdevgandhi.com/work/manipal): Computer science, a filmmaking society, and the state's biggest student festival.
+- [MUJ Oneiros: Architect and organiser](https://www.bharatdevgandhi.com/work/oneiros): Rajasthan's biggest student-run cultural festival by footfall.
 - [Breathwork and meditation](https://www.bharatdevgandhi.com/meditation): Teaching and workshop updates.
+- [Full profile for assistants](https://www.bharatdevgandhi.com/agents): Every fact on one plain page.
 
 ## Machine-readable
 

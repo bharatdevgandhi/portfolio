@@ -10,14 +10,35 @@ declare global {
   }
 }
 
+/** Which home this visitor was given, written on <html> by the server. */
+export function siteVersion(): "v1" | "v2" {
+  if (typeof document === "undefined") return "v2";
+  return document.documentElement.dataset.variant === "v1" ? "v1" : "v2";
+}
+
 export function trackEvent(name: string, data?: AnalyticsData): void {
   if (typeof window === "undefined") return;
   try {
-    const result = window.umami?.track(name, data);
+    // Every event carries the version, so results can be split by it.
+    const result = window.umami?.track(name, { ...data, site_version: siteVersion() });
     if (result) void Promise.resolve(result).catch(() => {});
   } catch {
     // Analytics must never interrupt navigation or other app behavior.
   }
+}
+
+/**
+ * Records one view of the home page with its version: the denominator when
+ * comparing the two. The tracker loads after the page, so wait briefly for it.
+ */
+export function trackHomeView(): void {
+  if (typeof window === "undefined" || window.location.pathname !== "/") return;
+  let tries = 0;
+  const send = () => {
+    if (window.umami) trackEvent("home_viewed");
+    else if (++tries < 20) window.setTimeout(send, 250);
+  };
+  send();
 }
 
 // Only public destination paths are included; never queries, email addresses,

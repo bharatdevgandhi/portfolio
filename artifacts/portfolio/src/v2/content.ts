@@ -66,7 +66,7 @@ export type Entry = {
   /** An organisation whose logo sits on the cover, when the picture is not theirs. */
   badge?: string;
   pictures: Picture[];
-  /** A page of its own, when the card is more than a card. Defaults to /v2/work/<id>. */
+  /** A page of its own, when the card is more than a card. Defaults to /work/<id>. */
   page?: string;
   /** A longer write-up elsewhere on the site. */
   story?: { href: string; label: string };
@@ -154,7 +154,7 @@ export const orgRow = ["district", "sketch", "audible", "amazon", "rategain", "c
 // add one object to `coreEntries` below and its chapters to chapters.ts.
 //
 // Either way the card gets a tile on the home page, its own page at
-// /v2/work/<id>, a place in the agent files and an SEO entry.
+// /work/<id>, a place in the agent files and an SEO entry.
 //
 // A new organisation is one line in `orgs`, with its logo in
 // public/media/logos. A new place is one object in `places`. Articles appear
@@ -505,7 +505,7 @@ const coreEntries: Entry[] = [
       picture: { src: "/media/gen-meditation.jpg", alt: "A meditation cushion on a mat in an empty room at dawn", caption: "", width: 928, height: 1152 },
     },
     pictures: [],
-    page: "/v2/meditation",
+    page: "/meditation",
   },
 ];
 

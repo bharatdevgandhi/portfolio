@@ -37,6 +37,8 @@ Zomato's going-out platform spanning dining-out, movies and live events (Eternal
 - Ran the push-notifications charter, lifting day-0 opt-ins by 8% through growth experiments, prioritized pushes and in-app reminders.
 - Started new discovery surfaces: in-app curations, maps and outing planning.
 
+More: https://www.bharatdevgandhi.com/work/district
+
 ### Head of Product & Growth (Advisory), CanvasX AI
 Jan 2025 to Apr 2026 · Remote, across India, the US and Europe
 
@@ -46,6 +48,8 @@ Applied-AI lab building agentic workflow products for SMBs. I led product strate
 - Architected the product, pricing and deployment model for Sketch, a multiplayer agentic workflow harness with credit-based consumption tiers and Bring Your Own Key options that balance inference cost, latency and output quality. Adopted by 25+ SMB teams in India.
 - Built the sales pipeline from scratch, including the first Fortune 100 prospect and SMB opportunities across India, Dubai and the EU.
 - Led forward deployment of an agentic data-analysis product for an omnichannel retail client with 25,000 users, increasing incentive-achievement rates by 8% within 60 days of launch.
+
+More: https://www.bharatdevgandhi.com/work/canvasx
 
 ### Product Manager – Tech, Audible Originals & Content Systems, Audible
 Aug 2021 to Dec 2024 · New York City
@@ -58,6 +62,8 @@ Audible Originals and Studios at Amazon, across global marketplaces. I owned the
 - Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.
 - Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.
 
+More: https://www.bharatdevgandhi.com/work/audible
+
 ### Product Manager, RateGain
 Jan 2018 to Jun 2019 · Noida
 
@@ -67,6 +73,8 @@ B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an
 - Launched geo-located scraping and won customers across the US, EMEA and APAC.
 - Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
 - As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
+
+More: https://www.bharatdevgandhi.com/work/rategain
 
 ## Results
 
@@ -93,9 +101,9 @@ B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an
 
 ## Projects
 
-- **FuboTV × Cornell Tech** (Product and UX research, 2019). FuboTV asked a Cornell Tech team why younger viewers were not watching live news. We ran a multi-week ethnographic study across New York City, found that viewers felt held hostage by a single channel's schedule, and designed a multi-source experience that put them in control.
-- **Plaza** (Product and go-to-market, 2019 to 2021). Plaza (plaza.app) was a Chrome extension for commenting on any page on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.
-- **MUJ Oneiros** (Architect and organiser, 2013 to 2017). I architected Rajasthan's biggest student-run cultural festival by footfall in a single iteration, on top of an ecosystem of 300 students producing weekly live events.
+- **FuboTV × Cornell Tech** (Product and UX research, 2019). FuboTV asked a Cornell Tech team why younger viewers were not watching live news. We ran a multi-week ethnographic study across New York City, found that viewers felt held hostage by a single channel's schedule, and designed a multi-source experience that put them in control. https://www.bharatdevgandhi.com/work/fubo
+- **Plaza** (Product and go-to-market, 2019 to 2021). Plaza (plaza.app) was a Chrome extension for commenting on any page on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it. https://www.bharatdevgandhi.com/work/plaza
+- **MUJ Oneiros** (Architect and organiser, 2013 to 2017). I architected Rajasthan's biggest student-run cultural festival by footfall in a single iteration, on top of an ecosystem of 300 students producing weekly live events. https://www.bharatdevgandhi.com/work/oneiros
 
 ## Education
 
@@ -214,8 +222,14 @@ https://www.bharatdevgandhi.com/Bharat_Gandhi_Resume.pdf (PDF), https://www.bhar
 ## Pages
 
 - [Portfolio](https://www.bharatdevgandhi.com/): Work, projects, writing and contact.
-- [Audible / Amazon case study](https://www.bharatdevgandhi.com/audible): Listener segmentation, content operations, creator payments, TV rights, TTS localization.
-- [RateGain case study](https://www.bharatdevgandhi.com/rategain): Travel-pricing products and the DataSURE scraping framework.
-- [Plaza: the Cornell Tech startup](https://www.bharatdevgandhi.com/cornell): First-person account of a failed grad-school startup.
-- [FuboTV × Cornell Tech](https://www.bharatdevgandhi.com/fubo): UX research and product design for live TV news.
+- [District by Zomato: Platform Product Manager](https://www.bharatdevgandhi.com/work/district): Search, discovery, personalization and AI-native products for Zomato's going-out app.
+- [CanvasX AI: Head of Product & Growth (Advisory)](https://www.bharatdevgandhi.com/work/canvasx): Product, pricing and go-to-market for agentic workflow products, including Sketch.
+- [Audible: Product Manager – Tech, Audible Originals & Content Systems](https://www.bharatdevgandhi.com/work/audible): Content intelligence, monetization and production platforms for Audible Originals.
+- [RateGain: Product Manager](https://www.bharatdevgandhi.com/work/rategain): Travel-pricing data products and the scraping infrastructure behind them.
+- [Cornell Tech: MS, Information Systems (Jacobs Technion-Cornell dual MS)](https://www.bharatdevgandhi.com/work/cornell-tech): A master's in Information Systems on Roosevelt Island, and a first startup.
+- [FuboTV × Cornell Tech: Product and UX research](https://www.bharatdevgandhi.com/work/fubo): Research into why cord-cutters skip live TV news, and a product built around viewer control.
+- [Plaza: Product and go-to-market](https://www.bharatdevgandhi.com/work/plaza): A Chrome extension that put a comment section on every page of the internet. It failed.
+- [Manipal University Jaipur: BE, Computer Science](https://www.bharatdevgandhi.com/work/manipal): Computer science, a filmmaking society, and the state's biggest student festival.
+- [MUJ Oneiros: Architect and organiser](https://www.bharatdevgandhi.com/work/oneiros): Rajasthan's biggest student-run cultural festival by footfall.
 - [Breathwork and meditation](https://www.bharatdevgandhi.com/meditation): Teaching and workshop updates.
+- [Full profile for assistants](https://www.bharatdevgandhi.com/agents): Every fact on one plain page.

@@ -35,7 +35,7 @@ const workItems: WorkItem[] = [
     dates: "Aug 2021 — Dec 2024",
     description: "Owned content intelligence, monetization and production platforms across global marketplaces. Built ML segmentation for 20M+ listeners, launched a ~$7M GMV audiobook-to-TV rights business and reduced audiobook time-to-market by 50%.",
     tags: ["0→1", "B2C", "Content", "AI"],
-    internalUrl: "/audible",
+    internalUrl: "/work/audible",
   },
   {
     company: "RateGain",
@@ -43,7 +43,7 @@ const workItems: WorkItem[] = [
     dates: "Jan 2018 — Jun 2019",
     description: "Owned scraping infrastructure and travel-pricing data products. Launched products contributing to a 40% revenue increase over 3 quarters. Built DataSURE, improving successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points.",
     tags: ["0→1", "B2B", "ML", "Data"],
-    internalUrl: "/rategain",
+    internalUrl: "/work/rategain",
   },
 ];
 
