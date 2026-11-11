@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { identifyCrawler } from "./crawlers.mjs";
 
 const defaultDist = fileURLToPath(new URL("../dist/", import.meta.url));
 const mimeTypes = {
@@ -24,6 +25,8 @@ const moved = new Map([
   ["/v2/meditation", "/meditation"],
   ["/v2/agents", "/agents"],
 ]);
+// Files that answer engines read, logged alongside the HTML pages.
+const crawlerFiles = new Set(["/llms.txt", "/llms-full.txt", "/profile.json", "/resume.md", "/robots.txt", "/sitemap.xml"]);
 const crawler = /bot|crawl|spider|slurp|preview|facebookexternalhit|embedly|quora|pinterest|vkshare|whatsapp|telegram|gptbot|chatgpt|oai-|claude|anthropic|perplexity|google-extended|applebot|amazonbot|ccbot|bytespider|meta-external|cohere|duckassist|lighthouse|headless/i;
 
 /**
@@ -47,11 +50,32 @@ export async function createPortfolioServer({
   // Percentage of visitors shown the earlier home, from HOME_V1_SHARE.
   v1Share = Number(process.env.HOME_V1_SHARE ?? 0),
   random = Math.random,
+  // Where crawler visits are written, one JSON line each.
+  log = console.log,
 } = {}) {
   const publicDir = path.resolve(distDir, "public");
   const template = await readFile(path.join(distDir, "client-template.html"), "utf8");
   const { renderPage, getSeoPages, siteOrigin } = await import(pathToFileURL(path.join(distDir, "server", "entry-server.js")).href);
   const routes = new Set(getSeoPages().map((page) => page.path));
+
+  // One line per crawler fetch of a page or answer-engine file, written once
+  // the response is done. Only the path is kept: no query, cookie, IP or
+  // full user agent. A logging failure never affects the response.
+  const logCrawlerVisit = (request, response, pathname, route) => {
+    try {
+      if (request.method !== "GET" || !(routes.has(route) || crawlerFiles.has(pathname))) return;
+      const name = identifyCrawler(request.headers["user-agent"] ?? "");
+      if (!name) return;
+      response.once("finish", () => {
+        try {
+          log(JSON.stringify({
+            event: "crawler_visit", crawler: name, path: pathname,
+            status: response.statusCode, time: new Date(now()).toISOString(),
+          }));
+        } catch { /* never let logging break a request */ }
+      });
+    } catch { /* never let logging break a request */ }
+  };
 
   return createServer(async (request, response) => {
     const send = (status, content, type = "text/plain; charset=utf-8", cache = "no-store") => {
@@ -89,6 +113,7 @@ export async function createPortfolioServer({
         return;
       }
       const route = pathname.replace(/\/index\.html$/, "").replace(/\/+$/, "") || "/";
+      logCrawlerVisit(request, response, pathname, route);
       const target = moved.get(route) ?? (route.startsWith("/v2/work/") ? route.slice(3) : null);
       if (target) {
         response.writeHead(308, { location: target + url.search, "cache-control": "no-store" });
