@@ -39,8 +39,6 @@ Audible Originals and Studios at Amazon, across global marketplaces. I owned the
 - Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.
 - Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.
 
-Case study: https://www.bharatdevgandhi.com/audible
-
 ### Product Manager, RateGain
 Jan 2018 to Jun 2019 · Noida
 
@@ -50,8 +48,6 @@ B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an
 - Launched geo-located scraping and won customers across the US, EMEA and APAC.
 - Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
 - As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
-
-Case study: https://www.bharatdevgandhi.com/rategain
 
 ## Education
 

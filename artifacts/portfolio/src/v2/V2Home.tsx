@@ -1,8 +1,8 @@
 import type React from "react";
+import { useEffect } from "react";
 import writing from "@/data/writing.json";
-import credits from "./photo-credits.json";
 import { trackEvent } from "@/lib/analytics";
-import { person, links, socials, orgs, orgRow, entries, places, engagements } from "./content";
+import { person, links, socials, orgs, orgRow, entries, places, education } from "./content";
 import type { Entry, Picture, Article, Cover } from "./content";
 import "./v2.css";
 
@@ -52,82 +52,53 @@ export function Undercurrent() {
   );
 }
 
-export function Header({ back }: { back?: boolean }) {
+/** Selects the "For recruiters" option in the gallery and brings it into view. */
+function showRecruiters() {
+  const option = document.getElementById("group-recruiters") as HTMLInputElement | null;
+  if (!option) return;
+  option.checked = true;
+  document.getElementById("work")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+export function Header() {
   return (
     <header className="v2-head">
       <div className="v2-wrap v2-head__row">
-        {back ? (
-          <a className="v2-back" href="/v2#work">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <path d="M15 5l-7 7 7 7" />
-            </svg>
-            <span>Back to the gallery</span>
-          </a>
-        ) : (
-          <a className="v2-head__home" href="/v2">
-            Home
-          </a>
-        )}
+        <a className="v2-head__home" href="/v2">
+          Home
+        </a>
         <nav className="v2-head__nav" aria-label="Sections">
-          {back ? (
-            <a href="/v2">Home</a>
-          ) : (
-            <>
-              <a href="#work">Work</a>
-              <a href="#places">Places</a>
-              <a href="#writing">Writing</a>
-            </>
-          )}
+          <a href="#work">Work</a>
+          <a href="#places">Places</a>
+          <a href="#writing">Writing</a>
         </nav>
-        <button className="v2-btn" type="button" popoverTarget="recruiters">
+        <a
+          className="v2-btn"
+          href="#recruiters"
+          onClick={(event) => {
+            event.preventDefault();
+            showRecruiters();
+          }}
+        >
           Recruiters
-        </button>
+        </a>
       </div>
-      <RecruiterPanel />
     </header>
   );
 }
 
-function RecruiterPanel() {
-  return (
-    <div className="v2-panel" id="recruiters" popover="auto" aria-labelledby="recruiters-title">
-      <div className="v2-panel__top">
-        <h2 id="recruiters-title">For recruiters</h2>
-        <button className="v2-panel__close" type="button" popoverTarget="recruiters" popoverTargetAction="hide">
-          Close
-        </button>
-      </div>
-      <p className="v2-panel__lede">
-        AI product manager, currently Platform Product Manager at District by Zomato. Product manager since{" "}
-        {person.since}; MS from Cornell Tech.
-      </p>
-      <h3>Open to</h3>
-      <ul className="v2-panel__list">
-        {engagements.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-      <p className="v2-panel__where">
-        Based in {person.location}. {person.relocation}.
-      </p>
-      <h3>Contact</h3>
-      <a className="v2-panel__mail" href={`mailto:${person.email}`}>
-        {person.email}
-      </a>
-      <div className="v2-panel__actions">
-        <a className="v2-btn v2-btn--solid" href={`mailto:${person.email}`}>
-          Email Bharat
-        </a>
-        <a className="v2-btn" href={links.linkedin} {...external}>
-          LinkedIn
-        </a>
-        <ResumeLink location="recruiters" className="v2-btn" />
-      </div>
-    </div>
-  );
-}
-
-export function Frame({ picture, sizes, eager }: { picture: Picture; sizes: string; eager?: boolean }) {
+export function Frame({
+  picture,
+  sizes,
+  eager,
+  motionFrom,
+}: {
+  picture: Picture;
+  sizes: string;
+  eager?: boolean;
+  /** Only load the moving version at this width and up, to keep phones fast. */
+  motionFrom?: string;
+}) {
   const small = picture.src.replace(/\.jpg$/, "-sm.jpg");
   return (
     <span className="v2-frame">
@@ -139,23 +110,24 @@ export function Frame({ picture, sizes, eager }: { picture: Picture; sizes: stri
         width={picture.width}
         height={picture.height}
         loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         decoding="async"
       />
       {picture.video && (
-        <video autoPlay muted loop playsInline preload="metadata" poster={picture.src} aria-hidden="true" tabIndex={-1}>
-          <source src={picture.video.webm} type="video/webm" />
-          <source src={picture.video.mp4} type="video/mp4" />
+        <video autoPlay muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1}>
+          <source src={picture.video.webm} type="video/webm" media={motionFrom} />
+          <source src={picture.video.mp4} type="video/mp4" media={motionFrom} />
         </video>
       )}
     </span>
   );
 }
 
-export function CoverArt({ cover, sizes, eager }: { cover: Cover; sizes: string; eager?: boolean }) {
+export function CoverArt({ cover, sizes, eager, motionFrom }: { cover: Cover; sizes: string; eager?: boolean; motionFrom?: string }) {
   if (cover.kind === "picture") {
     return (
       <span className="v2-cover" style={{ aspectRatio: cover.ratio }}>
-        <Frame picture={cover.picture} sizes={sizes} eager={eager} />
+        <Frame picture={cover.picture} sizes={sizes} eager={eager} motionFrom={motionFrom} />
       </span>
     );
   }
@@ -174,10 +146,21 @@ export function CoverArt({ cover, sizes, eager }: { cover: Cover; sizes: string;
   );
 }
 
+function Badge({ org }: { org: string }) {
+  return (
+    <span className="v2-badge">
+      <img src={`/media/logos/${orgs[org].logo}`} alt={`${orgs[org].name} logo`} loading="lazy" decoding="async" />
+    </span>
+  );
+}
+
 function Tile({ entry, eager }: { entry: Entry; eager?: boolean }) {
   return (
     <a className="v2-tile" data-group={entry.group} href={entryHref(entry.id)}>
-      <CoverArt cover={entry.cover} sizes="(min-width: 900px) 380px, 50vw" eager={eager} />
+      <span className="v2-tile__art">
+        <CoverArt cover={entry.cover} sizes="(min-width: 900px) 380px, 50vw" eager={eager} />
+        {entry.badge && <Badge org={entry.badge} />}
+      </span>
       <span className="v2-tile__text">
         <strong>{entry.title}</strong>
         <span>{entry.intro}</span>
@@ -186,19 +169,84 @@ function Tile({ entry, eager }: { entry: Entry; eager?: boolean }) {
   );
 }
 
+const filters = [
+  { id: "all", label: "Everything" },
+  { id: "work", label: "Work" },
+  { id: "project", label: "Projects" },
+  { id: "education", label: "Education" },
+  { id: "writing", label: "Writing" },
+  { id: "teaching", label: "Beyond work" },
+  { id: "recruiters", label: "For recruiters" },
+];
+
+/** Shown only when "For recruiters" is selected. */
+function RecruiterCards() {
+  const workOrgs = ["district", "sketch", "audible", "amazon", "rategain"];
+  return (
+    <>
+      <div className="v2-tile v2-note v2-note--lead" data-group="recruiters">
+        <h3>Hiring an AI product manager?</h3>
+        <p>
+          I am open to product roles in AI, search and platform. I am based in {person.location.split(",")[0]} and open
+          to relocation.
+        </p>
+        <a className="v2-note__mail" href={`mailto:${person.email}`}>
+          {person.email}
+        </a>
+        <div className="v2-note__actions">
+          <a className="v2-btn v2-btn--solid" href={`mailto:${person.email}`}>
+            Email me
+          </a>
+          <a className="v2-btn" href={links.linkedin} {...external}>
+            LinkedIn
+          </a>
+          <ResumeLink location="recruiters" className="v2-btn" />
+        </div>
+      </div>
+      <div className="v2-tile v2-note" data-group="recruiters">
+        <h3>Where I have worked</h3>
+        <ul className="v2-note__logos">
+          {workOrgs.map((id) => (
+            <li key={id}>
+              <img src={`/media/logos/${orgs[id].logo}`} alt={`${orgs[id].name} logo`} style={{ "--w": `${orgs[id].width}px` } as React.CSSProperties} loading="lazy" />
+              {orgs[id].label && <span>{orgs[id].label}</span>}
+            </li>
+          ))}
+        </ul>
+        <p>Product manager since {person.since}, across consumer apps, B2B SaaS and applied-AI startups.</p>
+      </div>
+      <div className="v2-tile v2-note" data-group="recruiters">
+        <h3>Where I studied</h3>
+        <ul className="v2-note__schools">
+          <li>
+            <img src={`/media/logos/${orgs.cornelltech.logo}`} alt="Cornell Tech logo" style={{ "--w": "150px" } as React.CSSProperties} loading="lazy" />
+            <span>
+              {education[0].degree}, {education[0].year}
+            </span>
+          </li>
+          <li>
+            <img src={`/media/logos/${orgs.manipal.logo}`} alt="Manipal University Jaipur logo" style={{ "--w": "180px" } as React.CSSProperties} loading="lazy" />
+            <span>
+              {education[1].degree}, {education[1].year}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div className="v2-tile v2-note" data-group="recruiters">
+        <h3>Also open to</h3>
+        <p>Advising startups on growth, go-to-market and product craft, and speaking about AI and building products.</p>
+      </div>
+    </>
+  );
+}
+
 function Gallery() {
-  const filters = [
-    { id: "all", label: "Everything" },
-    { id: "work", label: "Work" },
-    { id: "education", label: "Education" },
-    { id: "project", label: "Projects" },
-  ];
   return (
     <section className="v2-section v2-gallery" id="work" aria-labelledby="work-title">
       <div className="v2-wrap">
         <div className="v2-section__head">
           <h2 id="work-title">Work</h2>
-          <form className="v2-filter" aria-label="Show">
+          <form className="v2-filter" id="recruiters" aria-label="Show">
             {filters.map((filter, index) => (
               <label key={filter.id}>
                 <input type="radio" name="group" value={filter.id} id={`group-${filter.id}`} defaultChecked={index === 0} />
@@ -207,9 +255,28 @@ function Gallery() {
             ))}
           </form>
         </div>
+        {/* Work leads, in a row of its own, so the portfolio always opens on it. */}
+        <div className="v2-lead">
+          {entries
+            .filter((entry) => entry.group === "work")
+            .map((entry) => (
+              <Tile key={entry.id} entry={entry} eager />
+            ))}
+        </div>
         <div className="v2-tiles">
-          {entries.map((entry, index) => (
-            <Tile key={entry.id} entry={entry} eager={index < 3} />
+          <RecruiterCards />
+          {entries
+            .filter((entry) => entry.group !== "work")
+            .map((entry) => (
+              <Tile key={entry.id} entry={entry} />
+            ))}
+          {articles.slice(0, 4).map((article) => (
+            <a key={article.url} className="v2-tile v2-essay" data-group="writing" href={article.url} data-article {...external}>
+              <span className="v2-essay__date">{monthYear(article.date)}</span>
+              <strong>{article.title}</strong>
+              {article.excerpt && <span className="v2-essay__excerpt">{article.excerpt}</span>}
+              <span className="v2-essay__source">{article.source === "medium" ? "Medium" : "Substack"}</span>
+            </a>
           ))}
           <figure className="v2-tile v2-tile--still" data-group="me">
             <span className="v2-cover" style={{ aspectRatio: "3 / 4" }}>
@@ -219,8 +286,7 @@ function Gallery() {
               />
             </span>
             <figcaption className="v2-tile__text">
-              <strong>Bharat Gandhi</strong>
-              <span>{person.portrait.caption}</span>
+              <strong>{person.name}</strong>
             </figcaption>
           </figure>
         </div>
@@ -280,40 +346,36 @@ function Writing() {
 }
 
 export function Footer() {
-  const photos = Object.values(credits as Record<string, { page: string; author: string; license: string }>);
   return (
     <footer className="v2-foot">
-      <div className="v2-wrap">
-        <div className="v2-foot__row">
-          <span>© 2026 Bharat Gandhi</span>
-          <ul>
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a href={social.href} {...external}>
-                  {social.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="v2-foot__credits" data-credits>
-          Photographs from Wikimedia Commons:{" "}
-          {photos.map((photo, index) => (
-            <span key={photo.page}>
-              <a href={photo.page} {...external}>
-                {photo.author}
-              </a>{" "}
-              ({photo.license}){index < photos.length - 1 ? ", " : ". "}
-            </span>
+      <div className="v2-wrap v2-foot__row">
+        <span>© 2026 Bharat Gandhi</span>
+        <ul>
+          {socials.map((social) => (
+            <li key={social.label}>
+              <a href={social.href} {...external}>
+                {social.label}
+              </a>
+            </li>
           ))}
-          Screens are captures of each organisation's public site. Logos belong to their owners.
-        </p>
+          <li>
+            <a href="/credits.txt">Credits</a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
 }
 
 export default function V2Home() {
+  useEffect(() => {
+    const sync = () => {
+      if (window.location.hash === "#recruiters") showRecruiters();
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
   return (
     <div className="v2">
       <Header />

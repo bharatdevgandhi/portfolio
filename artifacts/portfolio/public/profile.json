@@ -84,8 +84,7 @@
         "Created a new audiobook-to-TV rights business generating ~$7M GMV: a platform for global TV producers to discover and acquire first-party content rights.",
         "Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.",
         "Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks."
-      ],
-      "url": "https://www.bharatdevgandhi.com/audible"
+      ]
     },
     {
       "name": "RateGain",
@@ -100,8 +99,7 @@
         "Launched geo-located scraping and won customers across the US, EMEA and APAC.",
         "Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.",
         "As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer."
-      ],
-      "url": "https://www.bharatdevgandhi.com/rategain"
+      ]
     }
   ],
   "education": [
@@ -173,16 +171,14 @@
       "description": "FuboTV asked a Cornell Tech team why younger viewers were not watching live news. We ran a multi-week ethnographic study across New York City, found that viewers felt held hostage by a single channel's schedule, and designed a multi-source experience that put them in control.",
       "roles": [
         "Product and UX research"
-      ],
-      "url": "https://www.bharatdevgandhi.com/fubo"
+      ]
     },
     {
       "name": "Plaza",
-      "description": "Plaza was a consumer app for commenting on anything on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.",
+      "description": "Plaza (plaza.app) was a Chrome extension for commenting on any page on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.",
       "roles": [
         "Product and go-to-market"
-      ],
-      "url": "https://www.bharatdevgandhi.com/cornell"
+      ]
     },
     {
       "name": "MUJ Oneiros",

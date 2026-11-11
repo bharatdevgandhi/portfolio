@@ -60,20 +60,29 @@ artifacts-monorepo/
 
 A redesign lives under `/v2` and does not change the current site. Every `/v2` route is `noindex` and absent from the sitemap until approved.
 
-- `/v2` — home: the original introduction and rising line, a logo row, a filterable gallery, places, writing, and a Recruiters panel (native popover).
-- `/v2/work/:id` — one page per gallery entry: brief intro, results, reference images, a prominent back button.
+- `/v2` — home: the original introduction and rising line, a logo row, a gallery with filters (including "For recruiters"), places and writing.
+- `/v2/work/:id` — one card per gallery entry: pictures, a short lede, results, the story in chapters, and one back button.
 - `/v2/agents` — plain semantic HTML for assistants, scrapers and screen readers. Not linked from the human pages.
 
-Everything is rendered from one content model, `artifacts/portfolio/src/v2/content.ts`. Edit facts there only. The same model generates the machine-readable files in `public/` (`llms.txt`, `llms-full.txt`, `resume.md`, `profile.json`, and the stable `Bharat_Gandhi_Resume.pdf` copied from `attached_assets`) via `pnpm --filter @workspace/portfolio run build:agent-assets`, which also runs during the build. Do not edit those generated files by hand.
+### Adding things
+
+- **A gallery block:** add one object to `entries` in `artifacts/portfolio/src/v2/content.ts` (the comment above the array lists the steps), put its picture in `public/media/`, and write its chapters in `src/v2/chapters.ts` under the same id. The tile, the card, the agent files and the SEO entry follow from that.
+- **An organisation:** one line in `orgs`, with the logo in `public/media/logos/`.
+- **A place:** one object in `places`.
+- **Articles:** nothing to do. Writing tiles come from the Substack and Medium feeds at build time.
+
+The same model generates the machine-readable files in `public/` (`llms.txt`, `llms-full.txt`, `resume.md`, `profile.json`, `credits.txt`, and the stable `Bharat_Gandhi_Resume.pdf`) via `pnpm --filter @workspace/portfolio run build:agent-assets`, which also runs during the build. Do not edit those generated files by hand.
 
 Rules that hold for v2:
 
-- Work authorization (`workAuthorization` in the content model) and the skills synonym index (`skillIndex`) appear only in machine-readable surfaces: the agent view, the llms files, `profile.json` and JSON-LD. Never render them in the human UI.
-- No metrics on the home page. Numbers live on the detail pages.
+- Work authorization (`workAuthorization`) and the skills synonym index (`skillIndex`) appear only in machine-readable surfaces. Never render them in the human UI.
+- No metrics on the home page. Numbers live on the cards.
 - The rising line is a background motif. Do not label it or turn it into a timeline.
-- Media in `public/media/`: logos come from each organisation's site or Wikimedia Commons; city and campus photographs are from Wikimedia Commons and must stay credited in the footer (`src/v2/photo-credits.json`); screens are captures of public sites.
-- Fonts in `src/v2/fonts/` are custom cuts of Amstelvar (SIL OFL 1.1, licence alongside), named Gandhi Text and Gandhi Display.
-- The stylesheet was audited with Hallmark (github.com/Nutlope/hallmark): every colour and font is a token, spacing sits on a 4px scale, labels are sentence case.
+- Do not show image sourcing on the pages. The Creative Commons photographs still need attribution, so it lives in `/credits.txt`, linked once from the footer and generated from `src/v2/photo-credits.json`.
+- Card copy in `chapters.ts` is first person and follows the humanizer checklist (github.com/blader/humanizer): no dashes, no staged contrasts. Résumé wording stays in `shipped`, which only the agent files use.
+- Media in `public/media/`: `shot-*` are captures of public sites, `photo-*` are Wikimedia Commons, `gen-*` were generated with Gemini, logos come from each organisation.
+- Fonts in `src/v2/fonts/` are custom cuts of Amstelvar (SIL OFL 1.1), named Gandhi Text and Gandhi Display.
+- The stylesheet was audited with Hallmark (github.com/Nutlope/hallmark): tokens only, 4px spacing scale, sentence-case labels.
 
 To promote: in `src/seo.ts` move the v2 page definitions to `/`, `/work/:id` and `/agents` and drop `noindex`; point those routes in `src/App.tsx` at the v2 components.
 

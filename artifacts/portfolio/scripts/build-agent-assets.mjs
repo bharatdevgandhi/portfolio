@@ -26,6 +26,22 @@ export async function buildAgentAssets() {
     "resume.md": renderResumeMarkdown(),
     "profile.json": renderProfileJson(articles),
   };
+  // Licence credits for the Creative Commons photographs, kept off the pages.
+  const credits = JSON.parse(
+    await readFile(path.join(artifactDir, "src", "v2", "photo-credits.json"), "utf8"),
+  );
+  files["credits.txt"] = [
+    "Credits",
+    "",
+    "Photographs of places and of the Cornell Tech campus are from Wikimedia Commons,",
+    "used under the licence shown for each.",
+    "",
+    ...Object.values(credits).map((item) => `- ${item.title.replace(/\.[A-Za-z]+$/, "")}, by ${item.author}. ${item.license}. ${item.page}`),
+    "",
+    "Typefaces are cut from Amstelvar (SIL Open Font License 1.1).",
+    "Logos and product screens belong to their owners.",
+    "",
+  ].join("\n");
   for (const [name, content] of Object.entries(files)) {
     await writeFile(path.join(publicDir, name), content);
   }

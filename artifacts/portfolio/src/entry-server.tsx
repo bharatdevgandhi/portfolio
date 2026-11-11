@@ -45,7 +45,12 @@ export function renderPage(template: string, pathname: string, now = Date.now())
     `<script id="page-structured-data" type="application/ld+json">${graph}</script>`,
   ].join("\n    ");
   const markup = renderToString(<App ssrPath={page.path} renderTime={now} />);
-  return template.replace(
+  // The v2 pages are complete without script, so the bundle yields to the
+  // lead image and fonts on slow connections.
+  const shell = page.path.startsWith("/v2")
+    ? template.replace('<script type="module" crossorigin', '<script type="module" fetchpriority="low" crossorigin')
+    : template;
+  return shell.replace(
     /<!-- ROUTE_SEO_START -->[\s\S]*?<!-- ROUTE_SEO_END -->/,
     `<!-- ROUTE_SEO_START -->\n    ${head}\n    <!-- ROUTE_SEO_END -->`,
   ).replace('<div id="root"></div>', `<div id="root">${markup}</div>`);

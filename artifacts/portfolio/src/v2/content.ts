@@ -41,7 +41,7 @@ export type Cover =
 
 export type Entry = {
   id: string;
-  group: "work" | "education" | "project";
+  group: "work" | "education" | "project" | "teaching";
   title: string;
   orgs: string[];
   role: string;
@@ -59,6 +59,8 @@ export type Entry = {
   shipped: string[];
   tags: string[];
   cover: Cover;
+  /** An organisation whose logo sits on the cover, when the picture is not theirs. */
+  badge?: string;
   pictures: Picture[];
   /** A longer write-up elsewhere on the site. */
   story?: { href: string; label: string };
@@ -85,7 +87,6 @@ export const person = {
   portrait: {
     src: "/media/portrait.jpg",
     alt: "Bharat Gandhi in a city square at night, in front of a monument lit in blue",
-    caption: "Paris",
   },
 } as const;
 
@@ -127,7 +128,7 @@ export const orgs: Record<string, Org> = {
   audible: { id: "audible", name: "Audible", logo: "audible.svg", width: 40, url: "https://www.audible.com/", label: "Audible" },
   amazon: { id: "amazon", name: "Amazon", logo: "amazon.svg", width: 96, url: "https://www.amazon.com/" },
   rategain: { id: "rategain", name: "RateGain", logo: "rategain.png", width: 118, url: "https://rategain.com/" },
-  cornelltech: { id: "cornelltech", name: "Cornell Tech", logo: "cornelltech.svg", width: 38, url: "https://tech.cornell.edu/", label: "Cornell Tech" },
+  cornelltech: { id: "cornelltech", name: "Cornell Tech", logo: "cornelltech.svg", width: 132, url: "https://tech.cornell.edu/" },
   manipal: { id: "manipal", name: "Manipal University Jaipur", logo: "manipal.png", width: 164, url: "https://jaipur.manipal.edu/" },
   fubo: { id: "fubo", name: "Fubo", logo: "fubo.svg", width: 84, url: "https://www.fubo.tv/" },
 };
@@ -135,7 +136,26 @@ export const orgs: Record<string, Org> = {
 /** The row under the introduction: every organisation, in career order. */
 export const orgRow = ["district", "sketch", "audible", "amazon", "rategain", "cornelltech", "manipal", "fubo"];
 
-const captured = "captured November 2026";
+// ---------------------------------------------------------------------------
+// Adding things
+//
+// A new gallery block is one object in `entries` below. It gets a tile on the
+// home page, its own card at /v2/work/<id>, a place in the agent files and an
+// SEO entry, with no other code to touch.
+//
+//   1. Copy the nearest entry and change the fields. `group` decides which
+//      filter it appears under: work, education, project or teaching.
+//   2. Put its picture in public/media and point `cover` at it. A cover can
+//      also be a logo ({ kind: "logo", org }) or a word ({ kind: "type", line }).
+//      Add `badge: "<org id>"` to put an organisation's logo on a picture.
+//   3. Write its story as two to four short chapters in chapters.ts, under
+//      the same id. Keep numbers out of `intro`; put them in `metrics`.
+//   4. A new organisation is one line in `orgs`, with its logo in
+//      public/media/logos.
+//
+// Articles appear on their own: the Writing tiles come from the Substack and
+// Medium feeds at build time. A new place is one object in `places`.
+// ---------------------------------------------------------------------------
 
 export const entries: Entry[] = [
   {
@@ -174,7 +194,7 @@ export const entries: Entry[] = [
       picture: {
         src: "/media/shot-district-mobile.jpg",
         alt: "District's mobile home screen: a search bar above movies and events near Gurugram",
-        caption: `district.in on a phone, ${captured}`,
+        caption: "District on a phone",
         width: 780,
         height: 1560,
         video: { mp4: "/media/district-loop.mp4", webm: "/media/district-loop.webm" },
@@ -184,14 +204,14 @@ export const entries: Entry[] = [
       {
         src: "/media/shot-district.jpg",
         alt: "District's desktop home page listing Hindi movies and music events near Gurugram",
-        caption: `Discovery on district.in, ${captured}`,
+        caption: "Discovery on the web",
         width: 1600,
         height: 1000,
       },
       {
         src: "/media/shot-district-movies.jpg",
         alt: "District's movies page with a featured film and language filters",
-        caption: `Movies on district.in, ${captured}`,
+        caption: "Movies",
         width: 1600,
         height: 1000,
       },
@@ -226,16 +246,18 @@ export const entries: Entry[] = [
     tags: ["AI", "Agents", "Go-to-market", "Pricing", "B2B", "0 to 1"],
     cover: {
       kind: "picture",
-      ratio: "16 / 10",
+      ratio: "4 / 5",
       picture: {
-        src: "/media/shot-sketch.jpg",
-        alt: "Sketch's home page: Meet Sketch, your new project manager",
-        caption: `getsketch.ai, ${captured}`,
-        width: 1600,
-        height: 1000,
+        src: "/media/shot-sketch-mobile.jpg",
+        alt: "Sketch's home page on a phone: Meet Sketch, your new project manager",
+        caption: "Sketch",
+        width: 780,
+        height: 820,
       },
     },
-    pictures: [],
+    pictures: [
+      { src: "/media/shot-sketch.jpg", alt: "Sketch's home page on a desktop", caption: "Sketch", width: 1600, height: 1000 },
+    ],
     external: { href: "https://getsketch.ai", label: "getsketch.ai" },
   },
   {
@@ -268,9 +290,13 @@ export const entries: Entry[] = [
       "Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.",
     ],
     tags: ["AI", "Content", "Marketplace", "Payments", "Consumer", "0 to 1"],
-    cover: { kind: "logo", org: "audible", tone: "ink" },
+    cover: {
+      kind: "picture",
+      ratio: "4 / 5",
+      picture: { src: "/media/gen-audible.jpg", alt: "Studio headphones resting on a stack of old hardcover books", caption: "", width: 928, height: 1152 },
+    },
+    badge: "audible",
     pictures: [],
-    story: { href: "/audible", label: "Read the full Audible case study" },
   },
   {
     id: "rategain",
@@ -301,17 +327,18 @@ export const entries: Entry[] = [
     tags: ["Data", "ML", "B2B", "SaaS", "0 to 1"],
     cover: {
       kind: "picture",
-      ratio: "16 / 10",
+      ratio: "4 / 5",
       picture: {
-        src: "/media/shot-rategain.jpg",
-        alt: "RateGain's home page",
-        caption: `rategain.com today, ${captured}`,
-        width: 1600,
-        height: 1000,
+        src: "/media/shot-rategain-mobile.jpg",
+        alt: "RateGain's home page on a phone",
+        caption: "RateGain today",
+        width: 780,
+        height: 1200,
       },
     },
-    pictures: [],
-    story: { href: "/rategain", label: "Read the full RateGain case study" },
+    pictures: [
+      { src: "/media/shot-rategain.jpg", alt: "RateGain's home page on a desktop", caption: "RateGain today", width: 1600, height: 1000 },
+    ],
     external: { href: "https://rategain.com/", label: "rategain.com" },
   },
   {
@@ -339,6 +366,7 @@ export const entries: Entry[] = [
         height: 608,
       },
     },
+    badge: "cornelltech",
     pictures: [
       {
         src: "/media/photo-cornell-tech-south.jpg",
@@ -348,7 +376,6 @@ export const entries: Entry[] = [
         height: 788,
       },
     ],
-    story: { href: "/cornell", label: "Read about the startup I built here" },
     external: { href: "https://tech.cornell.edu/", label: "tech.cornell.edu" },
   },
   {
@@ -369,9 +396,13 @@ export const entries: Entry[] = [
       "Cut half the features after the first round of testing. Participants described the result as choosing to watch rather than having it on.",
     ],
     tags: ["UX research", "Product design", "Media"],
-    cover: { kind: "logo", org: "fubo", tone: "paper" },
+    cover: {
+      kind: "picture",
+      ratio: "4 / 3",
+      picture: { src: "/media/gen-fubo.jpg", alt: "A dark living room lit by a wall of television screens", caption: "", width: 1200, height: 896 },
+    },
+    badge: "fubo",
     pictures: [],
-    story: { href: "/fubo", label: "Read the full FuboTV case study" },
   },
   {
     id: "plaza",
@@ -381,19 +412,26 @@ export const entries: Entry[] = [
     role: "Product and go-to-market",
     dates: "2019 to 2021",
     place: "New York City",
-    intro: "A grad-school startup for universal comments across the internet. It failed.",
+    intro: "A Chrome extension that put a comment section on every page of the internet. It failed.",
     summary:
-      "Plaza was a consumer app for commenting on anything on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.",
+      "Plaza (plaza.app) was a Chrome extension for commenting on any page on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.",
     metrics: [],
     shipped: [
       "Distribution over features: a good product does not overcome a missing go-to-market.",
       "Validate commercial appetite before writing the first line of code, not after.",
       "The startup died; the relationships from that period became the base of my professional network.",
     ],
-    tags: ["Startup", "Consumer", "Failure"],
-    cover: { kind: "type", line: "Plaza", tone: "accent" },
+    tags: ["Startup", "Consumer", "Chrome extension", "Failure"],
+    cover: {
+      kind: "picture",
+      ratio: "1 / 1",
+      picture: { src: "/media/gen-plaza.jpg", alt: "Blue and white paper notes pinned over a newspaper page beside a laptop", caption: "", width: 1024, height: 1024 },
+    },
     pictures: [],
-    story: { href: "/cornell", label: "Read the Plaza story" },
+    external: {
+      href: "https://chrome.google.com/webstore/detail/plaza/koaglamlcheihiplknebjibpfdegcfai",
+      label: "Plaza on the Chrome Web Store",
+    },
   },
   {
     id: "manipal",
@@ -409,7 +447,12 @@ export const entries: Entry[] = [
     metrics: [],
     shipped: [],
     tags: ["Undergraduate", "Media", "Leadership"],
-    cover: { kind: "logo", org: "manipal", tone: "paper" },
+    cover: {
+      kind: "picture",
+      ratio: "4 / 3",
+      picture: { src: "/media/gen-manipal.jpg", alt: "A cinema camera, a clapperboard and a notebook of diagrams on a wooden desk", caption: "", width: 1200, height: 896 },
+    },
+    badge: "manipal",
     pictures: [],
     external: { href: "https://jaipur.manipal.edu/", label: "jaipur.manipal.edu" },
   },
@@ -427,12 +470,38 @@ export const entries: Entry[] = [
     metrics: [{ value: "300", label: "students producing weekly live events" }],
     shipped: [],
     tags: ["Live events", "Media", "Leadership"],
-    cover: { kind: "type", line: "Oneiros", tone: "ink" },
+    cover: {
+      kind: "picture",
+      ratio: "4 / 5",
+      picture: { src: "/media/gen-oneiros.jpg", alt: "A festival crowd at night facing a stage lit in blue and amber", caption: "", width: 928, height: 1152 },
+    },
     pictures: [],
     external: {
       href: "https://www.youtube.com/results?search_query=MUJ+Oneiros+aftermovie",
       label: "Watch the aftermovie",
     },
+  },
+  {
+    id: "meditation",
+    group: "teaching",
+    title: "Breathwork & meditation",
+    orgs: [],
+    role: "Instructor, 1,000 hours of training",
+    dates: "Ongoing",
+    place: "India and the US",
+    intro: "I teach breathwork and meditation, mostly to people between 18 and 35.",
+    summary:
+      "Bharat is a breathwork and meditation instructor with 1,000 hours of training. He teaches SKY Campus Happiness in the US, and YES!+ and the Happiness Program of Art of Living in India.",
+    metrics: [],
+    shipped: [],
+    tags: ["Teaching", "Breathwork", "Meditation"],
+    cover: {
+      kind: "picture",
+      ratio: "4 / 5",
+      picture: { src: "/media/gen-meditation.jpg", alt: "A meditation cushion on a mat in an empty room at dawn", caption: "", width: 928, height: 1152 },
+    },
+    pictures: [],
+    story: { href: "/meditation", label: "Teaching and workshops" },
   },
 ];
 

@@ -207,9 +207,9 @@ export const v2SocialImage = `${siteOrigin}/opengraph-v2.jpg`;
 
 const v2Home: Omit<SeoPage, "structuredData"> = {
   path: "/v2",
-  title: "Bharat Gandhi: AI Product Manager | Search, Personalization & Platform",
+  title: "Bharat Gandhi: AI Product Manager, Search & Personalization",
   description:
-    "Bharat Gandhi is an AI product manager: Platform PM at District by Zomato, previously Audible/Amazon and CanvasX AI. Work in AI search, personalization, agentic products and content platforms.",
+    "AI product manager Bharat Gandhi: Platform PM at District by Zomato, previously Audible/Amazon and CanvasX AI. AI search, personalization and agentic products.",
   canonical: `${siteOrigin}/v2`,
   ogType: "website",
   noindex: true,
@@ -218,19 +218,25 @@ const v2Home: Omit<SeoPage, "structuredData"> = {
 
 const v2Agents: Omit<SeoPage, "structuredData"> = {
   path: "/v2/agents",
-  title: "Bharat Gandhi, AI Product Manager: Full Profile, Skills and Results",
+  title: "Bharat Gandhi, AI Product Manager: Profile, Skills, Results",
   description:
-    "Complete profile of AI product manager Bharat Gandhi: current role, measured results, experience, every skill with its common names, education, work authorization, résumé and contact.",
+    "Full profile of AI product manager Bharat Gandhi: current role, measured results, experience, skills, education, work authorization, résumé and contact.",
   canonical: `${siteOrigin}/v2/agents`,
   ogType: "website",
   noindex: true,
   image: v2SocialImage,
 };
 
+/** Cuts at a word boundary so titles and descriptions fit a search result. */
+function clip(text: string, max: number) {
+  if (text.length <= max) return text;
+  return text.slice(0, text.lastIndexOf(" ", max)).replace(/[,.;:]$/, "");
+}
+
 const v2EntryPages: Omit<SeoPage, "structuredData">[] = v2.entries.map((entry) => ({
   path: `/v2/work/${entry.id}`,
-  title: `${entry.title}: ${entry.role} | Bharat Gandhi`,
-  description: `${entry.intro} ${entry.summary}`.slice(0, 280),
+  title: clip(`${entry.title}: ${entry.role}`, 44) + " | Bharat Gandhi",
+  description: clip(`${entry.intro} ${entry.summary}`, 158),
   canonical: `${siteOrigin}/v2/work/${entry.id}`,
   ogType: "article" as const,
   noindex: true,

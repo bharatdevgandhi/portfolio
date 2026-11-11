@@ -58,8 +58,6 @@ Audible Originals and Studios at Amazon, across global marketplaces. I owned the
 - Launched a creator-payments API for the publisher and creator ecosystem, improving error-free, on-time payments from 70% to 93% across 12 markets within 2 quarters.
 - Established the global source of truth for production, deals and publishing operations, cutting audiobook time-to-market by 50% and podcast time-to-market by 70% across 12 markets. It also powered Audible Brazil's $12M content-acquisition program with an operations suite taken from idea to deployment in 2 weeks.
 
-Case study: https://www.bharatdevgandhi.com/audible
-
 ### Product Manager, RateGain
 Jan 2018 to Jun 2019 · Noida
 
@@ -69,8 +67,6 @@ B2B SaaS travel-pricing intelligence platform. I joined as an intern, shipped an
 - Launched geo-located scraping and won customers across the US, EMEA and APAC.
 - Engineered the DataSURE ML framework, increasing successful-scrape rates from 94% to 98% across 550+ bots and lifting NPS by 25 points within 2 quarters.
 - As an intern (Jan to Jun 2018), delivered an airline-pricing product from scratch that enabled ~10% revenue uplift per customer.
-
-Case study: https://www.bharatdevgandhi.com/rategain
 
 ## Results
 
@@ -97,8 +93,8 @@ Case study: https://www.bharatdevgandhi.com/rategain
 
 ## Projects
 
-- **FuboTV × Cornell Tech** (Product and UX research, 2019). FuboTV asked a Cornell Tech team why younger viewers were not watching live news. We ran a multi-week ethnographic study across New York City, found that viewers felt held hostage by a single channel's schedule, and designed a multi-source experience that put them in control. https://www.bharatdevgandhi.com/fubo
-- **Plaza** (Product and go-to-market, 2019 to 2021). Plaza was a consumer app for commenting on anything on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it. https://www.bharatdevgandhi.com/cornell
+- **FuboTV × Cornell Tech** (Product and UX research, 2019). FuboTV asked a Cornell Tech team why younger viewers were not watching live news. We ran a multi-week ethnographic study across New York City, found that viewers felt held hostage by a single channel's schedule, and designed a multi-source experience that put them in control.
+- **Plaza** (Product and go-to-market, 2019 to 2021). Plaza (plaza.app) was a Chrome extension for commenting on any page on the internet, built with classmates at Cornell Tech during the pandemic. We built an elegant product for a problem people would not pay enough to solve. The write-up covers what we built and what I took from it.
 - **MUJ Oneiros** (Architect and organiser, 2013 to 2017). I architected Rajasthan's biggest student-run cultural festival by footfall in a single iteration, on top of an ecosystem of 300 students producing weekly live events.
 
 ## Education
